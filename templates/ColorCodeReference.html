@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Color Code Reference</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .color-sample {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: inline-block;
+      margin: 5px;
+    }
+
+  
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+  
+      th, td {
+        padding: 10px;
+        text-align: center;
+      }
+  
+      .color-sample {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 5px;
+      }
+  </style>
+  <script>
+    function updateColorPreview() {
+      var colorCode = document.getElementById("colorCode").value;
+      var colorPreview = document.getElementById("colorPreview");
+      colorPreview.style.backgroundColor = colorCode;
+    }
+  </script>
+</head>
+<body>
+  <h1>Color Code Reference</h1>
+  
+  <p>Enter a color code and see the preview:</p>
+  <input type="text" id="colorCode" oninput="updateColorPreview()" placeholder="Enter color code">
+
+  <h2>Color Code Reference Table</h2>
+  <table>
+    <tr>
+      <th>Color Code</th>
+      <th>Color Name</th>
+    </tr>
+    <tr>
+      <td><span class="color-sample" style="background-color: #FF0000;"></span></td>
+      <td>Red</td>
+    </tr>
+    <tr>
+      <td><span class="color-sample" style="background-color: #00FF00;"></span></td>
+      <td>Green</td>
+    </tr>
+    <tr>
+      <td><span class="color-sample" style="background-color: #0000FF;"></span></td>
+      <td>Blue</td>
+    </tr>
+    <!-- Add more color codes and names as needed -->
+  </table>
+
+  <h2>Color Preview</h2>
+  <div id="colorPreview" class="color-sample"></div>
+
+
+
+
+  <h1>Web Color Reference</h1>
+
+  <table>
+    <tr>
+      <th>Color</th>
+      <th>Color Name</th>
+      <th>Hex Code</th>
+    </tr>
+    <tr>
+      <td><span class="color-sample" style="background-color: #FF0000;"></span></td>
+      <td>Red</td>
+      <td>#FF0000</td>
+    </tr>
+    <tr>
+      <td><span class="color-sample" style="background-color: #00FF00;"></span></td>
+      <td>Lime</td>
+      <td>#00FF00</td>
+    </tr>
+    <tr>
+      <td><span class="color-sample" style="background-color: #0000FF;"></span></td>
+      <td>Blue</td>
+      <td>#0000FF</td>
+    </tr>
+    <!-- 添加更多颜色 -->
+    <tr>
+      <td><span class="color-sample" style="background-color: #FFFF00;"></span></td>
+      <td>Yellow</td>
+      <td>#FFFF00</td>
+    </tr>
+    <tr>
+      <td><span class="color-sample" style="background-color: #FF00FF;"></span></td>
+      <td>Magenta</td>
+      <td>#FF00FF</td>
+    </tr>
+    <tr>
+      <td><span class="color-sample" style="background-color: #00FFFF;"></span></td>
+      <td>Cyan</td>
+      <td>#00FFFF</td>
+    </tr>
+    <tr>
+      <td><span class="color-sample" style="background-color: #000000;"></span></td>
+      <td>Black</td>
+      <td>#000000</td>
+    </tr>
+    <tr>
+      <td><span class="color-sample" style="background-color: #FFFFFF;"></span></td>
+      <td>White</td>
+      <td>#FFFFFF</td>
+    </tr>
+    <tr>
+      <td><span class="color-sample" style="background-color: #FFA500;"></span></td>
+      <td>Orange</td>
+      <td>#FFA500</td>
+    </tr>
+    <tr>
+      <td><span class="color-sample" style="background-color: #800080;"></span></td>
+      <td>Purple</td>
+      <td>#800080</td>
+    </tr>
+    <tr>
+      <td><span class="color-sample" style="background-color: #008000;"></span></td>
+      <td>Green</td>
+      <td>#008000</td>
+    </tr>
+    <!-- 继续添加更多颜色 -->
+  </table>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

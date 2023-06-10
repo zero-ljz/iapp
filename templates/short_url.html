@@ -1,0 +1,13 @@
+% rebase('templates/base.html', title='网址缩短')
+<h1>
+网址缩短
+</h1>
+<p>
+
+<form method="get" action="/short_url/shorten">
+    <label for="text">URL Shortener</label>
+    <textarea id="textarea" name="url" data-dl-input-translation="true" required></textarea>
+    <input type="submit" value="Shorten">
+</form>
+
+</p>

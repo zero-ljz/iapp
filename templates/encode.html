@@ -1,0 +1,30 @@
+% rebase('templates/base.html', title='关于')
+<h1>
+字符串编解码  
+</h1>
+<p>
+
+    <form method="post" action="/encode/encode">
+        <label for="text">Text to Encode/Decode:</label>
+        <textarea id="textarea" name="text" data-dl-input-translation="true" required></textarea>
+        <select name="conversion">
+            <option value="none">None</option>
+            <option value="base64">Base64</option>
+            <option value="md5">MD5</option>
+            <option value="sha1">SHA1</option>
+            <option value="sha224">SHA224</option>
+            <option value="sha256">SHA256</option>
+            <option value="sha384">SHA384</option>
+            <option value="sha512">SHA512</option>
+            <option value="hex">Hex</option>
+            <option value="bin">Binary</option>
+            <option value="hex_binary">Hex_Binary</option>
+            <option value="base64">Base64</option>
+            <option value="ascii">ASCII</option>
+            <option value="rgb_hex">Color (RGB_Hex)</option>
+            <option value="datetime_timestamp">Datetime_Timestamp</option>
+        </select>
+        <input type="submit" name="action" value="Encode">
+        <input type="submit" name="action" value="Decode">
+    </form>
+</p>
