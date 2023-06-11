@@ -54,12 +54,18 @@ def jsrun():
 
 @app.route('/echo', method=['GET', 'POST'])
 def echo():
+    client_ip = request.remote_addr
+
     # 获取原始请求标头
     headers = '\n'.join([f'{key}: {value}' for key, value in sorted(request.headers.items())])
 
     request_line = f'{request.method} {request.url} {request.environ.get("SERVER_PROTOCOL")}'
 
-    return '\n'.join([f"{key}: {value}" for key, value in response.headerlist]) + '\n\n' + f'{request_line}\n{headers}\n\n{request.body.read()}'
+    response.headers['Content-Type'] = 'text/html; charset=UTF-8'
+    response.headers['Content-Language'] = 'zh-CN'
+    response.headers['Server'] = 'nginx'
+
+    return f'IP Address: {client_ip}\n\n' + '\n'.join([f"{key}: {value}" for key, value in response.headerlist]) + '\n\n' + f'{request_line}\n{headers}\n\n{request.body.read().decode("utf-8")}'
 
 @app.route('/static/<filename:path>')
 def serve_static(filename):
