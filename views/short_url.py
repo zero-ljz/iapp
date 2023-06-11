@@ -8,13 +8,14 @@ app = Bottle()
 DATABASE = 'urls.db'
 
 
-def generate_short_url():
+def generate_short_url(length=6):
     chars = string.ascii_letters + string.digits
-    return ''.join(random.choice(chars) for _ in range(6))
+    return ''.join(random.choice(chars) for _ in range(length))
 
 
-def create_short_url(long_url):
-    short_url = generate_short_url()
+def create_short_url(long_url, short_url=None):
+    if not short_url:
+        short_url = generate_short_url()
     conn = sqlite3.connect(DATABASE)
     c = conn.cursor()
     c.execute("INSERT INTO urls (short_url, long_url) VALUES (?, ?)", (short_url, long_url))
@@ -34,6 +35,7 @@ def get_long_url(short_url):
     else:
         return None
 
+
 @app.route('/init')
 def init_database():
     conn = sqlite3.connect(DATABASE)
@@ -51,9 +53,13 @@ def home():
 @app.route('/shorten', method='GET')
 def shorten():
     long_url = request.query.get('url')
+    custom_suffix = request.query.get('suffix')
     if long_url:
-        short_url = create_short_url(long_url)
-        return 'http://' + request.headers.get('Host') + '/short_url/' + short_url
+        if custom_suffix:
+            short_url = create_short_url(long_url, custom_suffix)
+        else:
+            short_url = create_short_url(long_url)
+        return 'http://' + request.headers.get('Host') + '/u/' + short_url
     else:
         return "Invalid URL"
 

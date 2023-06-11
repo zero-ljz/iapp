@@ -1,0 +1,217 @@
+% rebase('templates/base.html', title='JSON Viewer')
+
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 100%;
+    }
+    
+    .json-container {
+      margin-left: 10px;
+      padding-left: 10px;
+    }
+    
+    .json-key {
+      font-weight: bold;
+      color: #1a0dab;
+    }
+    
+    .json-string {
+      color: #0a0;
+    }
+    
+    .json-number {
+      color: #00a;
+    }
+    
+    .json-boolean {
+      color: #a00;
+    }
+    
+    .json-null {
+      color: #555;
+    }
+    
+    .level-0 {
+      background-color: #f8f8f8;
+    }
+    
+    .level-1 {
+      background-color: #f0f0f0;
+    }
+    
+    .level-2 {
+      background-color: #e8e8e8;
+    }
+    
+    .level-3 {
+      background-color: #e0e0e0;
+    }
+    
+    .level-4 {
+      background-color: #d8d8d8;
+    }
+    
+    .level-5 {
+      background-color: #d0d0d0;
+    }
+    
+    .level-6 {
+      background-color: #c8c8c8;
+    }
+    
+    .expand-btn::before {
+      content: "+";
+      cursor: pointer;
+      margin-right: 5px;
+    }
+    
+    .collapse-btn::before {
+      content: "-";
+      cursor: pointer;
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>JSON Viewer</h1>
+  
+  <div>
+    <label for="json-input">Enter JSON:</label>
+    <textarea id="json-input" rows="10"></textarea>
+    <button onclick="visualizeJson()">Visualize</button>
+  </div>
+  
+  <div id="json-output"></div>
+  
+  <script>
+    function visualizeJson() {
+      const jsonInput = document.getElementById("json-input").value;
+      const jsonOutput = document.getElementById("json-output");
+      
+      try {
+        const jsonObj = JSON.parse(jsonInput);
+        jsonOutput.innerHTML = "";
+        jsonOutput.appendChild(renderJson(jsonObj, 0));
+      } catch (error) {
+        jsonOutput.innerHTML = "<p>Error: Invalid JSON</p>";
+      }
+    }
+    
+    function renderJson(data, level, expanded = true) {
+      const container = document.createElement("div");
+      container.classList.add(`level-${level}`);
+      
+      if (typeof data === "object" && data !== null) {
+        if (Array.isArray(data)) {
+          const isArrayEmpty = data.length === 0;
+          const isArrayMultiline = data.some(item => typeof item === "object" && item !== null);
+          
+          const toggleButton = document.createElement("span");
+          toggleButton.classList.add(expanded ? "collapse-btn" : "expand-btn");
+          toggleButton.addEventListener("click", function() {
+            const itemsContainer = container.querySelector(".json-container");
+            const isExpanded = itemsContainer.style.display !== "none";
+            
+            if (isExpanded) {
+              itemsContainer.style.display = "none";
+              toggleButton.classList.remove("collapse-btn");
+              toggleButton.classList.add("expand-btn");
+            } else {
+              itemsContainer.style.display = "block";
+              toggleButton.classList.remove("expand-btn");
+              toggleButton.classList.add("collapse-btn");
+            }
+          });
+          container.appendChild(toggleButton);
+          
+          if (isArrayEmpty) {
+            container.textContent = "[]";
+          } else {
+            const itemsContainer = document.createElement("div");
+            itemsContainer.classList.add("json-container");
+            itemsContainer.style.display = expanded ? "block" : "none";
+            
+            data.forEach((item, index) => {
+              const itemContainer = renderJson(item, level + 1);
+              const indexElement = document.createElement("span");
+              indexElement.classList.add("json-key");
+              indexElement.textContent = `${index}: `;
+              itemContainer.prepend(indexElement);
+              
+              itemsContainer.appendChild(itemContainer);
+            });
+            
+            container.appendChild(itemsContainer);
+          }
+        } else {
+          const isObjectEmpty = Object.keys(data).length === 0;
+          const isObjectMultiline = Object.values(data).some(value => typeof value === "object" && value !== null);
+          
+          const toggleButton = document.createElement("span");
+          toggleButton.classList.add(expanded ? "collapse-btn" : "expand-btn");
+          toggleButton.addEventListener("click", function() {
+            const itemsContainer = container.querySelector(".json-container");
+            const isExpanded = itemsContainer.style.display !== "none";
+            
+            if (isExpanded) {
+              itemsContainer.style.display = "none";
+              toggleButton.classList.remove("collapse-btn");
+              toggleButton.classList.add("expand-btn");
+            } else {
+              itemsContainer.style.display = "block";
+              toggleButton.classList.remove("expand-btn");
+              toggleButton.classList.add("collapse-btn");
+            }
+          });
+          container.appendChild(toggleButton);
+          
+          if (isObjectEmpty) {
+            container.textContent = "{}";
+          } else {
+            const itemsContainer = document.createElement("div");
+            itemsContainer.classList.add("json-container");
+            itemsContainer.style.display = expanded ? "block" : "none";
+            
+            for (const [key, value] of Object.entries(data)) {
+              const keyElement = document.createElement("span");
+              keyElement.classList.add("json-key");
+              keyElement.textContent = key + ": ";
+              
+              const valueContainer = renderJson(value, level + 1);
+              
+              const itemContainer = document.createElement("div");
+              itemContainer.appendChild(keyElement);
+              itemContainer.appendChild(valueContainer);
+              
+              itemsContainer.appendChild(itemContainer);
+            }
+            
+            container.appendChild(itemsContainer);
+          }
+        }
+      } else {
+        const valueElement = document.createElement("span");
+        
+        if (typeof data === "string") {
+          valueElement.classList.add("json-string");
+          valueElement.textContent = `"${data}"`;
+        } else if (typeof data === "number") {
+          valueElement.classList.add("json-number");
+          valueElement.textContent = data;
+        } else if (typeof data === "boolean") {
+          valueElement.classList.add("json-boolean");
+          valueElement.textContent = data ? "true" : "false";
+        } else if (data === null) {
+          valueElement.classList.add("json-null");
+          valueElement.textContent = "null";
+        }
+        
+        container.appendChild(valueElement);
+      }
+      
+      return container;
+    }
+  </script>
+

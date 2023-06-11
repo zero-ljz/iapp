@@ -1,6 +1,6 @@
 
-from bottle import Bottle, route, run, template, request, response
-from views import encode, postman, short_url, http_proxy, httpreq
+from bottle import Bottle, route, run, template, request, response, static_file
+from views import encode, short_url, http_proxy, httpreq
 
 # 创建 Bottle 应用程序对象
 app = Bottle()
@@ -8,13 +8,12 @@ app = Bottle()
 config = {
     'debug': True,
     'host': '0.0.0.0',
-    'port': 12312
+    'port': 3000
 }
 
 # 注册视图
 app.mount('/encode', encode.app)
-app.mount('/postman', postman.app)
-app.mount('/short_url', short_url.app)
+app.mount('/u', short_url.app)
 app.mount('/http_proxy', http_proxy.app)
 app.mount('/httpreq', httpreq.app)
 
@@ -35,6 +34,13 @@ def html5gallery():
 def color_hex_value_list():
     return template('templates/color_hex_value_list.html')
 
+@app.route('/json_viewer')
+def json_viewer():
+    return template('templates/json_viewer.html')
+
+@app.route('/code_formatter')
+def code_formatter():
+    return template('templates/code_formatter.html')
 
 
 
@@ -55,7 +61,10 @@ def echo():
 
     return '\n'.join([f"{key}: {value}" for key, value in response.headerlist]) + '\n\n' + f'{request_line}\n{headers}\n\n{request.body.read()}'
 
+@app.route('/static/<filename:path>')
+def serve_static(filename):
+    return static_file(filename, root='static')
 
 # 运行应用程序
 if __name__ == '__main__':
-    run(app, host=config['host'], port=config['port'], debug=config['debug'])
+    run(app, host=config['host'], port=config['port'], debug=config['debug'], reloader=True)

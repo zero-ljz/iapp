@@ -1,12 +1,14 @@
 % rebase('templates/base.html', title='httpreq')
 
-            <h1>Requests Web UI</h1>
+<div id="app">
+    <p>
+            <h1>HTTP Request Send</h1>
             <form action="/httpreq/send" method="post">
                 <label for="url">URL:</label>
-                <input type="text" name="url" id="url" placeholder="Enter URL" required>
+                <input type="text" name="url" id="url" v-model="url" placeholder="Enter URL" required>
                 <br>
                 <label for="method">Method:</label>
-                <select name="method" id="method">
+                <select name="method" id="method" v-model="method">
                     <option value="GET">GET</option>
                     <option value="POST">POST</option>
                     <option value="PUT">PUT</option>
@@ -14,12 +16,74 @@
                 </select>
                 <br>
                 <label for="headers">Headers:</label>
-                <textarea name="headers" id="headers" rows="4" placeholder="Enter headers (optional)"></textarea>
+                <textarea name="headers" id="headers" v-model="headers" rows="4" placeholder="Enter headers (optional)"></textarea>
                 <br>
                 <label for="body">Body:</label>
-                <textarea name="body" id="body" rows="4" placeholder="Enter request body (optional)"></textarea>
+                <textarea name="body" id="body" v-model="body" rows="4" placeholder="Enter request body (optional)"></textarea>
                 <br>
+
+                <div v-if="response">
+                    <h5>Local Response:</h5>
+                    <textarea rows="10" v-model="response" readonly></textarea>
+                </div>
+                <button type="button" @click="sendRequest">Local Send Request</button>
+
                 <button type="submit">Send Request</button>
             </form>
-            <h2>Response:</h2>
+
+            % if response:
+            <h5>Response:</h5>
             <pre>{{ response }}</pre>
+            % end
+
+        </p>
+        </div>
+
+
+            <script src="https://cdn.jsdelivr.net/npm/axios@0.21.1/dist/axios.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+          
+            <script>
+              new Vue({
+                el: '#app',
+                data() {
+                  return {
+                    url: '',
+                    method: 'GET',
+                    headers: '',
+                    body: '',
+                    response: ''
+                  };
+                },
+                methods: {
+                  sendRequest() {
+                    const options = {
+                      url: this.url,
+                      method: this.method,
+                      headers: this.parseHeaders(this.headers),
+                      data: this.body
+                    };
+          
+                    axios(options)
+                      .then(response => {
+                        this.response = JSON.stringify(response.data, null, 2);
+                      })
+                      .catch(error => {
+                        this.response = 'Error: ' + error.message;
+                      });
+                  },
+                  parseHeaders(headersString) {
+                    const headers = {};
+          
+                    headersString.split('\n').forEach(header => {
+                      const [name, value] = header.split(':');
+                      if (name && value) {
+                        headers[name.trim()] = value.trim();
+                      }
+                    });
+          
+                    return headers;
+                  }
+                }
+              });
+            </script>

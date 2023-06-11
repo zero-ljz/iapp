@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTTP请求任务管理</title>
+</head>
+<body>
+    <h1>HTTP请求任务管理</h1>
+
+    <h2>添加任务</h2>
+    <form method="POST" action="/add_task">
+        <label for="url">URL：</label>
+        <input type="text" name="url" id="url" required>
+        <br>
+        <label for="interval">间隔（秒）：</label>
+        <input type="number" name="interval" id="interval" min="1" required>
+        <br>
+        <input type="submit" value="添加任务">
+    </form>
+
+    <h2>任务列表</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>URL</th>
+            <th>间隔（秒）</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        % for index, task in enumerate(tasks):
+        <tr>
+            <td>{{ index + 1 }}</td>
+            <td>{{ task['url'] }}</td>
+            <td>{{ task['interval'] }}</td>
+            <td>
+                % if task['paused']:
+                暂停
+                % else:
+                运行中
+                % end
+            </td>
+            <td>
+                <a href="/remove_task/{{ index }}">删除</a>
+                % if task['paused']:
+                <a href="/resume_task/{{ index }}">恢复</a>
+                % else:
+                <a href="/pause_task/{{ index }}">暂停</a>
+                % end
+            </td>
+        </tr>
+        % end
+    </table>
+
+    <form method="GET" action="/cancel_all_tasks">
+        <input type="submit" value="取消所有任务">
+    </form>
+</body>
+</html>

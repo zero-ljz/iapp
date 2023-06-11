@@ -1,0 +1,59 @@
+% rebase('templates/base.html', title='Code Formatter')
+
+<style>
+  body {
+    max-width: 76em;
+  }
+  textarea {
+    width: 100%;
+    height: 300px;
+  }
+</style>
+  <h1>Code Formatter</h1>
+  <textarea id="input" placeholder="Enter code here"></textarea>
+  <select id="language">
+    <option value="json">JSON</option>
+    <option value="typescript">TypeScript</option>
+    <option value="css">CSS</option>
+    <option value="markdown">Markdown</option>
+    <option value="html">HTML</option>
+    <option value="yaml">YAML</option>
+    <option value="vue">Vue</option>
+  </select>
+  <button onclick="formatCode()">Format</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/prettier/standalone.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prettier/parser-babel.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prettier/parser-typescript.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prettier/parser-postcss.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prettier/parser-markdown.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prettier/parser-html.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prettier/parser-yaml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prettier/parser-vue.js"></script>
+  <script>
+    function formatCode() {
+      const input = document.getElementById('input').value;
+      const language = document.getElementById('language').value;
+
+      try {
+        const formattedCode = prettier.format(input, {
+          parser: language,
+          plugins: [prettierPlugins.babel, prettierPlugins.typescript, prettierPlugins.postcss, prettierPlugins.markdown, prettierPlugins.html, prettierPlugins.yaml, prettierPlugins.vue],
+          printWidth: 80,
+          tabWidth: 2,
+          useTabs: false,
+          semi: true,
+          singleQuote: false,
+          trailingComma: 'none',
+          bracketSpacing: true,
+          jsxBracketSameLine: false,
+          proseWrap: 'preserve',
+          arrowParens: 'always',
+        });
+
+        document.getElementById('input').value = formattedCode;
+      } catch (error) {
+        alert(error);
+      }
+    }
+  </script>

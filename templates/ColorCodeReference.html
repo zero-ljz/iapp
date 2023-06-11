@@ -1,159 +1,1104 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Color Code Reference</title>
+  <title>Material Design Colors</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
+    table {
+      width: 100%;
+      border-collapse: collapse;
     }
-
-    .color-sample {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
+    
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+      background-color: #f5f5f5;
+    }
+    
+    .color-box {
       display: inline-block;
-      margin: 5px;
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+      margin-right: 4px;
     }
-
-  
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-      }
-  
-      th, td {
-        padding: 10px;
-        text-align: center;
-      }
-  
-      .color-sample {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        display: inline-block;
-        margin: 5px;
-      }
   </style>
-  <script>
-    function updateColorPreview() {
-      var colorCode = document.getElementById("colorCode").value;
-      var colorPreview = document.getElementById("colorPreview");
-      colorPreview.style.backgroundColor = colorCode;
-    }
-  </script>
 </head>
 <body>
-  <h1>Color Code Reference</h1>
-  
-  <p>Enter a color code and see the preview:</p>
-  <input type="text" id="colorCode" oninput="updateColorPreview()" placeholder="Enter color code">
-
-  <h2>Color Code Reference Table</h2>
-  <table>
-    <tr>
-      <th>Color Code</th>
-      <th>Color Name</th>
-    </tr>
-    <tr>
-      <td><span class="color-sample" style="background-color: #FF0000;"></span></td>
-      <td>Red</td>
-    </tr>
-    <tr>
-      <td><span class="color-sample" style="background-color: #00FF00;"></span></td>
-      <td>Green</td>
-    </tr>
-    <tr>
-      <td><span class="color-sample" style="background-color: #0000FF;"></span></td>
-      <td>Blue</td>
-    </tr>
-    <!-- Add more color codes and names as needed -->
-  </table>
-
-  <h2>Color Preview</h2>
-  <div id="colorPreview" class="color-sample"></div>
-
-
-
-
-  <h1>Web Color Reference</h1>
-
+  <h1>Material Design Colors</h1>
   <table>
     <tr>
       <th>Color</th>
-      <th>Color Name</th>
-      <th>Hex Code</th>
+      <th>Hex Value</th>
     </tr>
-    <tr>
-      <td><span class="color-sample" style="background-color: #FF0000;"></span></td>
-      <td>Red</td>
-      <td>#FF0000</td>
-    </tr>
-    <tr>
-      <td><span class="color-sample" style="background-color: #00FF00;"></span></td>
-      <td>Lime</td>
-      <td>#00FF00</td>
-    </tr>
-    <tr>
-      <td><span class="color-sample" style="background-color: #0000FF;"></span></td>
-      <td>Blue</td>
-      <td>#0000FF</td>
-    </tr>
-    <!-- 添加更多颜色 -->
-    <tr>
-      <td><span class="color-sample" style="background-color: #FFFF00;"></span></td>
-      <td>Yellow</td>
-      <td>#FFFF00</td>
-    </tr>
-    <tr>
-      <td><span class="color-sample" style="background-color: #FF00FF;"></span></td>
-      <td>Magenta</td>
-      <td>#FF00FF</td>
-    </tr>
-    <tr>
-      <td><span class="color-sample" style="background-color: #00FFFF;"></span></td>
-      <td>Cyan</td>
-      <td>#00FFFF</td>
-    </tr>
-    <tr>
-      <td><span class="color-sample" style="background-color: #000000;"></span></td>
-      <td>Black</td>
-      <td>#000000</td>
-    </tr>
-    <tr>
-      <td><span class="color-sample" style="background-color: #FFFFFF;"></span></td>
-      <td>White</td>
-      <td>#FFFFFF</td>
-    </tr>
-    <tr>
-      <td><span class="color-sample" style="background-color: #FFA500;"></span></td>
-      <td>Orange</td>
-      <td>#FFA500</td>
-    </tr>
-    <tr>
-      <td><span class="color-sample" style="background-color: #800080;"></span></td>
-      <td>Purple</td>
-      <td>#800080</td>
-    </tr>
-    <tr>
-      <td><span class="color-sample" style="background-color: #008000;"></span></td>
-      <td>Green</td>
-      <td>#008000</td>
-    </tr>
-    <!-- 继续添加更多颜色 -->
-  </table>
+ 
+<!-- Red -->
+<tr>
+  <td><div class="color-box" style="background-color: #FFEBEE;"></div>Red 50</td>
+  <td>#FFEBEE</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFCDD2;"></div>Red 100</td>
+  <td>#FFCDD2</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #EF9A9A;"></div>Red 200</td>
+  <td>#EF9A9A</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #E57373;"></div>Red 300</td>
+  <td>#E57373</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #EF5350;"></div>Red 400</td>
+  <td>#EF5350</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #F44336;"></div>Red 500</td>
+  <td>#F44336</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #E53935;"></div>Red 600</td>
+  <td>#E53935</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #D32F2F;"></div>Red 700</td>
+  <td>#D32F2F</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #C62828;"></div>Red 800</td>
+  <td>#C62828</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #B71C1C;"></div>Red 900</td>
+  <td>#B71C1C</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF8A80;"></div>Red A100</td>
+  <td>#FF8A80</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF5252;"></div>Red A200</td>
+  <td>#FF5252</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF1744;"></div>Red A400</td>
+  <td>#FF1744</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #D50000;"></div>Red A700</td>
+  <td>#D50000</td>
+</tr>
+
+<!-- Pink -->
+<tr>
+  <td><div class="color-box" style="background-color: #FCE4EC;"></div>Pink 50</td>
+  <td>#FCE4EC</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #F8BBD0;"></div>Pink 100</td>
+  <td>#F8BBD0</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #F48FB1;"></div>Pink 200</td>
+  <td>#F48FB1</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #F06292;"></div>Pink 300</td>
+  <td>#F06292</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #EC407A;"></div>Pink 400</td>
+  <td>#EC407A</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #E91E63;"></div>Pink 500</td>
+  <td>#E91E63</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #D81B60;"></div>Pink 600</td>
+  <td>#D81B60</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #C2185B;"></div>Pink 700</td>
+  <td>#C2185B</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #AD1457;"></div>Pink 800</td>
+  <td>#AD1457</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #880E4F;"></div>Pink 900</td>
+  <td>#880E4F</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF80AB;"></div>Pink A100</td>
+  <td>#FF80AB</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF4081;"></div>Pink A200</td>
+  <td>#FF4081</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #F50057;"></div>Pink A400</td>
+  <td>#F50057</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #C51162;"></div>Pink A700</td>
+  <td>#C51162</td>
+</tr>
+
+<!-- Purple -->
+<tr>
+  <td><div class="color-box" style="background-color: #F3E5F5;"></div>Purple 50</td>
+  <td>#F3E5F5</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #E1BEE7;"></div>Purple 100</td>
+  <td>#E1BEE7</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #CE93D8;"></div>Purple 200</td>
+  <td>#CE93D8</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #BA68C8;"></div>Purple 300</td>
+  <td>#BA68C8</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #AB47BC;"></div>Purple 400</td>
+  <td>#AB47BC</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #9C27B0;"></div>Purple 500</td>
+  <td>#9C27B0</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #8E24AA;"></div>Purple 600</td>
+  <td>#8E24AA</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #7B1FA2;"></div>Purple 700</td>
+  <td>#7B1FA2</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #6A1B9A;"></div>Purple 800</td>
+  <td>#6A1B9A</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #4A148C;"></div>Purple 900</td>
+  <td>#4A148C</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #EA80FC;"></div>Purple A100</td>
+  <td>#EA80FC</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #E040FB;"></div>Purple A200</td>
+  <td>#E040FB</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #D500F9;"></div>Purple A400</td>
+  <td>#D500F9</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #AA00FF;"></div>Purple A700</td>
+  <td>#AA00FF</td>
+</tr>
+
+<!-- Deep Purple -->
+<tr>
+  <td><div class="color-box" style="background-color: #EDE7F6;"></div>Deep Purple 50</td>
+  <td>#EDE7F6</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #D1C4E9;"></div>Deep Purple 100</td>
+  <td>#D1C4E9</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #B39DDB;"></div>Deep Purple 200</td>
+  <td>#B39DDB</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #9575CD;"></div>Deep Purple 300</td>
+  <td>#9575CD</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #7E57C2;"></div>Deep Purple 400</td>
+  <td>#7E57C2</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #673AB7;"></div>Deep Purple 500</td>
+  <td>#673AB7</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #5E35B1;"></div>Deep Purple 600</td>
+  <td>#5E35B1</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #512DA8;"></div>Deep Purple 700</td>
+  <td>#512DA8</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #4527A0;"></div>Deep Purple 800</td>
+  <td>#4527A0</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #311B92;"></div>Deep Purple 900</td>
+  <td>#311B92</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #B388FF;"></div>Deep Purple A100</td>
+  <td>#B388FF</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #7C4DFF;"></div>Deep Purple A200</td>
+  <td>#7C4DFF</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #651FFF;"></div>Deep Purple A400</td>
+  <td>#651FFF</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #6200EA;"></div>Deep Purple A700</td>
+  <td>#6200EA</td>
+</tr>
+
+<!-- Indigo -->
+<tr>
+  <td><div class="color-box" style="background-color: #E8EAF6;"></div>Indigo 50</td>
+  <td>#E8EAF6</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #C5CAE9;"></div>Indigo 100</td>
+  <td>#C5CAE9</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #9FA8DA;"></div>Indigo 200</td>
+  <td>#9FA8DA</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #7986CB;"></div>Indigo 300</td>
+  <td>#7986CB</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #5C6BC0;"></div>Indigo 400</td>
+  <td>#5C6BC0</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #3F51B5;"></div>Indigo 500</td>
+  <td>#3F51B5</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #3949AB;"></div>Indigo 600</td>
+  <td>#3949AB</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #303F9F;"></div>Indigo 700</td>
+  <td>#303F9F</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #283593;"></div>Indigo 800</td>
+  <td>#283593</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #1A237E;"></div>Indigo 900</td>
+  <td>#1A237E</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #8C9EFF;"></div>Indigo A100</td>
+  <td>#8C9EFF</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #536DFE;"></div>Indigo A200</td>
+  <td>#536DFE</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #3D5AFE;"></div>Indigo A400</td>
+  <td>#3D5AFE</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #304FFE;"></div>Indigo A700</td>
+  <td>#304FFE</td>
+</tr>
+
+
+
+<!-- Blue -->
+<tr>
+  <td><div class="color-box" style="background-color: #E3F2FD;"></div>Blue 50</td>
+  <td>#E3F2FD</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #BBDEFB;"></div>Blue 100</td>
+  <td>#BBDEFB</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #90CAF9;"></div>Blue 200</td>
+  <td>#90CAF9</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #64B5F6;"></div>Blue 300</td>
+  <td>#64B5F6</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #42A5F5;"></div>Blue 400</td>
+  <td>#42A5F5</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #2196F3;"></div>Blue 500</td>
+  <td>#2196F3</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #1E88E5;"></div>Blue 600</td>
+  <td>#1E88E5</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #1976D2;"></div>Blue 700</td>
+  <td>#1976D2</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #1565C0;"></div>Blue 800</td>
+  <td>#1565C0</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #0D47A1;"></div>Blue 900</td>
+  <td>#0D47A1</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #82B1FF;"></div>Blue A100</td>
+  <td>#82B1FF</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #448AFF;"></div>Blue A200</td>
+  <td>#448AFF</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #2979FF;"></div>Blue A400</td>
+  <td>#2979FF</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #2962FF;"></div>Blue A700</td>
+  <td>#2962FF</td>
+</tr>
+
+<!-- Light Blue -->
+<tr>
+  <td><div class="color-box" style="background-color: #E1F5FE;"></div>Light Blue 50</td>
+  <td>#E1F5FE</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #B3E5FC;"></div>Light Blue 100</td>
+  <td>#B3E5FC</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #81D4FA;"></div>Light Blue 200</td>
+  <td>#81D4FA</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #4FC3F7;"></div>Light Blue 300</td>
+  <td>#4FC3F7</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #29B6F6;"></div>Light Blue 400</td>
+  <td>#29B6F6</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #03A9F4;"></div>Light Blue 500</td>
+  <td>#03A9F4</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #039BE5;"></div>Light Blue 600</td>
+  <td>#039BE5</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #0288D1;"></div>Light Blue 700</td>
+  <td>#0288D1</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #0277BD;"></div>Light Blue 800</td>
+  <td>#0277BD</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #01579B;"></div>Light Blue 900</td>
+  <td>#01579B</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #80D8FF;"></div>Light Blue A100</td>
+  <td>#80D8FF</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #40C4FF;"></div>Light Blue A200</td>
+  <td>#40C4FF</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #00B0FF;"></div>Light Blue A400</td>
+  <td>#00B0FF</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #0091EA;"></div>Light Blue A700</td>
+  <td>#0091EA</td>
+</tr>
+
+<!-- Cyan -->
+<tr>
+  <td><div class="color-box" style="background-color: #E0F7FA;"></div>Cyan 50</td>
+  <td>#E0F7FA</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #B2EBF2;"></div>Cyan 100</td>
+  <td>#B2EBF2</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #80DEEA;"></div>Cyan 200</td>
+  <td>#80DEEA</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #4DD0E1;"></div>Cyan 300</td>
+  <td>#4DD0E1</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #26C6DA;"></div>Cyan 400</td>
+  <td>#26C6DA</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #00BCD4;"></div>Cyan 500</td>
+  <td>#00BCD4</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #00ACC1;"></div>Cyan 600</td>
+  <td>#00ACC1</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #0097A7;"></div>Cyan 700</td>
+  <td>#0097A7</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #00838F;"></div>Cyan 800</td>
+  <td>#00838F</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #006064;"></div>Cyan 900</td>
+  <td>#006064</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #84FFFF;"></div>Cyan A100</td>
+  <td>#84FFFF</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #18FFFF;"></div>Cyan A200</td>
+  <td>#18FFFF</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #00E5FF;"></div>Cyan A400</td>
+  <td>#00E5FF</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #00B8D4;"></div>Cyan A700</td>
+  <td>#00B8D4</td>
+</tr>
+
+<!-- Teal -->
+<tr>
+  <td><div class="color-box" style="background-color: #E0F2F1;"></div>Teal 50</td>
+  <td>#E0F2F1</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #B2DFDB;"></div>Teal 100</td>
+  <td>#B2DFDB</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #80CBC4;"></div>Teal 200</td>
+  <td>#80CBC4</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #4DB6AC;"></div>Teal 300</td>
+  <td>#4DB6AC</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #26A69A;"></div>Teal 400</td>
+  <td>#26A69A</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #009688;"></div>Teal 500</td>
+  <td>#009688</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #00897B;"></div>Teal 600</td>
+  <td>#00897B</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #00796B;"></div>Teal 700</td>
+  <td>#00796B</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #00695C;"></div>Teal 800</td>
+  <td>#00695C</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #004D40;"></div>Teal 900</td>
+  <td>#004D40</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #A7FFEB;"></div>Teal A100</td>
+  <td>#A7FFEB</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #64FFDA;"></div>Teal A200</td>
+  <td>#64FFDA</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #1DE9B6;"></div>Teal A400</td>
+  <td>#1DE9B6</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #00BFA5;"></div>Teal A700</td>
+  <td>#00BFA5</td>
+</tr>
+
+<!-- Green -->
+<tr>
+  <td><div class="color-box" style="background-color: #E8F5E9;"></div>Green 50</td>
+  <td>#E8F5E9</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #C8E6C9;"></div>Green 100</td>
+  <td>#C8E6C9</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #A5D6A7;"></div>Green 200</td>
+  <td>#A5D6A7</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #81C784;"></div>Green 300</td>
+  <td>#81C784</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #66BB6A;"></div>Green 400</td>
+  <td>#66BB6A</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #4CAF50;"></div>Green 500</td>
+  <td>#4CAF50</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #43A047;"></div>Green 600</td>
+  <td>#43A047</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #388E3C;"></div>Green 700</td>
+  <td>#388E3C</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #2E7D32;"></div>Green 800</td>
+  <td>#2E7D32</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #1B5E20;"></div>Green 900</td>
+  <td>#1B5E20</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #B9F6CA;"></div>Green A100</td>
+  <td>#B9F6CA</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #69F0AE;"></div>Green A200</td>
+  <td>#69F0AE</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #00E676;"></div>Green A400</td>
+  <td>#00E676</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #00C853;"></div>Green A700</td>
+  <td>#00C853</td>
+</tr>
+
+<!-- Light Green -->
+<tr>
+  <td><div class="color-box" style="background-color: #F1F8E9;"></div>Light Green 50</td>
+  <td>#F1F8E9</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #DCEDC8;"></div>Light Green 100</td>
+  <td>#DCEDC8</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #C5E1A5;"></div>Light Green 200</td>
+  <td>#C5E1A5</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #AED581;"></div>Light Green 300</td>
+  <td>#AED581</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #9CCC65;"></div>Light Green 400</td>
+  <td>#9CCC65</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #8BC34A;"></div>Light Green 500</td>
+  <td>#8BC34A</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #7CB342;"></div>Light Green 600</td>
+  <td>#7CB342</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #689F38;"></div>Light Green 700</td>
+  <td>#689F38</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #558B2F;"></div>Light Green 800</td>
+  <td>#558B2F</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #33691E;"></div>Light Green 900</td>
+  <td>#33691E</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #CCFF90;"></div>Light Green A100</td>
+  <td>#CCFF90</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #B2FF59;"></div>Light Green A200</td>
+  <td>#B2FF59</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #76FF03;"></div>Light Green A400</td>
+  <td>#76FF03</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #64DD17;"></div>Light Green A700</td>
+  <td>#64DD17</td>
+</tr>
+
+<!-- Lime -->
+<tr>
+  <td><div class="color-box" style="background-color: #F9FBE7;"></div>Lime 50</td>
+  <td>#F9FBE7</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #F0F4C3;"></div>Lime 100</td>
+  <td>#F0F4C3</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #E6EE9C;"></div>Lime 200</td>
+  <td>#E6EE9C</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #DCE775;"></div>Lime 300</td>
+  <td>#DCE775</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #D4E157;"></div>Lime 400</td>
+  <td>#D4E157</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #CDDC39;"></div>Lime 500</td>
+  <td>#CDDC39</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #C0CA33;"></div>Lime 600</td>
+  <td>#C0CA33</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #AFB42B;"></div>Lime 700</td>
+  <td>#AFB42B</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #9E9D24;"></div>Lime 800</td>
+  <td>#9E9D24</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #827717;"></div>Lime 900</td>
+  <td>#827717</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #F4FF81;"></div>Lime A100</td>
+  <td>#F4FF81</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #EEFF41;"></div>Lime A200</td>
+  <td>#EEFF41</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #C6FF00;"></div>Lime A400</td>
+  <td>#C6FF00</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #AEEA00;"></div>Lime A700</td>
+  <td>#AEEA00</td>
+</tr>
+
+
+<!-- Yellow -->
+<tr>
+  <td><div class="color-box" style="background-color: #FFFDE7;"></div>Yellow 50</td>
+  <td>#FFFDE7</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFF9C4;"></div>Yellow 100</td>
+  <td>#FFF9C4</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFF59D;"></div>Yellow 200</td>
+  <td>#FFF59D</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFF176;"></div>Yellow 300</td>
+  <td>#FFF176</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFEE58;"></div>Yellow 400</td>
+  <td>#FFEE58</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFEB3B;"></div>Yellow 500</td>
+  <td>#FFEB3B</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FDD835;"></div>Yellow 600</td>
+  <td>#FDD835</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FBC02D;"></div>Yellow 700</td>
+  <td>#FBC02D</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #F9A825;"></div>Yellow 800</td>
+  <td>#F9A825</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #F57F17;"></div>Yellow 900</td>
+  <td>#F57F17</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFFF8D;"></div>Yellow A100</td>
+  <td>#FFFF8D</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFFF00;"></div>Yellow A200</td>
+  <td>#FFFF00</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFEA00;"></div>Yellow A400</td>
+  <td>#FFEA00</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFD600;"></div>Yellow A700</td>
+  <td>#FFD600</td>
+</tr>
+
+<!-- Amber -->
+<tr>
+  <td><div class="color-box" style="background-color: #FFF8E1;"></div>Amber 50</td>
+  <td>#FFF8E1</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFECB3;"></div>Amber 100</td>
+  <td>#FFECB3</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFE082;"></div>Amber 200</td>
+  <td>#FFE082</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFD54F;"></div>Amber 300</td>
+  <td>#FFD54F</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFCA28;"></div>Amber 400</td>
+  <td>#FFCA28</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFC107;"></div>Amber 500</td>
+  <td>#FFC107</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFB300;"></div>Amber 600</td>
+  <td>#FFB300</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFA000;"></div>Amber 700</td>
+  <td>#FFA000</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF8F00;"></div>Amber 800</td>
+  <td>#FF8F00</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF6F00;"></div>Amber 900</td>
+  <td>#FF6F00</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFE57F;"></div>Amber A100</td>
+  <td>#FFE57F</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFD740;"></div>Amber A200</td>
+  <td>#FFD740</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFC400;"></div>Amber A400</td>
+  <td>#FFC400</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFAB00;"></div>Amber A700</td>
+  <td>#FFAB00</td>
+</tr>
+
+<!-- Orange -->
+<tr>
+  <td><div class="color-box" style="background-color: #FFF3E0;"></div>Orange 50</td>
+  <td>#FFF3E0</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFE0B2;"></div>Orange 100</td>
+  <td>#FFE0B2</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFCC80;"></div>Orange 200</td>
+  <td>#FFCC80</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFB74D;"></div>Orange 300</td>
+  <td>#FFB74D</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFA726;"></div>Orange 400</td>
+  <td>#FFA726</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF9800;"></div>Orange 500</td>
+  <td>#FF9800</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FB8C00;"></div>Orange 600</td>
+  <td>#FB8C00</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #F57C00;"></div>Orange 700</td>
+  <td>#F57C00</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #EF6C00;"></div>Orange 800</td>
+  <td>#EF6C00</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #E65100;"></div>Orange 900</td>
+  <td>#E65100</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFD180;"></div>Orange A100</td>
+  <td>#FFD180</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFAB40;"></div>Orange A200</td>
+  <td>#FFAB40</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF9100;"></div>Orange A400</td>
+  <td>#FF9100</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF6D00;"></div>Orange A700</td>
+  <td>#FF6D00</td>
+</tr>
+
+<!-- Deep Orange -->
+<tr>
+  <td><div class="color-box" style="background-color: #FBE9E7;"></div>Deep Orange 50</td>
+  <td>#FBE9E7</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFCCBC;"></div>Deep Orange 100</td>
+  <td>#FFCCBC</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FFAB91;"></div>Deep Orange 200</td>
+  <td>#FFAB91</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF8A65;"></div>Deep Orange 300</td>
+  <td>#FF8A65</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF7043;"></div>Deep Orange 400</td>
+  <td>#FF7043</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF5722;"></div>Deep Orange 500</td>
+  <td>#FF5722</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #F4511E;"></div>Deep Orange 600</td>
+  <td>#F4511E</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #E64A19;"></div>Deep Orange 700</td>
+  <td>#E64A19</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #D84315;"></div>Deep Orange 800</td>
+  <td>#D84315</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #BF360C;"></div>Deep Orange 900</td>
+  <td>#BF360C</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF9E80;"></div>Deep Orange A100</td>
+  <td>#FF9E80</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF6E40;"></div>Deep Orange A200</td>
+  <td>#FF6E40</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #FF3D00;"></div>Deep Orange A400</td>
+  <td>#FF3D00</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #DD2C00;"></div>Deep Orange A700</td>
+  <td>#DD2C00</td>
+</tr>
+
+<!-- Brown -->
+<tr>
+  <td><div class="color-box" style="background-color: #EFEBE9;"></div>Brown 50</td>
+  <td>#EFEBE9</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #D7CCC8;"></div>Brown 100</td>
+  <td>#D7CCC8</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #BCAAA4;"></div>Brown 200</td>
+  <td>#BCAAA4</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #A1887F;"></div>Brown 300</td>
+  <td>#A1887F</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #8D6E63;"></div>Brown 400</td>
+  <td>#8D6E63</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #795548;"></div>Brown 500</td>
+  <td>#795548</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #6D4C41;"></div>Brown 600</td>
+  <td>#6D4C41</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #5D4037;"></div>Brown 700</td>
+  <td>#5D4037</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #4E342E;"></div>Brown 800</td>
+  <td>#4E342E</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #3E2723;"></div>Brown 900</td>
+  <td>#3E2723</td>
+</tr>
+
+<!-- Gray -->
+<tr>
+  <td><div class="color-box" style="background-color: #FAFAFA;"></div>Gray 50</td>
+  <td>#FAFAFA</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #F5F5F5;"></div>Gray 100</td>
+  <td>#F5F5F5</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #EEEEEE;"></div>Gray 200</td>
+  <td>#EEEEEE</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #E0E0E0;"></div>Gray 300</td>
+  <td>#E0E0E0</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #BDBDBD;"></div>Gray 400</td>
+  <td>#BDBDBD</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #9E9E9E;"></div>Gray 500</td>
+  <td>#9E9E9E</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #757575;"></div>Gray 600</td>
+  <td>#757575</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #616161;"></div>Gray 700</td>
+  <td>#616161</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #424242;"></div>Gray 800</td>
+  <td>#424242</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #212121;"></div>Gray 900</td>
+  <td>#212121</td>
+</tr>
+
+<!-- Blue Gray -->
+<tr>
+  <td><div class="color-box" style="background-color: #ECEFF1;"></div>Blue Gray 50</td>
+  <td>#ECEFF1</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #CFD8DC;"></div>Blue Gray 100</td>
+  <td>#CFD8DC</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #B0BEC5;"></div>Blue Gray 200</td>
+  <td>#B0BEC5</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #90A4AE;"></div>Blue Gray 300</td>
+  <td>#90A4AE</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #78909C;"></div>Blue Gray 400</td>
+  <td>#78909C</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #607D8B;"></div>Blue Gray 500</td>
+  <td>#607D8B</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #546E7A;"></div>Blue Gray 600</td>
+  <td>#546E7A</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #455A64;"></div>Blue Gray 700</td>
+  <td>#455A64</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #37474F;"></div>Blue Gray 800</td>
+  <td>#37474F</td>
+</tr>
+<tr>
+  <td><div class="color-box" style="background-color: #263238;"></div>Blue Gray 900</td>
+  <td>#263238</td>
+</tr>
+
+
+
+
+
+</tbody>
+</table>
+
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

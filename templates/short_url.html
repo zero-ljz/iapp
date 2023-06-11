@@ -4,9 +4,10 @@
 </h1>
 <p>
 
-<form method="get" action="/short_url/shorten">
+<form method="get" action="/u/shorten">
     <label for="text">URL Shortener</label>
     <textarea id="textarea" name="url" data-dl-input-translation="true" required></textarea>
+    <input type="text" name="suffix" id="suffix" placeholder="Custom suffix">
     <input type="submit" value="Shorten">
 </form>
 
