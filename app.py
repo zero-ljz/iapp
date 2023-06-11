@@ -61,7 +61,7 @@ def echo():
 
     request_line = f'{request.method} {request.url} {request.environ.get("SERVER_PROTOCOL")}'
 
-    response.headers['Content-Type'] = 'text/html; charset=UTF-8'
+    response.headers['Content-Type'] = 'text/plain; charset=UTF-8'
     response.headers['Content-Language'] = 'zh-CN'
     response.headers['Server'] = 'nginx'
 

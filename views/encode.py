@@ -4,7 +4,7 @@ import binascii
 import datetime
 import time
 import subprocess
-from bottle import Bottle, request, template
+from bottle import Bottle, request, template, response
 
 app = Bottle()
 
@@ -106,6 +106,6 @@ def convert(option):
             output = text.encode("unicode_escape").decode("utf-8")
             
 
-
+    response.headers['Content-Type'] = 'text/plain; charset=UTF-8'
     return f'{output}'
 
