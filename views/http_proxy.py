@@ -10,7 +10,7 @@ def home():
         try:
 
             # 发起GET请求并获取响应
-            resp = requests.get(url, headers=request.headers.items())
+            resp = requests.get(url, headers=dict(request.headers))
 
             # 设置响应头部
             response.content_type = resp.headers.get('Content-Type')
