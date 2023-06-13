@@ -54,7 +54,8 @@ def jsrun():
 
 @app.route('/echo', method=['GET', 'POST'])
 def echo():
-    client_ip = request.remote_addr
+    # client_ip = request.remote_addr
+    client_ip = request.environ.get('REMOTE_ADDR')
 
     # 获取原始请求标头
     headers = '\n'.join([f'{key}: {value}' for key, value in sorted(request.headers.items())])

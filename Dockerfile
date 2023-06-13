@@ -1,5 +1,5 @@
 # 如需更多资料，请参阅 https://aka.ms/vscode-docker-python
-FROM python:3.9-slim
+FROM python:3.9
 
 EXPOSE 8000
 

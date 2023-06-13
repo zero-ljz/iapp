@@ -8,8 +8,11 @@ def home():
     url = request.query.get('url')
     if url:
         try:
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"
+            }
             # 发起GET请求并获取响应
-            resp = requests.get(url)
+            resp = requests.get(url, headers=headers)
 
             # 设置响应头部
             response.content_type = resp.headers.get('Content-Type')
