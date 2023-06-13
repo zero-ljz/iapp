@@ -12,7 +12,7 @@ def home():
                 "User-Agent": request.headers.get('User-Agent'),
             }
             # 发起GET请求并获取响应
-            resp = requests.get(url, headers=headers)
+            resp = requests.get(url, headers=headers, stream=True)
 
             # 设置响应头部
             response.content_type = resp.headers.get('Content-Type')
@@ -28,15 +28,15 @@ def home():
             if filename:
                 response.headers['Content-Disposition'] = f'attachment; filename="{filename}"'
 
-            # 根据响应内容类型返回不同的数据
-            if 'text/html' in response.content_type:
-                return resp.text
-            else:
-                return resp.content
+            # 边收边传，通过生成器逐步返回响应内容
+            def generate_content():
+                for chunk in resp.iter_content(chunk_size=8192):
+                    yield chunk
+
+            # 返回生成器作为响应
+            return generate_content()
 
         except requests.exceptions.RequestException as e:
             return f"Error occurred: {str(e)}"
     else:
         return template('templates/http_proxy.html')
-
-

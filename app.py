@@ -8,7 +8,7 @@ app = Bottle()
 config = {
     'debug': True,
     'host': '0.0.0.0',
-    'port': 3000
+    'port': 8000
 }
 
 # 注册视图
