@@ -1,15 +1,10 @@
 
+from gevent import monkey; monkey.patch_all()
 from bottle import Bottle, route, run, template, request, response, static_file
 from views import encode, short_url, http_proxy, httpreq
 
 # 创建 Bottle 应用程序对象
 app = Bottle()
-
-config = {
-    'debug': True,
-    'host': '0.0.0.0',
-    'port': 8000
-}
 
 # 注册视图
 app.mount('/encode', encode.app)
@@ -74,4 +69,4 @@ def serve_static(filename):
 
 # 运行应用程序
 if __name__ == '__main__':
-    run(app, host=config['host'], port=config['port'], debug=config['debug'], reloader=True)
+    run(app, host='0.0.0.0', port=8000, debug=True, reloader=True, server='gevent')

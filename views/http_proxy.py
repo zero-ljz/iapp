@@ -1,3 +1,4 @@
+import urllib
 import requests
 from bottle import Bottle, request, response, template
 
@@ -23,6 +24,11 @@ def home():
                 disposition = resp.headers['Content-Disposition']
                 if 'filename' in disposition:
                     filename = disposition.split('filename=')[1].strip('"\'')
+
+            # 如果未获取到文件名，从URL末尾自动判断
+            if not filename:
+                url_path = urllib.parse.urlparse(resp.url).path
+                filename = url_path.split('/')[-1]
 
             # 设置文件下载的响应头部
             if filename:
