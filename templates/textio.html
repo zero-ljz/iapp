@@ -1,11 +1,11 @@
-% rebase('templates/base.html', title='字符串编解码')
+% rebase('templates/base.html', title='文本输入输出')
 <h1>
-字符串编解码  
+文本输入输出
 </h1>
 <p>
 
     <form id="form1" method="get" onsubmit="saveFormData()">
-        <label for="text">Text to Encode/Decode:</label>
+        <label for="text">Text I/O:</label>
 
         <input type="text" list="optionList" id="option" placeholder="option">
         <datalist id="optionList">
@@ -35,7 +35,7 @@
         
         <button type="button" onclick="addParam()">Add Param</button>
 
-        <input type="submit" value="Submit" onclick="document.getElementById('form1').action = '/encode/' + document.getElementById('option').value">
+        <input type="submit" value="Submit" onclick="document.getElementById('form1').action = '/textio/' + document.getElementById('option').value">
 
         <textarea id="textarea" name="1" placeholder="1" required></textarea>
 

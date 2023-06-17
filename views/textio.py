@@ -12,7 +12,7 @@ app = Bottle()
 
 @app.route('/', method='GET')
 def home():
-    return template('templates/encode.html')
+    return template('templates/textio.html')
 
 @app.route('/<option>', method='GET')
 def convert(option):

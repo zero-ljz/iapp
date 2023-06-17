@@ -1,13 +1,13 @@
 
 from gevent import monkey; monkey.patch_all()
 from bottle import Bottle, route, run, template, request, response, static_file
-from views import encode, short_url, http_proxy, httpreq
+from views import textio, short_url, http_proxy, httpreq
 
 # 创建 Bottle 应用程序对象
 app = Bottle()
 
 # 注册视图
-app.mount('/encode', encode.app)
+app.mount('/textio', textio.app)
 app.mount('/u', short_url.app)
 app.mount('/http_proxy', http_proxy.app)
 app.mount('/httpreq', httpreq.app)
