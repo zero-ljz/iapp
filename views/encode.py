@@ -29,7 +29,7 @@ def convert(option):
         
         # 灵活的命令执行
         command_args = [value for index, (key, value) in enumerate(dict(params).items())]
-        output = subprocess.run(command_args, capture_output=True, text=True).stdout
+        output = subprocess.run(command_args, capture_output=True, text=True, encoding='utf-8', errors='ignore').stdout
 
     elif option == 'base64':
         if action == 'Decode':
