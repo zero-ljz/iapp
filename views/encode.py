@@ -25,7 +25,7 @@ def convert(option):
     if option == 'cmd':
         # 简单的命令执行
         command = " ".join(f'"{value}"' for index, (key, value) in enumerate(dict(params).items()))
-        output = subprocess.check_output(command, shell=True).decode("utf-8")
+        output = subprocess.check_output(command, shell=True).decode("utf-8", errors="ignore")
         
         # 灵活的命令执行
         # command_args = [value for index, (key, value) in enumerate(dict(params).items())]
