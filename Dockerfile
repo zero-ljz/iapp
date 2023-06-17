@@ -18,8 +18,8 @@ COPY . /app
 
 # 创建具有显式 UID 的非root用户并添加访问 /app 文件夹的权限
 # 如需更多资料，请参阅 https://aka.ms/vscode-docker-python-configure-containers
-RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
-USER appuser
+# RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
+# USER appuser
 
 # 在调试期间，这个入口点将被覆盖。 如需更多资料，请参阅 https://aka.ms/vscode-docker-python-debug
 CMD ["python", "app.py"]

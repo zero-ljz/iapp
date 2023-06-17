@@ -1,6 +1,8 @@
 import base64
 import hashlib
 import binascii
+import urllib
+
 import datetime
 import time
 import subprocess
@@ -14,16 +16,21 @@ def home():
 
 @app.route('/<option>', method='GET')
 def convert(option):
-    params = request.query
+    params = request.query.decode('utf-8')
     text = params.get('1')
     action = params.get('2')
     output = ''
     print(dict(params))
 
     if option == 'cmd':
+        # 简单的命令执行
         command = " ".join(f'"{value}"' for index, (key, value) in enumerate(dict(params).items()))
         output = subprocess.check_output(command, shell=True).decode("utf-8")
         
+        # 灵活的命令执行
+        # command_args = [value for index, (key, value) in enumerate(dict(params).items())]
+        # output = subprocess.run(command_args, capture_output=True, text=True).stdout
+
     elif option == 'base64':
         if action == 'Decode':
             output = base64.b64decode(text).decode('utf-8')
@@ -100,11 +107,27 @@ def convert(option):
                 output = 'Invalid datetime, valid example: 1970-01-01 08:00:00'
         
     elif option == 'unicode_escape':
+        # 字符串转换为 Unicode 转义序列
         if action == 'Decode':
             output = bytes(text, "utf-8").decode("unicode_escape")
+            # bytes(text, "utf-8") 使用 UTF-8 编码将字符串转换为字节序列。
+            # text.encode("utf-8") 显式地指定使用 UTF-8 编码将字符串转换为字节序列。
         else:
             output = text.encode("unicode_escape").decode("utf-8")
-            
+
+    elif option == 'uri':
+        if action == 'Decode':
+            output = urllib.parse.unquote(text)
+        else:
+            output = urllib.parse.quote(text, safe=':/?#[]@!$&\'()*+,;=%')
+
+    elif option == 'uri_component':
+        if action == 'Decode':
+            output = urllib.parse.unquote(text)
+        else:
+            output = urllib.parse.quote(text, safe='/')
+
+
 
     response.headers['Content-Type'] = 'text/plain; charset=UTF-8'
     return f'{output}'
