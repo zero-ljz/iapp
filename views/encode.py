@@ -125,7 +125,7 @@ def convert(option):
         if action == 'Decode':
             output = urllib.parse.unquote(text)
         else:
-            output = urllib.parse.quote(text, safe='/')
+            output = urllib.parse.quote(text).replace('/', '%2F')
 
 
 

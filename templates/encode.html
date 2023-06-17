@@ -4,7 +4,7 @@
 </h1>
 <p>
 
-    <form id="form1" method="get">
+    <form id="form1" method="get" onsubmit="saveFormData()">
         <label for="text">Text to Encode/Decode:</label>
 
         <input type="text" list="optionList" id="option" placeholder="option">
@@ -57,6 +57,9 @@
       const paramName = (textareaCount + 1);
       newTextArea.name = paramName;
       newTextArea.placeholder = paramName;
+
+     // 加载保存的记录
+      newTextArea.value = sessionStorage.getItem(paramName)
   
       // 将新的 textarea 添加到表单中
       const form = document.getElementById('form1');
@@ -64,5 +67,35 @@
   
       // 更新 textareaCount 值
       textareaCount++;
+
+      // 重新加载页面
+      //window.dispatchEvent(new Event('load'));
+    }
+
+    function saveFormData() {
+        const form = document.getElementById('form1');
+        const formData = new FormData(form);
+        for (let pair of formData) {
+            sessionStorage.setItem(pair[0], pair[1]);
+        }
+
+        // 单独处理自动完成文本框
+        const option = document.getElementById('option');
+        sessionStorage.setItem('option',option.value);
+    }
+
+    window.onload = function () {
+        const form = document.getElementById('form1');
+        for (let i = 0; i < form.elements.length; i++) {
+            const element = form.elements[i];
+            const value = sessionStorage.getItem(element.name);
+            if (value) {
+                element.value = value;
+            }
+        }
+
+        // 单独处理自动完成文本框
+        const option = document.getElementById('option');
+        option.value = sessionStorage.getItem('option');
     }
   </script>
