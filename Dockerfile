@@ -11,7 +11,8 @@ ENV PYTHONUNBUFFERED=1
 
 # 安装 pip requirements
 COPY requirements.txt .
-RUN python -m pip install -r requirements.txt
+RUN python -m pip install -r requirements.txt \
+    && apk add curl nodejs npm tree tldr
 
 WORKDIR /app
 COPY . /app

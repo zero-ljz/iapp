@@ -24,12 +24,12 @@ def convert(option):
 
     if option == 'cmd':
         # 简单的命令执行
-        command = " ".join(f'"{value}"' for index, (key, value) in enumerate(dict(params).items()))
-        output = subprocess.check_output(command, shell=True).decode("utf-8", errors="ignore")
+        # command = " ".join(f'"{value}"' for index, (key, value) in enumerate(dict(params).items()))
+        # output = subprocess.check_output(command, shell=True).decode("utf-8", errors="ignore")
         
         # 灵活的命令执行
-        # command_args = [value for index, (key, value) in enumerate(dict(params).items())]
-        # output = subprocess.run(command_args, capture_output=True, text=True).stdout
+        command_args = [value for index, (key, value) in enumerate(dict(params).items())]
+        output = subprocess.run(command_args, capture_output=True, text=True).stdout
 
     elif option == 'base64':
         if action == 'Decode':
