@@ -37,15 +37,27 @@ def json_viewer():
 def code_formatter():
     return template('templates/code_formatter.html')
 
+@app.route('/regex_tester')
+def regex_tester():
+    return template('templates/regex_tester.html')
+
+@app.route('/unit_converter')
+def unit_converter():
+    return template('templates/unit_converter.html')
+
+@app.route('/calculator')
+def calculator():
+    return template('templates/calculator.html')
 
 
-@app.route('/htmlrun')
-def htmlrun():
-    return template('templates/htmlrun.html')
 
-@app.route('/jsrun')
-def jsrun():
-    return template('templates/jsrun.html')
+@app.route('/html_runner')
+def html_runner():
+    return template('templates/html_runner.html')
+
+@app.route('/js_runner')
+def js_runner():
+    return template('templates/js_runner.html')
 
 @app.route('/echo', method=['GET', 'POST'])
 def echo():

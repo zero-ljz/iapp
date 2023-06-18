@@ -1,0 +1,262 @@
+% rebase('templates/base.html', title='单位换算器')
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        /*margin: 20px;*/
+      }
+
+      h1 {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+
+      input[type="number"] {
+        /*width: 100%;*/
+        padding: 5px;
+      }
+
+      select {
+        /*width: 100%;*/
+        padding: 5px;
+      }
+
+      button {
+        margin-top: 10px;
+        padding: 5px 10px;
+      }
+
+      h2 {
+        font-size: 1.2em;
+      }
+    </style>
+
+    
+    <h1>换算工具</h1>
+
+
+
+    <!-- 长度换算 -->
+    <h2>长度换算</h2>
+    <label for="length-from">长度（从）:</label>
+    <input type="number" id="length-from" />
+    <select id="length-from-unit">
+      <option value="mm">毫米</option>
+      <option value="cm">厘米</option>
+      <option value="m">米</option>
+      <option value="km">千米</option>
+    </select>
+
+    <label for="length-to">长度（到）:</label>
+    <input type="number" id="length-to" readonly />
+    <select id="length-to-unit">
+      <option value="mm">毫米</option>
+      <option value="cm">厘米</option>
+      <option value="m">米</option>
+      <option value="km">千米</option>
+    </select>
+
+    <button onclick="convertLength()">转换</button>
+
+    <!-- 重量换算 -->
+    <h2>重量换算</h2>
+    <label for="weight-from">重量（从）:</label>
+    <input type="number" id="weight-from" />
+    <select id="weight-from-unit">
+      <option value="g">克</option>
+      <option value="kg">千克</option>
+      <option value="lb">磅</option>
+      <option value="oz">盎司</option>
+    </select>
+
+    <label for="weight-to">重量（到）:</label>
+    <input type="number" id="weight-to" readonly />
+    <select id="weight-to-unit">
+      <option value="g">克</option>
+      <option value="kg">千克</option>
+      <option value="lb">磅</option>
+      <option value="oz">盎司</option>
+    </select>
+
+    <button onclick="convertWeight()">转换</button>
+
+    <!-- 进制换算 -->
+    <h2>进制换算</h2>
+    <label for="number-from">数值（从）:</label>
+    <input type="number" id="number-from" />
+    <select id="number-from-base">
+      <option value="2">二进制</option>
+      <option value="8">八进制</option>
+      <option value="10">十进制</option>
+      <option value="16">十六进制</option>
+    </select>
+
+    <label for="number-to">数值（到）:</label>
+    <input type="text" id="number-to" readonly />
+    <select id="number-to-base">
+      <option value="2">二进制</option>
+      <option value="8">八进制</option>
+      <option value="10">十进制</option>
+      <option value="16">十六进制</option>
+    </select>
+
+    <button onclick="convertNumber()">转换</button>
+
+    <!-- 时间换算 -->
+    <h2>时间换算</h2>
+    <label for="time-from">时间（从）:</label>
+    <input type="number" id="time-from" />
+    <select id="time-from-unit">
+      <option value="s">秒</option>
+      <option value="min">分钟</option>
+      <option value="h">小时</option>
+      <option value="d">天</option>
+    </select>
+
+    <label for="time-to">时间（到）:</label>
+    <input type="number" id="time-to" readonly />
+    <select id="time-to-unit">
+      <option value="s">秒</option>
+      <option value="min">分钟</option>
+      <option value="h">小时</option>
+      <option value="d">天</option>
+    </select>
+
+    <button onclick="convertTime()">转换</button>
+
+    <script>
+
+
+
+
+      function convertLength() {
+        var lengthFrom = document.getElementById("length-from").value;
+        var lengthFromUnit = document.getElementById("length-from-unit").value;
+        var lengthToUnit = document.getElementById("length-to-unit").value;
+
+        var conversionFactor = getLengthConversionFactor(lengthFromUnit, lengthToUnit);
+        var lengthTo = lengthFrom * conversionFactor;
+
+        document.getElementById("length-to").value = lengthTo;
+      }
+
+      function getLengthConversionFactor(fromUnit, toUnit) {
+        // Conversion factors for different length units
+        var conversionTable = {
+          mm: {
+            cm: 0.1,
+            m: 0.001,
+            km: 0.000001,
+          },
+          cm: {
+            mm: 10,
+            m: 0.01,
+            km: 0.00001,
+          },
+          m: {
+            mm: 1000,
+            cm: 100,
+            km: 0.001,
+          },
+          km: {
+            mm: 1000000,
+            cm: 100000,
+            m: 1000,
+          },
+        };
+
+        return conversionTable[fromUnit][toUnit];
+      }
+
+      function convertWeight() {
+        var weightFrom = document.getElementById("weight-from").value;
+        var weightFromUnit = document.getElementById("weight-from-unit").value;
+        var weightToUnit = document.getElementById("weight-to-unit").value;
+
+        var conversionFactor = getWeightConversionFactor(weightFromUnit, weightToUnit);
+        var weightTo = weightFrom * conversionFactor;
+
+        document.getElementById("weight-to").value = weightTo;
+      }
+
+      function getWeightConversionFactor(fromUnit, toUnit) {
+        // Conversion factors for different weight units
+        var conversionTable = {
+          g: {
+            kg: 0.001,
+            lb: 0.00220462,
+            oz: 0.035274,
+          },
+          kg: {
+            g: 1000,
+            lb: 2.20462,
+            oz: 35.274,
+          },
+          lb: {
+            g: 453.592,
+            kg: 0.453592,
+            oz: 16,
+          },
+          oz: {
+            g: 28.3495,
+            kg: 0.0283495,
+            lb: 0.0625,
+          },
+        };
+
+        return conversionTable[fromUnit][toUnit];
+      }
+
+      function convertNumber() {
+        var numberFrom = document.getElementById("number-from").value;
+        var numberFromBase = document.getElementById("number-from-base").value;
+        var numberToBase = document.getElementById("number-to-base").value;
+
+        var numberTo = parseInt(numberFrom, numberFromBase).toString(numberToBase);
+
+        document.getElementById("number-to").value = numberTo;
+      }
+
+      function convertTime() {
+        var timeFrom = document.getElementById("time-from").value;
+        var timeFromUnit = document.getElementById("time-from-unit").value;
+        var timeToUnit = document.getElementById("time-to-unit").value;
+
+        var conversionFactor = getTimeConversionFactor(timeFromUnit, timeToUnit);
+        var timeTo = timeFrom * conversionFactor;
+
+        document.getElementById("time-to").value = timeTo;
+      }
+
+      function getTimeConversionFactor(fromUnit, toUnit) {
+        // Conversion factors for different time units
+        var conversionTable = {
+          s: {
+            min: 1 / 60,
+            h: 1 / 3600,
+            d: 1 / 86400,
+          },
+          min: {
+            s: 60,
+            h: 1 / 60,
+            d: 1 / 1440,
+          },
+          h: {
+            s: 3600,
+            min: 60,
+            d: 1 / 24,
+          },
+          d: {
+            s: 86400,
+            min: 1440,
+            h: 24,
+          },
+        };
+
+        return conversionTable[fromUnit][toUnit];
+      }
+    </script>

@@ -1,0 +1,161 @@
+% rebase('templates/base.html', title='正则表达式测试工具')
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        /*margin: 20px;*/
+      }
+
+      textarea {
+        width: 100%;
+        height: 200px;
+      }
+
+      button {
+        margin-top: 10px;
+        padding: 5px 10px;
+      }
+
+      #result {
+        margin-top: 20px;
+        white-space: pre-wrap;
+      }
+
+      .match {
+        background-color: yellow;
+        font-weight: bold;
+      }
+
+      .group {
+        color: blue;
+      }
+
+      #regex-reference {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+
+      label {
+        display: inline;
+      }
+    </style>
+
+    <h1>正则表达式测试工具</h1>
+    <p>输入要测试的文本和正则表达式，并实时显示匹配结果。</p>
+
+    <textarea id="input-text" placeholder="在此处输入文本" oninput="testRegex()"></textarea>
+    <textarea id="input-regex" placeholder="在此处输入正则表达式" oninput="testRegex()"></textarea>
+    <label for="global-match">
+      <input type="checkbox" id="global-match" onchange="testRegex()" />
+      全局匹配
+    </label>
+    <label for="case-insensitive">
+      <input type="checkbox" id="case-insensitive" onchange="testRegex()" />
+      忽略大小写
+    </label>
+    <label for="ignore-whitespace">
+      <input type="checkbox" id="ignore-whitespace" onchange="testRegex()" />
+      忽略空白
+    </label>
+    <label for="show-match-positions">
+      <input type="checkbox" id="show-match-positions" onchange="testRegex()" />
+      显示匹配位置
+    </label>
+    <div>
+    <input type="text" id="replace-text" oninput="testRegex()" /> <button onclick="replaceText()">replace</button>
+    </div>
+    <div id="result"></div>
+
+    <div id="regex-reference">
+      <ul>
+        <li><strong>.</strong>：匹配任意单个字符（除了换行符）</li>
+        <li><strong>\d</strong>：匹配数字字符</li>
+        <li><strong>\w</strong>：匹配单词字符（字母、数字、下划线）</li>
+        <li><strong>\s</strong>：匹配空白字符（空格、制表符、换行符等）</li>
+        <li><strong>*</strong>：匹配前面的元素零次或多次</li>
+        <li><strong>+</strong>：匹配前面的元素一次或多次</li>
+        <li><strong>?</strong>：匹配前面的元素零次或一次</li>
+        <li><strong>{n}</strong>：匹配前面的元素恰好 n 次</li>
+        <li><strong>{n,}</strong>：匹配前面的元素至少 n 次</li>
+        <li><strong>{n,m}</strong>：匹配前面的元素至少 n 次但不超过 m 次</li>
+        <li><strong>[abc]</strong>：匹配包含在括号内的任意字符（a、b 或 c）</li>
+        <li><strong>[^abc]</strong>：匹配不包含在括号内的任意字符</li>
+        <li><strong>(...)</strong>：捕获匹配的子表达式</li>
+        <li><strong>|</strong>：匹配两个或多个选择之一</li>
+      </ul>
+    </div>
+
+    <script>
+      function testRegex() {
+        var text = document.getElementById("input-text").value;
+        var regexString = document.getElementById("input-regex").value;
+        var globalMatch = document.getElementById("global-match").checked;
+        var caseInsensitive = document.getElementById("case-insensitive").checked;
+        var ignoreWhitespace = document.getElementById("ignore-whitespace").checked;
+        var showMatchPositions = document.getElementById("show-match-positions").checked;
+
+        var flags = (globalMatch ? "g" : "") + (caseInsensitive ? "i" : "");
+
+        try {
+          var regex = new RegExp(regexString, flags);
+          var matches = text.match(regex);
+
+          if (matches) {
+            var result = text;
+
+            if (ignoreWhitespace) {
+              result = result.replace(/\s/g, "");
+            }
+
+            result = result.replace(regex, function (match) {
+              var className = "match";
+              if (showMatchPositions) {
+                var startIndex = result.indexOf(match);
+                var endIndex = startIndex + match.length;
+                return (
+                  '<span class="' +
+                  className +
+                  '">' +
+                  match +
+                  ' <span class="group">(' +
+                  startIndex +
+                  "-" +
+                  endIndex +
+                  ")</span></span>"
+                );
+              } else {
+                return '<span class="' + className + '">' + match + "</span>";
+              }
+            });
+
+            document.getElementById("result").innerHTML = result;
+          } else {
+            document.getElementById("result").textContent = "无匹配结果";
+          }
+        } catch (error) {
+          document.getElementById("result").textContent =
+            "错误: " + error.message;
+        }
+      }
+
+      function replaceText() {
+        var text = document.getElementById("input-text").value;
+        var regexString = document.getElementById("input-regex").value;
+        var replaceString = document.getElementById("replace-text").value;
+        var globalMatch = document.getElementById("global-match").checked;
+        var caseInsensitive = document.getElementById("case-insensitive").checked;
+
+        var flags = (globalMatch ? "g" : "") + (caseInsensitive ? "i" : "");
+
+        try {
+          var regex = new RegExp(regexString, flags);
+          var replacedText = text.replace(regex, replaceString);
+          document.getElementById("input-text").value = replacedText;
+          testRegex();
+        } catch (error) {
+          document.getElementById("result").textContent =
+            "错误: " + error.message;
+        }
+      }
+    </script>
