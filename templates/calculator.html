@@ -35,7 +35,7 @@
     
     <div id="calculator">
       <h3>计算器</h3>
-      <input type="text" id="result" readonly>
+      <input type="text" id="calc_result" readonly>
       <div id="buttons">
         <button class="number" onclick="appendValue('7')">7</button>
         <button class="number" onclick="appendValue('8')">8</button>
@@ -91,18 +91,18 @@
 
 
       function appendValue(value) {
-        var input = document.getElementById('result');
+        var input = document.getElementById('calc_result');
         input.value += value;
       }
   
       function calculate() {
-        var input = document.getElementById('result');
+        var input = document.getElementById('calc_result');
         var result = eval(input.value);
         input.value = result;
       }
   
       function clearInput() {
-        var input = document.getElementById('result');
+        var input = document.getElementById('calc_result');
         input.value = '';
       }
 
