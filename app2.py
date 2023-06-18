@@ -24,8 +24,6 @@ def run_task(task):
         logging.info(f"Executing task: {task['url']}")
         asyncio.set_event_loop(asyncio.new_event_loop())
         asyncio.get_event_loop().run_until_complete(do_request(task))
-    else:
-        logging.info(f"Task '{task['url']}' is not within the specified date range. Skipping...")
 
 async def do_request(task):
     async with aiohttp.ClientSession() as session:
@@ -57,8 +55,7 @@ def add_task(url, start_time, end_time, interval):
     task['job'] = schedule.every(interval).seconds.do(run_task, task)
 
 def cancel_task(task):
-    # if task['job']:
-    #     task['job'].cancel()
+    schedule.cancel_job(task['job'])
     tasks.remove(task)
 
     # 添加日志记录
