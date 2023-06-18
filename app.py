@@ -2,6 +2,11 @@
 from gevent import monkey; monkey.patch_all()
 from bottle import Bottle, route, run, template, request, response, static_file
 from views import textio, short_url, http_proxy, httpreq
+import logging
+import time
+
+# 设置日志记录的配置
+logging.basicConfig(filename='app.log', level=logging.INFO)
 
 # 创建 Bottle 应用程序对象
 app = Bottle()
@@ -73,7 +78,11 @@ def echo():
     response.headers['Content-Language'] = 'zh-CN'
     response.headers['Server'] = 'nginx'
 
-    return f'IP Address: {client_ip}\n\n' + '\n'.join([f"{key}: {value}" for key, value in response.headerlist]) + '\n\n' + f'{request_line}\n{headers}\n\n{request.body.read().decode("utf-8")}'
+    resp = f'IP Address: {client_ip}\n' + f'Date: {time.strftime("%Y-%m-%d %H:%M:%S")}\n' + f'Timestamp: {int(time.time())}\n\n' + '\n'.join([f"{key}: {value}" for key, value in response.headerlist]) + '\n\n' + f'{request_line}\n{headers}\n\n{request.body.read().decode("utf-8")}'
+
+    logging.info(resp)
+
+    return resp
 
 @app.route('/static/<filename:path>')
 def serve_static(filename):

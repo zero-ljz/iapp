@@ -11,7 +11,7 @@ tasks = []  # 存储任务信息的列表
 
 @app.route('/')
 def home():
-    return template('index.html', tasks=tasks)
+    return template('index1.html', tasks=tasks)
 
 @app.route('/add_task', method='POST')
 def add_task():
@@ -105,7 +105,7 @@ if __name__ == '__main__':
 
     try:
         # 启动Bottle应用
-        app.run(host='127.0.0.1', port=3000)
+        app.run(host='127.0.0.1', port=8001, debug=True, reloader=True)
     finally:
         # 取消所有定时任务
         cancel_all_tasks()
