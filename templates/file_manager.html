@@ -42,6 +42,7 @@
         <button @click="moveSelected">Move Selected</button>
     </div>
     <ul>
+    <li><a href="#" @click="goToParentDirectory">../</a></li>
       <li v-for="file in files" :key="file.name">
         <input type="checkbox" v-model="file.selected" :value="file.path">
         <a href="#" @click="handleFileClick(file)">{{ file.name }}</a>
@@ -78,6 +79,10 @@
           .catch(error => {
             console.error(error);
           });
+        },
+        goToParentDirectory() {
+            this.currentDirectory = this.currentDirectory.replace(/\\/g, '/').split('/').slice(0, -1).join('/');
+            this.getFileList();
         },
         createDirectory() {
           axios.post('/file_manager/directories', {
