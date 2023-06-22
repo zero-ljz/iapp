@@ -81,7 +81,7 @@
           });
         },
         goToParentDirectory() {
-            this.currentDirectory = this.currentDirectory.replace(/\\/g, '/').split('/').slice(0, -1).join('/');
+            this.currentDirectory = this.currentDirectory.replace(/\\/g, '/').replace(/\/[^/]*$/, '');
             this.getFileList();
         },
         createDirectory() {
