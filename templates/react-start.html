@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>最简单的单页应用程序</title>
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    // 定义一个简单的组件
+    function App() {
+      return (
+        <div>
+          <h1>Hello, World!</h1>
+          <p>This is the simplest single-page application using React.</p>
+        </div>
+      );
+    }
+
+    // 将组件渲染到根元素
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>

@@ -16,7 +16,7 @@
                 </select>
                 <br>
                 <label for="headers">Headers:</label>
-                <textarea name="headers" id="headers" v-model="headers" rows="4" placeholder="Enter headers (optional)"></textarea>
+                <textarea name="headers" id="headers" v-model="headers" rows="4" placeholder="Enter headers (optional)">Accept: */*</textarea>
                 <br>
                 <label for="body">Body:</label>
                 <textarea name="body" id="body" v-model="body" rows="4" placeholder="Enter request body (optional)"></textarea>
@@ -50,7 +50,11 @@
                   return {
                     url: '',
                     method: 'GET',
-                    headers: '',
+                    headers: `Accept: */*
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.51
+Referer: https://iapp.run/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8`,
                     body: '',
                     response: ''
                   };

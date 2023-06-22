@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>File Manager</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>File Manager</h1>
+    <div>
+      <label for="directory">Current Directory: </label>
+      <input type="text" id="directory" v-model="currentDirectory">
+      <button @click="getFileList">Get Files</button>
+    </div>
+    <div>
+      <label for="newDirectory">New Directory Name: </label>
+      <input type="text" id="newDirectory" v-model="newDirectoryName">
+      <button @click="createDirectory">Create Directory</button>
+    </div>
+    <div>
+      <input type="file" ref="fileInput" @change="uploadFile">
+      <button @click="openFileInput">Upload Local File</button>
+    </div>
+    <div>
+      <input type="text" v-model="remoteURL">
+      <button @click="uploadRemoteFile">Upload Remote File</button>
+    </div>
+    <div>
+      <input type="text" v-model="zipFilename">
+      <button @click="packFiles">Pack Files</button>
+    </div>
+    <div>
+      <label for="unpackFilename">ZIP File to Unpack: </label>
+      <input type="text" id="unpackFilename" v-model="unpackFilename">
+      <button @click="unpackFiles">Unpack Files</button>
+    </div>
+    <div>
+        <button @click="deleteSelected">Delete Selected</button>
+        <button @click="copySelected">Copy Selected</button>
+        <button @click="moveSelected">Move Selected</button>
+    </div>
+    <ul>
+      <li v-for="file in files" :key="file.name">
+        <input type="checkbox" v-model="file.selected" :value="file.path">
+        <a href="#" @click="handleFileClick(file)">{{ file.name }}</a>
+        <button @click="deleteFile(file.path)">Delete</button>
+        <button @click="copyFile(file.path)">Copy</button>
+        <button @click="moveFile(file.path)">Move</button>
+        <button @click="renameFile(file.path)">Rename</button>
+        <button v-if="!file.is_directory" @click="downloadFile(file.path)">Download</button>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        currentDirectory: '/',
+        newDirectoryName: '',
+        remoteURL: '',
+        zipFilename: '',
+        unpackFilename: '',
+        files: []
+      },
+      methods: {
+        getFileList() {
+          axios.get('/file_manager/files', {
+            params: {
+              directory: this.currentDirectory
+            }
+          })
+          .then(response => {
+            this.files = response.data.files;
+          })
+          .catch(error => {
+            console.error(error);
+          });
+        },
+        createDirectory() {
+          axios.post('/file_manager/directories', {
+            directory: this.currentDirectory + '/' + this.newDirectoryName
+          })
+          .then(response => {
+            console.log(response.data.message);
+            this.getFileList();
+          })
+          .catch(error => {
+            console.error(error);
+          });
+        },
+        deleteFile(filename) {
+          axios.delete(`/file_manager/files/${encodeURIComponent(filename)}`)
+          .then(response => {
+            console.log(response.data.message);
+            this.getFileList();
+          })
+          .catch(error => {
+            console.error(error);
+          });
+        },
+        copyFile(filename) {
+          const destination = prompt('Enter destination path:');
+          if (destination) {
+            this.performFileAction('copy', filename, destination);
+          }
+        },
+        moveFile(filename) {
+          const destination = prompt('Enter destination path:');
+          if (destination) {
+            this.performFileAction('move', filename, destination);
+          }
+        },
+        renameFile(filename) {
+          const newFilename = prompt('Enter new filename:');
+          if (newFilename) {
+            this.performFileAction('rename', filename, newFilename);
+          }
+        },
+
+
+        deleteSelected() {
+            // 批量删除选中的文件/目录
+            axios.post("/file_manager/files/delete", { files: this.getSelectedFiles() })
+                .then(response => {
+                    console.log(response.data.message);
+                    // 刷新文件列表
+                    this.getFileList();
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
+        copySelected() {
+            // 批量复制选中的文件/目录
+            const destination = prompt('Enter destination path:');
+            if (destination) {
+                axios.post("/file_manager/files/copy", { files: this.getSelectedFiles(), destination: destination })
+                    .then(response => {
+                        console.log(response.data.message);
+                        // 刷新文件列表
+                        this.getFileList();
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+        },
+        moveSelected() {
+            // 批量移动选中的文件/目录
+            const destination = prompt('Enter destination path:');
+            if (destination) {
+                axios.post("/file_manager/files/move", { files: this.getSelectedFiles(), destination: destination })
+                    .then(response => {
+                        console.log(response.data.message);
+                        // 刷新文件列表
+                        this.getFileList();
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+        },
+
+
+        
+        performFileAction(action, filename, destination) {
+          axios.post(`/file_manager/files/${encodeURIComponent(filename)}/actions`, {
+            action: action,
+            destination: destination
+          })
+          .then(response => {
+            console.log(response.data.message);
+            this.getFileList();
+          })
+          .catch(error => {
+            console.error(error);
+          });
+        },
+        downloadFile(filename) {
+          window.location.href = `/file_manager/files/download/${encodeURIComponent(filename)}`;
+        },
+        handleFileClick(file) {
+          if (file.is_directory) {
+            this.currentDirectory = file.path;
+            this.getFileList();
+          } else {
+            this.downloadFile(file.path);
+          }
+        },
+        openFileInput() {
+          this.$refs.fileInput.click();
+        },
+        uploadFile(event) {
+          const file = event.target.files[0];
+          const formData = new FormData();
+          formData.append('file', file);
+          formData.append('directory', this.currentDirectory);
+
+          axios.post('/file_manager/files/upload', formData)
+          .then(response => {
+            console.log(response.data.message);
+            this.getFileList();
+          })
+          .catch(error => {
+            console.error(error);
+          });
+        },
+        uploadRemoteFile() {
+          axios.post('/file_manager/files/upload/remote', {
+            directory: this.currentDirectory,
+            url: this.remoteURL
+          })
+          .then(response => {
+            console.log(response.data.message);
+            this.getFileList();
+          })
+          .catch(error => {
+            console.error(error);
+          });
+        },
+        packFiles() {
+          axios.post('/file_manager/files/pack', {
+            files: this.getSelectedFiles(),
+            zip_filename: this.zipFilename
+          })
+          .then(response => {
+            console.log(response.data.message);
+            this.getFileList();
+          })
+          .catch(error => {
+            console.error(error);
+          });
+        },
+        unpackFiles() {
+          axios.post('/file_manager/files/unpack', {
+            zip_filename: this.unpackFilename,
+            extract_directory: this.currentDirectory
+          })
+          .then(response => {
+            console.log(response.data.message);
+            this.getFileList();
+          })
+          .catch(error => {
+            console.error(error);
+          });
+        },
+        getSelectedFiles() {
+          return this.files.filter(file => file.selected).map(file => file.path);
+        }
+      },
+      mounted() {
+        this.getFileList();
+      }
+    });
+  </script>
+</body>
+</html>

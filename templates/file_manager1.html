@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>File Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .file-manager {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .directory-input {
+      margin-bottom: 10px;
+    }
+
+    .file-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .file-list li {
+      margin-bottom: 5px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .actions input[type="text"] {
+      margin-right: 5px;
+    }
+
+    .actions button {
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script>
+    const { useState, useEffect } = React;
+
+    function FileManager() {
+      const [directory, setDirectory] = useState("/");
+      const [fileList, setFileList] = useState([]);
+      const [newDirectory, setNewDirectory] = useState("");
+      const [newFilename, setNewFilename] = useState("");
+      const [destination, setDestination] = useState("");
+
+      useEffect(() => {
+        fetchFileList();
+      }, [directory]);
+
+      const fetchFileList = () => {
+        axios
+          .get("/file_manager/files", {
+            params: {
+              directory: directory,
+            },
+          })
+          .then((response) => {
+            setFileList(response.data.files);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+
+      const handleCreateDirectory = () => {
+        axios
+          .post("/file_manager/directories", {
+            directory: `${directory}/${newDirectory}`,
+          })
+          .then(() => {
+            setNewDirectory("");
+            fetchFileList();
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+
+      const handleDeleteFile = (filename) => {
+        axios
+          .delete(`/files/${directory}/${filename}`)
+          .then(() => {
+            fetchFileList();
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+
+      const handleFileAction = (action, filename) => {
+        const data = {
+          action: action,
+          destination: `${directory}/${destination}`,
+        };
+
+        axios
+          .post(`/file_manager/files/${directory}/${filename}/actions`, data)
+          .then(() => {
+            setDestination("");
+            fetchFileList();
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+
+      const handlePackFiles = () => {
+        const filesToPack = fileList.filter((file) => file.selected).map((file) => `${directory}/${file.name}`);
+        const zipFilename = `${directory}.zip`;
+
+        axios
+          .post("/file_manager/files/pack", {
+            files: filesToPack,
+            zip_filename: zipFilename,
+          })
+          .then(() => {
+            fetchFileList();
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+
+      const handleUnpackFiles = () => {
+        const zipFilename = document.getElementById("zipFilename").value;
+        const extractDirectory = `${directory}/`;
+
+        axios
+          .post("/file_manager/files/unpack", {
+            zip_filename: zipFilename,
+            extract_directory: extractDirectory,
+          })
+          .then(() => {
+            fetchFileList();
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+
+      const handleUploadFile = (event) => {
+        const file = event.target.files[0];
+        const formData = new FormData();
+        formData.append("file", file);
+
+        axios
+          .post("/file_manager/files/upload", formData, {
+            params: {
+              directory: directory,
+            },
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then(() => {
+            fetchFileList();
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+
+      const handleRemoteUpload = () => {
+        const url = document.getElementById("remoteURL").value;
+
+        axios
+          .post("/file_manager/files/upload/remote", null, {
+            params: {
+              directory: directory,
+              url: url,
+            },
+          })
+          .then(() => {
+            fetchFileList();
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+
+      return React.createElement(
+        "div",
+        { className: "file-manager" },
+        React.createElement("h1", null, "File Manager"),
+        React.createElement(
+          "div",
+          { className: "directory-input" },
+          React.createElement("label", null, "Directory: "),
+          React.createElement("input", {
+            type: "text",
+            value: directory,
+            onChange: (e) => setDirectory(e.target.value),
+          })
+        ),
+        React.createElement(
+          "ul",
+          { className: "file-list" },
+          fileList.map((file) =>
+            React.createElement(
+              "li",
+              { key: file.name },
+              React.createElement("span", null, file.name),
+              React.createElement(
+                "button",
+                { onClick: () => handleDeleteFile(file.name) },
+                "Delete"
+              ),
+              React.createElement(
+                "button",
+                { onClick: () => handleFileAction("copy", file.name) },
+                "Copy"
+              ),
+              React.createElement(
+                "button",
+                { onClick: () => handleFileAction("move", file.name) },
+                "Move"
+              ),
+              React.createElement(
+                "button",
+                { onClick: () => handleFileAction("rename", file.name) },
+                "Rename"
+              ),
+              React.createElement("input", {
+                type: "checkbox",
+                checked: file.selected,
+                onChange: () => (file.selected = !file.selected),
+              })
+            )
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "actions" },
+          React.createElement("input", {
+            type: "text",
+            placeholder: "New Directory",
+            value: newDirectory,
+            onChange: (e) => setNewDirectory(e.target.value),
+          }),
+          React.createElement(
+            "button",
+            { onClick: handleCreateDirectory },
+            "Create Directory"
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "actions" },
+          React.createElement("input", {
+            type: "text",
+            placeholder: "New Filename",
+            value: newFilename,
+            onChange: (e) => setNewFilename(e.target.value),
+          }),
+          React.createElement("input", {
+            type: "text",
+            placeholder: "Destination",
+            value: destination,
+            onChange: (e) => setDestination(e.target.value),
+          }),
+          React.createElement(
+            "button",
+            { onClick: () => handleFileAction("copy", newFilename) },
+            "Copy"
+          ),
+          React.createElement(
+            "button",
+            { onClick: () => handleFileAction("move", newFilename) },
+            "Move"
+          ),
+          React.createElement(
+            "button",
+            { onClick: () => handleFileAction("rename", newFilename) },
+            "Rename"
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "actions" },
+          React.createElement("button", { onClick: handlePackFiles }, "Pack Files")
+        ),
+        React.createElement(
+          "div",
+          { className: "actions" },
+          React.createElement("input", {
+            type: "text",
+            id: "zipFilename",
+            placeholder: "ZIP Filename",
+          }),
+          React.createElement(
+            "button",
+            { onClick: handleUnpackFiles },
+            "Unpack Files"
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "actions" },
+          React.createElement("input", { type: "file", onChange: handleUploadFile })
+        ),
+        React.createElement(
+          "div",
+          { className: "actions" },
+          React.createElement("input", {
+            type: "text",
+            id: "remoteURL",
+            placeholder: "Remote URL",
+          }),
+          React.createElement(
+            "button",
+            { onClick: handleRemoteUpload },
+            "Upload Remote File"
+          )
+        )
+      );
+      
+      }
+      
+      ReactDOM.render(
+        React.createElement(FileManager, null),
+        document.getElementById("root")
+      );
+  </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Manager</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/@material-ui/core@4.12.3/umd/material-ui.development.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script>
+    function FileExplorer() {
+      const [files, setFiles] = React.useState([]);
+      const [currentDirectory, setCurrentDirectory] = React.useState("/");
+      const [newDirectoryName, setNewDirectoryName] = React.useState("");
+
+      React.useEffect(() => {
+        fetchFiles();
+      }, [currentDirectory]);
+
+      function fetchFiles() {
+        axios.get(`/file_manager/files?directory=${encodeURIComponent(currentDirectory)}`)
+          .then(response => {
+            setFiles(response.data.files);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+
+      function createDirectory() {
+        axios.post("/directories", { directory: currentDirectory + newDirectoryName })
+          .then(() => {
+            fetchFiles();
+            setNewDirectoryName("");
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+
+      function deleteFile(filename) {
+        axios.delete(`/file_manager/files/${encodeURIComponent(filename)}`)
+          .then(() => {
+            fetchFiles();
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+
+      function handleNewDirectoryNameChange(event) {
+        setNewDirectoryName(event.target.value);
+      }
+
+      function handleDirectoryChange(directory) {
+        setCurrentDirectory(directory);
+      }
+
+      return React.createElement("div", null,
+        React.createElement("h1", null, "File Manager"),
+        React.createElement("div", null,
+          React.createElement("button", { onClick: () => handleDirectoryChange("/") }, "Root")
+        ),
+        React.createElement("div", null,
+          React.createElement("button", { onClick: () => handleDirectoryChange(currentDirectory + "..") }, "Parent Directory")
+        ),
+        React.createElement("div", null,
+          React.createElement("input", { type: "text", value: newDirectoryName, onChange: handleNewDirectoryNameChange }),
+          React.createElement("button", { onClick: createDirectory }, "New Directory")
+        ),
+        React.createElement("ul", null,
+          files.map((file, index) =>
+            React.createElement("li", { key: index },
+              file,
+              React.createElement("button", { onClick: () => deleteFile(file) }, "Delete")
+            )
+          )
+        )
+      );
+    }
+
+    ReactDOM.render(
+      React.createElement(FileExplorer, null),
+      document.getElementById("root")
+    );
+  </script>
+</body>
+
+</html>

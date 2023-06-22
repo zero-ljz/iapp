@@ -1,5 +1,6 @@
 from bottle import Bottle, request, template
 import requests
+from requests.utils import parse_dict_header
 
 app = Bottle()
 
@@ -23,7 +24,7 @@ def send_request():
 
     # 发送请求并获取响应
     try:
-        response = requests.request(method, url, headers=headers, data=body)
+        response = requests.request(method, url, headers=parse_dict_header(headers), data=body)
         return template('templates/httpreq.html', response=response.text)
     except requests.exceptions.RequestException as e:
         return template('templates/httpreq.html', response=str(e))

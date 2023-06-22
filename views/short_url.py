@@ -52,7 +52,7 @@ def home():
 
 @app.route('/shorten', method='GET')
 def shorten():
-    long_url = request.query.get('url')
+    long_url = request.query.get('url').strip()
     custom_suffix = request.query.get('suffix')
     if long_url:
         if custom_suffix:

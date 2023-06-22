@@ -1,7 +1,7 @@
 
 from gevent import monkey; monkey.patch_all()
 from bottle import Bottle, route, run, template, request, response, static_file
-from views import textio, short_url, http_proxy, httpreq
+from views import textio, short_url, http_proxy, httpreq, file_manager, db_manager
 import logging
 import time
 
@@ -16,6 +16,8 @@ app.mount('/textio', textio.app)
 app.mount('/u', short_url.app)
 app.mount('/http_proxy', http_proxy.app)
 app.mount('/httpreq', httpreq.app)
+app.mount('/file_manager', file_manager.app)
+app.mount('/db_manager', db_manager.app)
 
 # 定义路由和处理函数
 @app.route('/')
