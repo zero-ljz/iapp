@@ -156,7 +156,7 @@ def pack_files():
     files_to_pack = request.json.get("files")  # 获取要打包的文件列表
     zip_filename = request.json.get("zip_filename")  # 获取目标 ZIP 文件名
 
-    command_args = ["zip", "-r", zip_filename] + files_to_pack  # 构造命令行参数
+    command_args = ["zip", "-r", "-q", zip_filename] + files_to_pack  # 构造命令行参数
     print(command_args)
     stdout = subprocess.run(command_args, capture_output=True, text=True, encoding='utf-8', errors='ignore').stdout
     return {"message": stdout}
