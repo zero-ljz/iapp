@@ -2,6 +2,7 @@ import os
 import shutil
 import urllib.request
 import zipfile
+import subprocess
 from bottle import Bottle, request, response, static_file, template
 
 app = Bottle()
@@ -152,21 +153,26 @@ def move_files():
 # 打包文件或目录
 @app.post("/files/pack")
 def pack_files():
-    files_to_pack = request.json.get("files")
-    zip_filename = request.json.get("zip_filename")
+    files_to_pack = request.json.get("files")  # 获取要打包的文件列表
+    zip_filename = request.json.get("zip_filename")  # 获取目标 ZIP 文件名
 
-    with zipfile.ZipFile(zip_filename, "w") as zip_file:
-        for file_name in files_to_pack:
-            file_path = os.path.abspath(file_name)
-            if os.path.isfile(file_path):
-                zip_file.write(file_path, os.path.basename(file_path))
-            elif os.path.isdir(file_path):
-                for root, _, files in os.walk(file_path):
+    command_args = ["zip", "-r", zip_filename] + files_to_pack  # 构造命令行参数
+    print(command_args)
+    stdout = subprocess.run(command_args, capture_output=True, text=True, encoding='utf-8', errors='ignore').stdout
+    return {"message": stdout}
+
+    with zipfile.ZipFile(zip_filename, "w", zipfile.ZIP_DEFLATED) as zip_file:  # 创建 ZIP 文件对象
+        for file_path in files_to_pack:
+            file_name = os.path.basename(file_path)  # 获取文件名
+            if os.path.isfile(file_path):  # 如果是文件
+                zip_file.write(file_path, arcname=file_name)  # 将文件写入 ZIP，使用文件名作为目标路径
+            elif os.path.isdir(file_path):  # 如果是目录
+                base_dir = os.path.basename(file_path)  # 获取目录的基本名称
+                for root, dirs, files in os.walk(file_path):  # 遍历目录中的文件和子目录
                     for file in files:
-                        file_path = os.path.join(root, file)
-                        zip_file.write(file_path, os.path.relpath(file_path, file_path))
+                        zip_file.write(os.path.join(root, file), os.path.relpath(os.path.join(root, file), os.path.join(file_path, '..')))
 
-    return {"message": "Files packed successfully."}
+    return {"message": "Files packed successfully."}  # 返回成功消息
 
 
 # 解压文件

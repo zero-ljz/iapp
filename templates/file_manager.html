@@ -41,11 +41,14 @@
         <button @click="copySelected">Copy Selected</button>
         <button @click="moveSelected">Move Selected</button>
     </div>
+    <div>
+    <input type="checkbox" v-model="selectAll" @change="toggleSelectAll"> 全选
+    </div>
     <ul>
     <li><a href="#" @click="goToParentDirectory">../</a></li>
       <li v-for="file in files" :key="file.name">
-        <input type="checkbox" v-model="file.selected" :value="file.path">
-        <a href="#" @click="handleFileClick(file)">{{ file.name }}</a>
+        <input type="checkbox" v-model="file.selected">
+        <a href="#" @click="handleFileClick(file)" :value="file.path">{{ file.name }}</a>
         <button @click="deleteFile(file.path)">Delete</button>
         <button @click="copyFile(file.path)">Copy</button>
         <button @click="moveFile(file.path)">Move</button>
@@ -64,7 +67,8 @@
         remoteURL: '',
         zipFilename: '',
         unpackFilename: '',
-        files: []
+        files: [],
+        selectAll: false // 全选按钮的状态
       },
       methods: {
         getFileList() {
@@ -79,6 +83,12 @@
           .catch(error => {
             console.error(error);
           });
+        },
+        toggleSelectAll() {
+            // 切换全选按钮的状态
+            for (let file of this.files) {
+              file.selected = this.selectAll;
+            }
         },
         goToParentDirectory() {
             this.currentDirectory = this.currentDirectory.replace(/\\/g, '/').split('/').slice(0, -1).join('/');
