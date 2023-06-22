@@ -83,8 +83,8 @@
         goToParentDirectory() {
             this.currentDirectory = this.currentDirectory.replace(/\\/g, '/').split('/').slice(0, -1).join('/');
             // 检查上级目录是否为空
-            if (parentDirectory === '') {
-                parentDirectory = '/';
+            if (this.currentDirectory === '') {
+                this.currentDirectory = '/';
             }
             this.getFileList();
         },
