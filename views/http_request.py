@@ -1,3 +1,4 @@
+import codecs
 from bottle import Bottle, request, template
 import requests
 from requests.utils import parse_dict_header
@@ -6,7 +7,7 @@ app = Bottle()
 
 @app.route('/')
 def index():
-    return template('templates/httpreq.html', response='')
+    return template('templates/http_request/index.html', response='')
 
 @app.route('/send', method='POST')
 def send_request():
@@ -25,8 +26,9 @@ def send_request():
     # 发送请求并获取响应
     try:
         response = requests.request(method, url, headers=parse_dict_header(headers), data=body)
-        return template('templates/httpreq.html', response=response.text)
+        content = response.content.decode(response.encoding, errors='ignore')
+        return template('templates/http_request/result.html', response=content)
     except requests.exceptions.RequestException as e:
-        return template('templates/httpreq.html', response=str(e))
+        return template('templates/http_request/index.html', response=str(e))
 
 

@@ -1,7 +1,7 @@
 
 from gevent import monkey; monkey.patch_all()
 from bottle import Bottle, route, run, template, request, response, static_file
-from views import textio, short_url, http_proxy, httpreq, file_manager, db_manager
+from views import http_request, sql_executor, textio, short_url, http_proxy
 import logging
 import time
 
@@ -12,12 +12,11 @@ logging.basicConfig(filename='app.log', level=logging.INFO)
 app = Bottle()
 
 # 注册视图
-app.mount('/textio', textio.app)
+app.mount('/c', textio.app)
 app.mount('/u', short_url.app)
-app.mount('/http_proxy', http_proxy.app)
-app.mount('/httpreq', httpreq.app)
-app.mount('/file_manager', file_manager.app)
-app.mount('/db_manager', db_manager.app)
+app.mount('/http-proxy', http_proxy.app)
+app.mount('/http-request', http_request.app)
+app.mount('/sql-executor', sql_executor.app)
 
 # 定义路由和处理函数
 @app.route('/')
@@ -36,19 +35,19 @@ def html5gallery():
 def color_hex_value_list():
     return template('templates/color_hex_value_list.html')
 
-@app.route('/json_viewer')
+@app.route('/json-viewer')
 def json_viewer():
     return template('templates/json_viewer.html')
 
-@app.route('/code_formatter')
+@app.route('/code-formatter')
 def code_formatter():
     return template('templates/code_formatter.html')
 
-@app.route('/regex_tester')
+@app.route('/regex-tester')
 def regex_tester():
     return template('templates/regex_tester.html')
 
-@app.route('/unit_converter')
+@app.route('/unit-converter')
 def unit_converter():
     return template('templates/unit_converter.html')
 
@@ -58,31 +57,32 @@ def calculator():
 
 
 
-@app.route('/html_runner')
+@app.route('/html-runner')
 def html_runner():
     return template('templates/html_runner.html')
 
-@app.route('/js_runner')
+@app.route('/js-runner')
 def js_runner():
     return template('templates/js_runner.html')
 
 @app.route('/echo', method=['GET', 'POST'])
 def echo():
     # client_ip = request.remote_addr
-    client_ip = request.environ.get('REMOTE_ADDR')
+    client_ip = request.environ.get('REMOTE_ADDR') # 获取客户端IP地址
 
     # 获取原始请求标头
     headers = '\n'.join([f'{key}: {value}' for key, value in sorted(request.headers.items())])
 
     request_line = f'{request.method} {request.url} {request.environ.get("SERVER_PROTOCOL")}'
 
-    response.headers['Content-Type'] = 'text/plain; charset=UTF-8'
+    response.headers['Content-Type'] = 'text/plain; charset=UTF-8' # 设置响应内容类型
     response.headers['Content-Language'] = 'zh-CN'
-    response.headers['Server'] = 'nginx'
+    response.headers['Server'] = 'nginx' # 伪造服务器标头
+    response.headers['Access-Control-Allow-Origin'] = '*' # 允许跨域请求
 
     resp = f'IP Address: {client_ip}\n' + f'Date: {time.strftime("%Y-%m-%d %H:%M:%S")}\n' + f'Timestamp: {int(time.time())}\n\n' + '\n'.join([f"{key}: {value}" for key, value in response.headerlist]) + '\n\n' + f'{request_line}\n{headers}\n\n{request.body.read().decode("utf-8")}'
 
-    logging.info(resp)
+    logging.info('\n' + resp)
 
     return resp
 
@@ -92,4 +92,4 @@ def serve_static(filename):
 
 # 运行应用程序
 if __name__ == '__main__':
-    run(app, host='0.0.0.0', port=8000, debug=True, reloader=True, server='gevent')
+    run(app, host='0.0.0.0', port=7000, debug=True, reloader=True, server='gevent')

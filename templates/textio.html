@@ -9,8 +9,6 @@
 
         <input type="text" list="optionList" id="option" placeholder="option">
         <datalist id="optionList">
-            <option value="none">None</option>
-            <option value="cmd">Command</option>
             <option value="base64">Base64</option>
             <option value="md5">MD5</option>
             <option value="sha1">SHA1</option>
@@ -35,7 +33,7 @@
         
         <button type="button" onclick="addParam()">Add Param</button>
 
-        <input type="submit" value="Submit" onclick="document.getElementById('form1').action = '/textio/' + document.getElementById('option').value">
+        <input type="submit" value="Submit" onclick="document.getElementById('form1').action = '/c/' + document.getElementById('option').value">
 
         <textarea id="textarea" name="1" placeholder="1" required></textarea>
 

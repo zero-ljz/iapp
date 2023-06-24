@@ -5,7 +5,7 @@ import random
 
 app = Bottle()
 
-DATABASE = 'urls.db'
+DATABASE = 'data/short_url/urls.db'
 
 
 def generate_short_url(length=6):

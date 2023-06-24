@@ -10,19 +10,20 @@ from bottle import Bottle, request, template, response
 
 app = Bottle()
 
-@app.route('/', method='GET')
-def home():
-    return template('templates/textio.html')
 
+@app.route('/', method='GET')
 @app.route('/<option>', method='GET')
-def convert(option):
+def convert(option=''):
     params = request.query.decode('utf-8')
     text = params.get('1')
     action = params.get('2')
     output = ''
     print(dict(params))
 
-    if option == 'cmd':
+    if(len(params) == 0):
+        return template('templates/textio.html')
+
+    if option == '':
         # 简单的命令执行
         # command = " ".join(f'"{value}"' for index, (key, value) in enumerate(dict(params).items()))
         # output = subprocess.check_output(command, shell=True).decode("utf-8", errors="ignore")
