@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Adminer - 结果</title>
-
-</head>
-<body>
-    <h1>Adminer - 结果</h1>
+% rebase('templates/base.html', title='DB Manager')
     
     <table>
         % for row in result:
@@ -16,5 +9,3 @@
             </tr>
         % end
     </table>
-</body>
-</html>

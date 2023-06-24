@@ -3,7 +3,8 @@ import shutil
 import urllib.request
 import zipfile
 import subprocess
-from bottle import Bottle, request, response, static_file, template
+import mimetypes
+from bottle import Bottle, request, response, static_file, template, abort
 
 app = Bottle()
 
@@ -30,8 +31,8 @@ def get_file_list():
             "path": file_path,
             "size": file_stat.st_size,
             "is_directory": os.path.isdir(file_path),
-            "created_at": file_stat.st_ctime,
-            "modified_at": file_stat.st_mtime
+            "created_at": int(file_stat.st_ctime),
+            "modified_at": int(file_stat.st_mtime)
         }
         
         file_list.append(file_info)
@@ -156,10 +157,10 @@ def pack_files():
     files_to_pack = request.json.get("files")  # 获取要打包的文件列表
     zip_filename = request.json.get("zip_filename")  # 获取目标 ZIP 文件名
 
-    command_args = ["zip", "-r", "-q", zip_filename] + files_to_pack  # 构造命令行参数
-    print(command_args)
-    stdout = subprocess.run(command_args, capture_output=True, text=True, encoding='utf-8', errors='ignore').stdout
-    return {"message": stdout}
+    # command_args = ["zip", "-r", "-q", zip_filename] + files_to_pack  # 构造命令行参数
+    # print(command_args)
+    # stdout = subprocess.run(command_args, capture_output=True, text=True, encoding='utf-8', errors='ignore').stdout
+    # return {"message": stdout}
 
     with zipfile.ZipFile(zip_filename, "w", zipfile.ZIP_DEFLATED) as zip_file:  # 创建 ZIP 文件对象
         for file_path in files_to_pack:
@@ -227,6 +228,54 @@ def download_file(filename):
     else:
         response.status = 404
         return {"error": "File not found."}
+
+
+# 获取文件内容
+@app.get("/files/content/<filename:path>")
+def get_file_content(filename):
+    file_path = os.path.abspath(filename)
+
+    # 检查文件是否存在
+    if not os.path.isfile(file_path):
+        abort(404, "File not found.")
+
+    # 使用 mimetypes 模块获取文件的 MIME 类型
+    mime_type, encoding = mimetypes.guess_type(file_path)
+
+    # 判断文件是否为文本文件
+    if not mime_type or not mime_type.startswith("text/"):
+        abort(400, "Only text files can be accessed.")
+
+    # 读取文件内容
+    with open(file_path, "r", encoding='utf-8') as file:
+        content = file.read()
+
+    return {"content": content}
+
+
+# 编辑文本文件
+@app.post("/files/edit")
+def edit_text_file():
+    file_path = request.forms.get("file_path")
+    content = request.forms.get("content")
+
+    # 检查文件是否存在
+    if not os.path.isfile(file_path):
+        abort(404, "File not found.")
+
+    # 使用 mimetypes 模块获取文件的 MIME 类型
+    mime_type, encoding = mimetypes.guess_type(file_path)
+
+    # 判断文件是否为文本文件
+    if not mime_type or not mime_type.startswith("text/"):
+        abort(400, "Only text files can be accessed.")
+
+    # 写入新的文件内容
+    with open(file_path, "w") as file:
+        file.write(content)
+
+    return {"message": "File edited successfully."}
+
 
 
 # if __name__ == "__main__":

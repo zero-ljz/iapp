@@ -1,18 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>DB Manager</title>
-</head>
-<body>
+% rebase('templates/base.html', title='DB Manager')
+
     <h1>DB Manager</h1>
         
     <form action="/db_manager" method="POST" enctype="application/x-www-form-urlencoded">
-        <input type="text" name="conn_str" value="mysql://user:password@host:port/database">
+        <input type="text" name="conn_str" size="50%" value="mysql://root:password@localhost:3306/mysql">
         <br/>
         <textarea name="sql" rows="5" cols="50" placeholder="输入SQL语句"></textarea>
         <br>
         <input type="submit" value="执行SQL">
     </form>
     
-</body>
-</html>
+
