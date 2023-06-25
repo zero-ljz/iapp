@@ -65,6 +65,10 @@ def html_runner():
 def js_runner():
     return template('templates/js_runner.html')
 
+@app.route('/log')
+def applog():
+    return static_file('app.log', root='.')
+
 @app.route('/echo', method=['GET', 'POST'])
 def echo():
     # client_ip = request.remote_addr
