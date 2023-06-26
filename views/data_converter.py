@@ -45,6 +45,19 @@ def data_converter():
             csv_data = convert_json_to_csv(json_data)
             response.content_type = 'text/plain'
             return csv_data
+        
+        elif operation == 'csv-to-json':
+            # CSV to JSON conversion logic
+            csv_data = data.strip().split('\n')
+            csv_reader = csv.reader(csv_data)
+            header = next(csv_reader)
+            result = []
+            for row in csv_reader:
+                result.append(dict(zip(header, row)))
+
+            response.content_type = 'text/plain'
+            return json.dumps(result)
+
 
         else:
             response.status = 400

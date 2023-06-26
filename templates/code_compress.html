@@ -1,6 +1,6 @@
-% rebase('templates/base.html', title='Data Converter')
+% rebase('templates/base.html', title='Code Compress')
 
-  <h1>Data Converter</h1>
+  <h1>Code Compress</h1>
   <div>
     <label for="data-input">Input Data:</label>
     <textarea id="data-input" rows="10" cols="50"></textarea>
@@ -8,12 +8,11 @@
   <div>
     <label for="operation-select">Operation:</label>
     <select id="operation-select">
-      <option value="json-to-yaml">JSON to YAML</option>
-      <option value="yaml-to-json">YAML to JSON</option>
-      <option value="json-to-xml">JSON to XML</option>
-      <option value="xml-to-json">XML to JSON</option>
-      <option value="json-to-csv">JSON to CSV</option>
-      <option value="csv-to-json">CSV to JSON</option>
+      <option value="js">JS</option>
+      <option value="css">CSS</option>
+      <option value="html">HTML</option>
+      <option value="python">PYTHON</option>
+ 
     </select>
   </div>
   <div>
@@ -34,7 +33,7 @@
       const data = dataInput.value;
       const operation = operationSelect.value;
 
-      const response = await fetch('/data-converter', {
+      const response = await fetch('/code-compress', {
         method: 'POST',
         headers: {
           'Content-Type': 'text/plain',
