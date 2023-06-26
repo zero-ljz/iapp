@@ -1,0 +1,52 @@
+% rebase('templates/base.html', title='Data Converter')
+
+  <h1>Data Converter</h1>
+  <div>
+    <label for="data-input">Input Data:</label>
+    <textarea id="data-input" rows="10" cols="50"></textarea>
+  </div>
+  <div>
+    <label for="operation-select">Operation:</label>
+    <select id="operation-select">
+      <option value="json-to-yaml">JSON to YAML</option>
+      <option value="yaml-to-json">YAML to JSON</option>
+      <option value="json-to-xml">JSON to XML</option>
+      <option value="xml-to-json">XML to JSON</option>
+      <option value="json-to-csv">JSON to CSV</option>
+    </select>
+  </div>
+  <div>
+    <button id="convert-btn">Convert</button>
+  </div>
+  <div>
+    <label for="output">Output:</label>
+    <textarea id="output" rows="10" cols="50" readonly></textarea>
+  </div>
+
+  <script>
+    const convertButton = document.getElementById('convert-btn');
+    const dataInput = document.getElementById('data-input');
+    const operationSelect = document.getElementById('operation-select');
+    const outputTextarea = document.getElementById('output');
+
+    convertButton.addEventListener('click', async () => {
+      const data = dataInput.value;
+      const operation = operationSelect.value;
+
+      const response = await fetch('/data-converter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain',
+          'Operation': operation
+        },
+        body: data
+      });
+
+      if (response.ok) {
+        const result = await response.text();
+        outputTextarea.value = result;
+      } else {
+        outputTextarea.value = 'Error: ' + response.status;
+      }
+    });
+  </script>

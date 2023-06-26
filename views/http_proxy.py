@@ -18,6 +18,7 @@ def home():
 
             # 设置响应头部
             response.content_type = resp.headers.get('Content-Type')
+            response.content_length = resp.headers.get('Content-Length')
 
             # 获取原始文件名
             filename = None

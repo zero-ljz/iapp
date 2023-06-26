@@ -1,7 +1,7 @@
 
 from gevent import monkey; monkey.patch_all()
 from bottle import Bottle, route, run, template, request, response, static_file
-from views import http_request, sql_executor, textio, short_url, http_proxy
+from views import http_request, sql_executor, textio, short_url, http_proxy, data_converter
 import logging
 import time
 
@@ -17,6 +17,7 @@ app.mount('/u', short_url.app)
 app.mount('/http-proxy', http_proxy.app)
 app.mount('/http-request', http_request.app)
 app.mount('/sql-executor', sql_executor.app)
+app.mount('/data-converter', data_converter.app)
 
 # 定义路由和处理函数
 @app.route('/')
@@ -54,8 +55,6 @@ def unit_converter():
 @app.route('/calculator')
 def calculator():
     return template('templates/calculator.html')
-
-
 
 @app.route('/html-runner')
 def html_runner():

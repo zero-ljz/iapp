@@ -2,6 +2,8 @@ import base64
 import hashlib
 import binascii
 import urllib
+import html
+import codecs
 
 import datetime
 import time
@@ -127,6 +129,14 @@ def convert(option=''):
             output = urllib.parse.unquote(text)
         else:
             output = urllib.parse.quote(text).replace('/', '%2F')
+            
+    elif option == 'html_escape':
+        if action == 'Decode':
+            output = html.unescape(text)
+            #codecs.encode(text, 'unicode_escape').decode('utf-8')
+        else:
+            output = html.escape(text)
+
 
 
 
