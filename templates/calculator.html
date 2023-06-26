@@ -86,6 +86,58 @@
 
     <div id="result"></div>
 
+
+
+    <h1>时间日期计算器</h1>
+    <h2>计算时间差</h2>
+    <p>请输入开始日期和结束日期来计算它们之间的时间差：</p>
+    <label for="start-date">开始日期：</label>
+    <input type="datetime-local" id="start-date">
+    <br>
+    <label for="end-date">结束日期：</label>
+    <input type="datetime-local" id="end-date">
+    <br>
+    <button onclick="calculateDifference()">计算时间差</button>
+    <br>
+    <p id="time-difference"></p>
+
+    <h2>计算指定时间后的时间</h2>
+    <p>请输入基准时间和要添加的天数/小时数/分钟数/秒数来计算结果时间：</p>
+    <label for="base-time">基准时间：</label>
+    <input type="datetime-local" id="base-time">
+    <br>
+    <label for="time-direction">时间方向：</label>
+    <select id="time-direction">
+        <option value="future">未来时间</option>
+        <option value="past">过去时间</option>
+    </select>
+    <br>
+    <label for="days">天数：</label>
+    <input type="number" id="days">
+    <br>
+    <label for="hours">小时数：</label>
+    <input type="number" id="hours">
+    <br>
+    <label for="minutes">分钟数：</label>
+    <input type="number" id="minutes">
+    <br>
+    <label for="seconds">秒数：</label>
+    <input type="number" id="seconds">
+    <br>
+    <button onclick="calculateTime()">计算</button>
+    <br>
+    <p id="future-time"></p>
+
+
+
+
+
+
+
+
+
+
+
     <script>
 
 
@@ -190,4 +242,102 @@
             "数值 1 减去百分之 " + percentage + " 是 " + decrease.toFixed(2);
         }
       }
+
+
+
+
+
+
+
+      function calculateDifference() {
+        var startDate = new Date(document.getElementById("start-date").value);
+        var endDate = new Date(document.getElementById("end-date").value);
+
+        var diffMilliseconds = endDate.getTime() - startDate.getTime();
+        var diffSeconds = Math.floor(diffMilliseconds / 1000);
+        var diffMinutes = Math.floor(diffSeconds / 60);
+        var diffHours = Math.floor(diffMinutes / 60);
+        var diffDays = Math.floor(diffHours / 24);
+
+        document.getElementById("time-difference").innerHTML = "相差 " + diffDays + " 天, " + (diffHours % 24) + " 小时, " + (diffMinutes % 60) + " 分钟, " + (diffSeconds % 60) + " 秒.";
+    }
+
+    function calculateTime() {
+        var baseTime = new Date(document.getElementById("base-time").value);
+        var days = parseInt(document.getElementById("days").value) || 0;
+        var hours = parseInt(document.getElementById("hours").value) || 0;
+        var minutes = parseInt(document.getElementById("minutes").value) || 0;
+        var seconds = parseInt(document.getElementById("seconds").value) || 0;
+
+        if (document.getElementById("time-direction").value === "past") {
+            days *= -1;
+            hours *= -1;
+            minutes *= -1;
+            seconds *= -1;
+        }
+
+        baseTime.setDate(baseTime.getDate() + days);
+        baseTime.setHours(baseTime.getHours() + hours);
+        baseTime.setMinutes(baseTime.getMinutes() + minutes);
+        baseTime.setSeconds(baseTime.getSeconds() + seconds);
+
+        var formats = {
+          '默认时间':baseTime.toString(),
+            'ISO 8601': baseTime.toISOString(),
+            '本地时间': baseTime.toLocaleString(),
+            '时间戳（10位）': Math.floor(baseTime.getTime() / 1000),
+            '年-月-日 时:分:秒': baseTime.getFullYear() + '-' + padZero(baseTime.getMonth() + 1) + '-' + padZero(baseTime.getDate()) + ' ' + padZero(baseTime.getHours()) + ':' + padZero(baseTime.getMinutes()) + ':' + padZero(baseTime.getSeconds())
+        };
+
+        var resultHTML = "计算结果：<br>";
+
+        for (var format in formats) {
+            resultHTML += format + ": " + formats[format] + "<br>";
+        }
+
+        document.getElementById("future-time").innerHTML = resultHTML;
+    }
+
+    function padZero(number) {
+        return number < 10 ? '0' + number : number;
+    }
+
+
+
+
+
+
+
+// 获取当前时间
+var currentDate = new Date();
+
+// 格式化当前时间为合适的字符串
+var currentDateString = formatDate(currentDate);
+
+// 将当前时间设置为开始时间输入框的默认值
+document.getElementById("start-date").value = currentDateString;
+// 将当前时间设置为基准时间输入框的默认值
+document.getElementById("base-time").value = currentDateString;
+
+
+// 辅助函数：格式化日期为合适的字符串
+function formatDate(date) {
+  var year = date.getFullYear();
+  var month = padZero(date.getMonth() + 1);
+  var day = padZero(date.getDate());
+  var hours = padZero(date.getHours());
+  var minutes = padZero(date.getMinutes());
+
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
+
+
+
+
+
+
+
+
+
     </script>
