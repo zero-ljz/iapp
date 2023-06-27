@@ -7,7 +7,8 @@ app = Bottle()
 
 @app.route('/')
 def index():
-    return template('templates/http_request/index.html', response='')
+    #return template('templates/http_request/index.html', response='')
+    return template('templates/http_client.html', response='')
 
 @app.route('/send', method='POST')
 def send_request():

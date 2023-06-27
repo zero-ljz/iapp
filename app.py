@@ -14,7 +14,7 @@ app = Bottle()
 # 注册视图
 app.mount('/c', textio.app)
 app.mount('/u', short_url.app)
-app.mount('/http-proxy', http_proxy.app)
+app.mount('/proxy', http_proxy.app)
 app.mount('/http-request', http_request.app)
 app.mount('/sql-executor', sql_executor.app)
 app.mount('/data-converter', data_converter.app)

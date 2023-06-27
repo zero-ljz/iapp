@@ -4,10 +4,20 @@ HTTP Proxy
 </h1>
 <p>
 
-<form method="get" action="/http-proxy">
+<form id="form1">
     <label for="text">输入要代理的页面或文件URL</label>
-    <textarea id="textarea" name="url" placeholder="url" data-dl-input-translation="true" required></textarea>
+    <textarea id="url" placeholder="url" required></textarea>
     <input type="submit" value="Send">
 </form>
+
+<script>
+    document.getElementById("form1").addEventListener("submit", function(event) {
+      event.preventDefault(); // 阻止表单默认提交行为
+      var url = document.getElementById("url").value;
+
+      // 使用 URL 进行页面跳转
+      window.location.href = "/proxy/" + url;
+    });
+  </script>
 
 </p>
