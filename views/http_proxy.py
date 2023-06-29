@@ -9,6 +9,10 @@ app = Bottle()
 
 @app.route('/<url:re:.*>', method=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'])
 def home(url):
+    query_string = request.query_string
+    if query_string:
+        url += '?' + query_string
+
     if url:
         try:
             # 转发请求头

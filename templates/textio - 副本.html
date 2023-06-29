@@ -1,0 +1,97 @@
+% rebase('templates/base.html', title='文本输入输出')
+<h1>
+文本输入输出
+</h1>
+<p>
+
+    <form id="form1" method="get" onsubmit="saveFormData()">
+        <label for="text">Text I/O:</label>
+
+        <input type="text" list="optionList" id="option" placeholder="option">
+        <datalist id="optionList">
+            <option value="base64">Base64</option>
+            <option value="md5">MD5</option>
+            <option value="sha1">SHA1</option>
+            <option value="sha224">SHA224</option>
+            <option value="sha256">SHA256</option>
+            <option value="sha384">SHA384</option>
+            <option value="sha512">SHA512</option>
+            <option value="hex">Hex</option>
+            <option value="bin">Binary</option>
+            <option value="hex_binary">Hex_Binary</option>
+            <option value="base64">Base64</option>
+            <option value="ascii">ASCII</option>
+            <option value="rgb_hex">Color (RGB_Hex)</option>
+            <option value="datetime_timestamp">Datetime_Timestamp</option>
+            <option value="unicode_escape">Unicode Escape</option>
+            <option value="uri_component">encodeURIComponent</option>
+            <option value="uri">encodeURI</option>
+            <option value="html_escape">html_escape</option>
+
+        </datalist>
+        <button type="button" onclick="document.getElementById('option').value = ''">ReSelect</button>
+
+        
+        <button type="button" onclick="addParam()">Add Param</button>
+
+        <input type="submit" value="Submit" onclick="document.getElementById('form1').action = '/c/' + document.getElementById('option').value">
+
+        <textarea id="textarea" name="1" placeholder="1" required></textarea>
+
+    </form>
+</p>
+
+<script>
+    // 定义全局变量用于记录已存在的 textarea 控件数量
+    let textareaCount = 1;
+  
+    function addParam() {
+      // 创建新的 textarea 元素
+      const newTextArea = document.createElement('textarea');
+  
+      // 设置新的 textarea 的 name 和 placeholder 属性
+      const paramName = (textareaCount + 1);
+      newTextArea.name = paramName;
+      newTextArea.placeholder = paramName;
+
+     // 加载保存的记录
+      newTextArea.value = sessionStorage.getItem(paramName)
+  
+      // 将新的 textarea 添加到表单中
+      const form = document.getElementById('form1');
+      form.insertBefore(newTextArea, form.lastElementChild.nextElementSibling);
+  
+      // 更新 textareaCount 值
+      textareaCount++;
+
+      // 重新加载页面
+      //window.dispatchEvent(new Event('load'));
+    }
+
+    function saveFormData() {
+        const form = document.getElementById('form1');
+        const formData = new FormData(form);
+        for (let pair of formData) {
+            sessionStorage.setItem(pair[0], pair[1]);
+        }
+
+        // 单独处理自动完成文本框
+        const option = document.getElementById('option');
+        sessionStorage.setItem('option',option.value);
+    }
+
+    window.onload = function () {
+        const form = document.getElementById('form1');
+        for (let i = 0; i < form.elements.length; i++) {
+            const element = form.elements[i];
+            const value = sessionStorage.getItem(element.name);
+            if (value) {
+                element.value = value;
+            }
+        }
+
+        // 单独处理自动完成文本框
+        const option = document.getElementById('option');
+        option.value = sessionStorage.getItem('option');
+    }
+  </script>
