@@ -29,17 +29,29 @@ def index():
 def about():
     return template('templates/about.html')
 
-@app.route('/html5gallery')
-def html5gallery():
-    return template('templates/html5gallery.html')
+@app.route('/html-gallery')
+def html_gallery():
+    return template('templates/html_gallery.html')
 
-@app.route('/color_hex_value_list')
+@app.route('/color-hex-value-list')
 def color_hex_value_list():
     return template('templates/color_hex_value_list.html')
+
+@app.route('/markdown-editor')
+def markdown_editor():
+    return template('templates/markdown_editor.html')
+
+@app.route('/qr-code')
+def qr_code():
+    return template('templates/qr_code.html')
 
 @app.route('/json-viewer')
 def json_viewer():
     return template('templates/json_viewer.html')
+
+@app.route('/vdata-generator')
+def vdata_generator():
+    return template('templates/vdata_generator.html')
 
 @app.route('/code-formatter')
 def code_formatter():
