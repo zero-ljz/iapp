@@ -108,4 +108,4 @@ def serve_static(filename):
 
 # 运行应用程序
 if __name__ == '__main__':
-    run(app, host='0.0.0.0', port=8000, debug=True, reloader=True, server='gevent')
+    run(app, host='0.0.0.0', port=1000, debug=True, reloader=True, server='gevent')
