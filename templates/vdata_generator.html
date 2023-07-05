@@ -1,0 +1,256 @@
+% rebase('templates/base.html', title='Virtual Data Generator')
+
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .result-container {
+            margin-top: 10px;
+        }
+
+        h2 {
+            margin-bottom: 5px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+    </style>
+
+<div class="container">
+    <label for="dataTypes">选择数据种类:</label>
+    <select id="dataTypes">
+        <option value="name">姓名</option>
+        <option value="email">电子邮件</option>
+        <option value="age">年龄</option>
+        <option value="birthday">生日</option>
+        <option value="gender">性别</option>
+        <option value="country">国家</option>
+        <option value="address">地址</option>
+        <option value="city">城市</option>
+        <option value="zip">邮编</option>
+        <option value="phone">电话号码</option>
+        <option value="company">公司</option>
+        <!--<option value="job">职位</option>-->
+        <!--<option value="creditCard">信用卡号</option>-->
+        <option value="color">颜色</option>
+        <option value="animal">动物</option>
+        <!--<option value="fruit">水果</option>-->
+        <option value="currency">货币</option>
+        <!--<option value="vehicle">交通工具</option>-->
+        <option value="guid">GUID</option>
+        <option value="hash">哈希值</option>
+        <option value="ip">IP地址</option>
+        <option value="url">URL</option>
+        <option value="profession">职业</option>
+        <!--<option value="university">大学</option>-->
+        <option value="sentence">句子</option>
+        <option value="paragraph">段落</option>
+        <option value="hashtag">Hashtag</option>
+        <!--<option value="emoji">Emoji表情</option>-->
+        <!--<option value="animalType">动物类型</option>
+        <option value="musicGenre">音乐流派</option>
+        <option value="movieGenre">电影流派</option>
+        <option value="language">语言</option>-->
+        <option value="programmingLanguage">编程语言</option>
+        <option value="timezone">时区</option>
+        <option value="boolean">布尔值</option>
+        <option value="integer">整数</option>
+        <option value="floating">浮点数</option>
+        <!--<option value="paragraphs">多个段落</option>-->
+        <option value="coin">硬币正反面</option>
+        <option value="dice">骰子点数</option>
+        <option value="letter">随机字母</option>
+        <option value="syllable">随机音节</option>
+        <option value="prime">随机素数</option>
+        <option value="animalClass">动物分类</option>
+        <!--<option value="vehicleType">交通工具类型</option>-->
+        <option value="food">食物</option>
+        <option value="drink">饮料</option>
+        <option value="timezoneAbbreviation">时区缩写</option>
+    </select>
+    <button onclick="generateData()">生成数据</button>
+    <div id="resultContainer"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chance/dist/chance.min.js"></script>
+<script>
+    var chance = new Chance();
+
+    function generateData() {
+        var dataTypeSelect = document.getElementById("dataTypes");
+        var selectedDataType = dataTypeSelect.value;
+        var resultContainer = document.getElementById("resultContainer");
+
+        var dataValue;
+        switch (selectedDataType) {
+            case "name":
+                dataValue = chance.name();
+                break;
+            case "email":
+                dataValue = chance.email();
+                break;
+            case "age":
+                dataValue = chance.age();
+                break;
+            case "birthday":
+                dataValue = chance.birthday();
+                break;
+            case "gender":
+                dataValue = chance.gender();
+                break;
+            case "country":
+                dataValue = chance.country();
+                break;
+            case "address":
+                dataValue = chance.address();
+                break;
+            case "city":
+                dataValue = chance.city();
+                break;
+            case "zip":
+                dataValue = chance.zip();
+                break;
+            case "phone":
+                dataValue = chance.phone();
+                break;
+            case "company":
+                dataValue = chance.company();
+                break;
+            case "job":
+                dataValue = chance.job();
+                break;
+            case "creditCard":
+                dataValue = chance.credit_card();
+                break;
+            case "color":
+                dataValue = chance.color();
+                break;
+            case "animal":
+                dataValue = chance.animal();
+                break;
+            case "fruit":
+                dataValue = chance.fruit();
+                break;
+            case "currency":
+                dataValue = chance.currency();
+                break;
+            case "vehicle":
+                dataValue = chance.vehicle();
+                break;
+            case "guid":
+                dataValue = chance.guid();
+                break;
+            case "hash":
+                dataValue = chance.hash();
+                break;
+            case "ip":
+                dataValue = chance.ip();
+                break;
+            case "url":
+                dataValue = chance.url();
+                break;
+            case "profession":
+                dataValue = chance.profession();
+                break;
+            case "university":
+                dataValue = chance.university();
+                break;
+            case "sentence":
+                dataValue = chance.sentence();
+                break;
+            case "paragraph":
+                dataValue = chance.paragraph();
+                break;
+            case "hashtag":
+                dataValue = chance.hashtag();
+                break;
+            case "emoji":
+                dataValue = chance.emoji();
+                break;
+            case "animalType":
+                dataValue = chance.animal({ type: true });
+                break;
+            case "musicGenre":
+                dataValue = chance.music_genre();
+                break;
+            case "movieGenre":
+                dataValue = chance.movie_genre();
+                break;
+            case "language":
+                dataValue = chance.language();
+                break;
+            case "programmingLanguage":
+                dataValue = chance.pickone(["JavaScript", "Python", "Java", "C++", "Ruby", "Go", "PHP"]);
+                break;
+            case "timezone":
+                dataValue = chance.timezone();
+                break;
+            case "boolean":
+                dataValue = chance.bool();
+                break;
+            case "integer":
+                dataValue = chance.integer();
+                break;
+            case "floating":
+                dataValue = chance.floating();
+                break;
+            case "paragraphs":
+                dataValue = chance.paragraphs();
+                break;
+            case "coin":
+                dataValue = chance.coin();
+                break;
+            case "dice":
+                dataValue = chance.d6();
+                break;
+            case "letter":
+                dataValue = chance.character();
+                break;
+            case "syllable":
+                dataValue = chance.syllable();
+                break;
+            case "prime":
+                dataValue = chance.prime();
+                break;
+            case "animalClass":
+                dataValue = chance.animal({ class: true });
+                break;
+            case "vehicleType":
+                dataValue = chance.vehicle({ type: true });
+                break;
+            case "food":
+                dataValue = chance.pickone(["Pizza", "Burger", "Sushi", "Pasta", "Salad", "Steak"]);
+                break;
+            case "drink":
+                dataValue = chance.pickone(["Water", "Coffee", "Tea", "Juice", "Soda", "Beer", "Wine"]);
+                break;
+            case "timezoneAbbreviation":
+                dataValue = chance.timezone({ abbr: true });
+                break;
+            default:
+                dataValue = "";
+                break;
+        }
+
+        var resultText;
+        if (typeof dataValue === "object") {
+            resultText = JSON.stringify(dataValue);
+        } else {
+            resultText = dataValue;
+        }
+
+        resultContainer.innerHTML = "";
+        var dataTypeHeading = document.createElement("h2");
+        dataTypeHeading.textContent = selectedDataType;
+        resultContainer.appendChild(dataTypeHeading);
+        var resultItem = document.createElement("p");
+        resultItem.textContent = resultText;
+        resultContainer.appendChild(resultItem);
+    }
+</script>

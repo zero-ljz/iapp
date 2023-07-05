@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Online Markdown Editor</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"
+    />
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      .toolbar {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+      }
+
+      .content {
+        flex: 1;
+        display: flex;
+        height: 100%;
+        flex-direction: row;
+      }
+
+      .editor {
+        flex: 1;
+        height: 100%;
+        resize: none;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+      }
+
+      .preview {
+        flex: 1;
+        height: 100%;
+        padding: 10px;
+        overflow: auto;
+        background-color: #f5f5f5;
+        display: none;
+      }
+    </style>
+  </head>
+  <body ondrop="handleDrop(event)" ondragover="handleDragOver(event)">
+    <div class="container">
+      <div class="toolbar">
+        <input type="file" id="fileInput" accept=".md" style="display: none" />
+        <button id="uploadButton">打开文件</button>
+        <button id="toggleButton">预览模式</button>
+        <button id="previewButton">实时预览</button>
+      </div>
+      <div class="content">
+        <textarea
+          id="editor"
+          class="editor"
+          placeholder="Enter Markdown content..."
+        ></textarea>
+        <div id="preview" class="preview markdown-body"></div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+      // 获取编辑器和预览区域的引用
+      var editor = document.getElementById("editor");
+      var preview = document.getElementById("preview");
+
+      // 获取按钮的引用
+      var toggleButton = document.getElementById("toggleButton");
+      // 获取实时预览按钮的引用
+      var previewButton = document.getElementById("previewButton");
+
+      // 监听编辑器内容变化事件
+      editor.addEventListener("input", function () {
+        var markdown = editor.value; // 获取编辑器内容
+        renderPreview(markdown); // 渲染预览区域
+      });
+
+      // 渲染预览区域
+      function renderPreview(markdown) {
+        var html = marked.parse(markdown); // 将 Markdown 转换为 HTML
+        preview.innerHTML = html; // 在预览区域显示转换后的 HTML
+      }
+
+      // 触发文件上传事件
+      uploadButton.addEventListener("click", function () {
+        fileInput.click();
+      });
+
+      // 监听文件上传事件
+      fileInput.addEventListener("change", function (event) {
+        var file = event.target.files[0]; // 获取上传的文件
+
+        // 创建一个 FileReader 对象用于读取文件内容
+        var reader = new FileReader();
+
+        // 监听文件读取完成事件
+        reader.addEventListener("load", function (e) {
+          var markdown = e.target.result; // 获取文件内容
+          editor.value = markdown; // 将文件内容设置到编辑器中
+          renderPreview(markdown); // 渲染预览区域
+        });
+
+        // 读取文件内容
+        reader.readAsText(file);
+      });
+
+      // 切换模式按钮的点击事件
+      toggleButton.addEventListener("click", function () {
+        if (editor.style.display === "none") {
+          // 当前为预览模式，切换到编辑模式
+          editor.style.display = "block";
+          preview.style.display = "none";
+          toggleButton.textContent = "预览模式";
+
+          previewButton.disabled = false; // 重新启用实时预览按钮
+        } else {
+          // 当前为编辑模式，切换到预览模式
+          editor.style.display = "none";
+          preview.style.display = "block";
+          toggleButton.textContent = "编辑模式";
+
+          previewButton.disabled = true; // 禁用实时预览按钮
+        }
+      });
+
+      // 切换按钮的点击事件
+      previewButton.addEventListener("click", function () {
+        if (previewButton.textContent === "实时预览") {
+          // 切换到实时预览模式
+          previewButton.textContent = "还原";
+          preview.style.display = "block";
+          editor.style.width = "50%";
+          preview.style.width = "50%";
+
+          toggleButton.disabled = true; // 禁用切换按钮
+        } else {
+          // 还原页面布局
+          previewButton.textContent = "实时预览";
+          preview.style.display = "none";
+          editor.style.width = "100%";
+
+          toggleButton.disabled = false; // 重新启用切换按钮
+        }
+      });
+
+      function handleDrop(event) {
+        event.preventDefault();
+        var file = event.dataTransfer.files[0]; // 获取拖拽的文件
+          console.log("Dropped file:", file.name);
+
+          // 创建一个 FileReader 对象用于读取文件内容
+          var reader = new FileReader();
+
+          // 监听文件读取完成事件
+          reader.addEventListener("load", function (e) {
+            var markdown = e.target.result; // 获取文件内容
+            editor.value = markdown; // 将文件内容设置到编辑器中
+            renderPreview(markdown); // 渲染预览区域
+          });
+
+          // 读取文件内容
+          reader.readAsText(file);
+        
+      }
+
+      function handleDragOver(event) {
+        // 阻止浏览器的默认拖放行为
+        event.preventDefault();
+      }
+
+      // 为整个页面注册拖放事件
+      window.addEventListener("drop", handleDrop);
+      window.addEventListener("dragover", handleDragOver);
+    </script>
+  </body>
+</html>

@@ -2,8 +2,6 @@ from bottle import Bottle, request, response, template
 import jsmin
 import csscompressor
 import htmlmin
-import sys
-#import pyminifier
 
 app = Bottle()
 
@@ -31,11 +29,6 @@ def compress_code():
         # HTML code compression
         compressed_code = htmlmin.minify(code, remove_comments=True, remove_empty_space=True)
         return compressed_code
-
-    # elif code_type == 'python':
-    #     # Python code obfuscation
-    #     compressed_code = pyminifier.pyminify(code, remove_literal_statements=True)
-    #     return compressed_code
 
     else:
         return 'Invalid code type'

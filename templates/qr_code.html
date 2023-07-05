@@ -1,0 +1,59 @@
+% rebase('templates/base.html', title='QR Code Generator')
+
+  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js"></script>    
+
+  <h1>二维码生成器和解析器</h1>
+
+  <h2>生成二维码</h2>
+  <label for="text-input">输入文本：</label>
+  <textarea id="text-input" required></textarea>
+  <button onclick="generateQRCode()">生成二维码</button>
+  <canvas id="qrcode"></canvas>
+
+  <h2>从本地上传二维码并识别</h2>
+  <input type="file" accept="image/*" id="upload-input">
+  <button onclick="decodeQRCode()">识别二维码</button>
+  <div id="decoded-text"></div>
+  <script>
+
+    function generateQRCode() {
+      var text = document.getElementById("text-input").value;
+
+      var qr = new QRious({
+        element: document.getElementById("qrcode"),
+        value: text,
+        size: 128
+      });
+    }
+
+    function decodeQRCode() {
+        var fileInput = document.getElementById("upload-input");
+        var file = fileInput.files[0];
+  
+        if (file) {
+          var reader = new FileReader();
+          reader.onload = function(event) {
+            var image = new Image();
+            image.src = event.target.result;
+            image.onload = function() {
+              var canvas = document.createElement("canvas");
+              canvas.width = image.width;
+              canvas.height = image.height;
+              var ctx = canvas.getContext("2d");
+              ctx.drawImage(image, 0, 0, image.width, image.height);
+  
+              var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+              var code = jsQR(imageData.data, imageData.width, imageData.height);
+              
+              if (code) {
+                document.getElementById("decoded-text").textContent = "解析结果：" + code.data;
+              } else {
+                document.getElementById("decoded-text").textContent = "未能解析二维码";
+              }
+            };
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+  </script>
