@@ -57,6 +57,14 @@ def vdata_generator():
 def code_formatter():
     return template('templates/code_formatter.html')
 
+@app.route('/code-editor')
+def code_editor():
+    return template('templates/code_editor.html')
+
+@app.route('/rich-editor')
+def rich_editor():
+    return template('templates/rich_editor.html')
+
 @app.route('/regex-tester')
 def regex_tester():
     return template('templates/regex_tester.html')
@@ -108,4 +116,4 @@ def serve_static(filename):
 
 # 运行应用程序
 if __name__ == '__main__':
-    run(app, host='0.0.0.0', port=8000, debug=True, reloader=True, server='gevent')
+    run(app, host='0.0.0.0', port=1000, debug=True, reloader=True, server='gevent')

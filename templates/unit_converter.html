@@ -128,6 +128,56 @@
 
     <button onclick="convertTime()">转换</button>
 
+
+    <h2>存储容量换算</h2>
+<label for="storage-from">容量（从）:</label>
+<input type="number" id="storage-from" />
+<select id="storage-from-unit">
+  <option value="bit">比特/位（bit）</option>
+  <option value="B">字节（B）</option>
+  <option value="KB">千字节（KB）</option>
+  <option value="MB">兆字节（MB）</option>
+  <option value="GB">千兆字节（GB）</option>
+  <option value="TB">太字节（TB）</option>
+</select>
+
+<label for="storage-to">容量（到）:</label>
+<input type="number" id="storage-to" readonly />
+<select id="storage-to-unit">
+  <option value="bit">比特/位（bit）</option>
+  <option value="B">字节（B）</option>
+  <option value="KB">千字节（KB）</option>
+  <option value="MB">兆字节（MB）</option>
+  <option value="GB">千兆字节（GB）</option>
+  <option value="TB">太字节（TB）</option>
+</select>
+
+<button onclick="convertStorage()">转换</button>
+
+
+    <!-- 热量（能量）换算 -->
+    <h2>热量（能量）换算</h2>
+    <label for="energy-from">热量（从）:</label>
+    <input type="number" id="energy-from" />
+    <select id="energy-from-unit">
+        <option value="cal">卡路里</option>
+        <option value="J">焦耳</option>
+        <option value="BTU">英热单位</option>
+        <option value="kWh">千瓦时</option>
+    </select>
+
+    <label for="energy-to">热量（到）:</label>
+    <input type="number" id="energy-to" readonly />
+    <select id="energy-to-unit">
+        <option value="cal">卡路里</option>
+        <option value="J">焦耳</option>
+        <option value="BTU">英热单位</option>
+        <option value="kWh">千瓦时</option>
+    </select>
+
+    <button onclick="convertEnergy()">转换</button>
+
+
     <script>
 
 
@@ -259,4 +309,108 @@
 
         return conversionTable[fromUnit][toUnit];
       }
+
+
+
+      function convertStorage() {
+        var storageFrom = document.getElementById("storage-from").value;
+        var storageFromUnit = document.getElementById("storage-from-unit").value;
+        var storageToUnit = document.getElementById("storage-to-unit").value;
+    
+        var conversionFactor = getStorageConversionFactor(storageFromUnit, storageToUnit);
+        var storageTo = storageFrom * conversionFactor;
+    
+        document.getElementById("storage-to").value = storageTo;
+      }
+    
+      function getStorageConversionFactor(fromUnit, toUnit) {
+        // Conversion factors for different storage units
+        var conversionTable = {
+          bit: {
+            B: 1 / 8,
+            KB: 1 / (8 * 1024),
+            MB: 1 / (8 * 1024 * 1024),
+            GB: 1 / (8 * 1024 * 1024 * 1024),
+            TB: 1 / (8 * 1024 * 1024 * 1024 * 1024),
+          },
+          B: {
+            bit: 8,
+            KB: 1 / 1024,
+            MB: 1 / (1024 * 1024),
+            GB: 1 / (1024 * 1024 * 1024),
+            TB: 1 / (1024 * 1024 * 1024 * 1024),
+          },
+          KB: {
+            bit: 8 * 1024,
+            B: 1024,
+            MB: 1 / 1024,
+            GB: 1 / (1024 * 1024),
+            TB: 1 / (1024 * 1024 * 1024),
+          },
+          MB: {
+            bit: 8 * 1024 * 1024,
+            B: 1024 * 1024,
+            KB: 1024,
+            GB: 1 / 1024,
+            TB: 1 / (1024 * 1024),
+          },
+          GB: {
+            bit: 8 * 1024 * 1024 * 1024,
+            B: 1024 * 1024 * 1024,
+            KB: 1024 * 1024,
+            MB: 1024,
+            TB: 1 / 1024,
+          },
+          TB: {
+            bit: 8 * 1024 * 1024 * 1024 * 1024,
+            B: 1024 * 1024 * 1024 * 1024,
+            KB: 1024 * 1024 * 1024,
+            MB: 1024 * 1024,
+            GB: 1024,
+          },
+        };
+    
+        return conversionTable[fromUnit][toUnit];
+      }
+
+
+      function convertEnergy() {
+        var energyFrom = document.getElementById("energy-from").value;
+        var energyFromUnit = document.getElementById("energy-from-unit").value;
+        var energyToUnit = document.getElementById("energy-to-unit").value;
+
+        var conversionFactor = getEnergyConversionFactor(energyFromUnit, energyToUnit);
+        var energyTo = energyFrom * conversionFactor;
+
+        document.getElementById("energy-to").value = energyTo;
+    }
+
+    function getEnergyConversionFactor(fromUnit, toUnit) {
+        // Conversion factors for different energy units
+        var conversionTable = {
+            cal: {
+                J: 4.184,
+                BTU: 0.003968,
+                kWh: 0.00000116222222,
+            },
+            J: {
+                cal: 0.239006,
+                BTU: 0.000947817,
+                kWh: 0.000000277777778,
+            },
+            BTU: {
+                cal: 252.164,
+                J: 1055.06,
+                kWh: 0.000293071,
+            },
+            kWh: {
+                cal: 859.845,
+                J: 3600000,
+                BTU: 3412.14,
+            },
+        };
+
+        return conversionTable[fromUnit][toUnit];
+    }
+
     </script>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-markdown.js"></script>
+    <style>
+      .language-select {
+        margin-bottom: 10px;
+      }
+      #editor {
+        width: 100%;
+        height: calc(100vh - 40px  - 20px); /* 设置高度为视口高度 */
+      }
+      #format-button {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="language-select">
+      <select id="language">
+        <option value="javascript">JavaScript</option>
+        <option value="python">Python</option>
+        <option value="php">PHP</option>
+        <option value="c_cpp">C</option>
+        <option value="sh">Shell (Bash)</option>
+        <option value="golang">Go</option>
+        <option value="sql">SQL</option>
+        <option value="java">Java</option>
+        <option value="typescript">TypeScript</option>
+        <option value="html">HTML</option>
+        <option value="css">CSS</option>
+        <option value="xml">XML</option>
+        <option value="json">JSON</option>
+        <option value="yaml">YAML</option>
+        <option value="markdown">Markdown</option>
+      </select>
+
+      <button onclick="formatCode()">Format</button>
+
+      <span id="byteCount">0 bytes</span>
+    </div>
+
+    
+
+    <script src="https://cdn.staticfile.org/prettier/2.8.8/standalone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier/parser-babel.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier/parser-typescript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier/parser-postcss.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier/parser-markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier/parser-html.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier/parser-yaml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier/parser-vue.js"></script>
+
+    <script src="https://unpkg.com/@prettier/plugin-php/standalone.js"></script>
+
+    <div id="editor"></div>
+    <script>
+      var languageSelect = document.getElementById("language");
+      var editor = ace.edit("editor");
+
+      function updateAceMode() {
+        var selectedLanguage = languageSelect.value;
+        var mode = "ace/mode/" + selectedLanguage;
+
+        editor.getSession().setMode(mode);
+      }
+
+      languageSelect.addEventListener("change", updateAceMode);
+
+      // 初始化 Ace 编辑器
+      editor.setTheme("ace/theme/monokai");
+      editor.getSession().setMode("ace/mode/javascript");
+
+      async function formatCode() {
+        const input = editor.getValue();
+        let language = languageSelect.value;
+
+        if (language === "javascript") {
+          language = "babel";
+        }
+
+        try {
+          const formattedCode = await prettier.format(input, {
+            parser: language,
+            plugins: [
+              prettierPlugins.babel,
+              prettierPlugins.typescript,
+              prettierPlugins.postcss,
+              prettierPlugins.markdown,
+              prettierPlugins.html,
+              prettierPlugins.yaml,
+              prettierPlugins.vue,
+              prettierPlugins.php,
+            ],
+            printWidth: 80,
+            tabWidth: 2,
+            useTabs: false,
+            semi: true,
+            singleQuote: false,
+            trailingComma: "none",
+            bracketSpacing: true,
+            jsxBracketSameLine: false,
+            proseWrap: "preserve",
+            arrowParens: "always",
+          });
+
+          editor.setValue(formattedCode);
+        } catch (error) {
+          alert(error);
+        }
+      }
+
+
+
+      editor.getSession().on("change", function() {
+        updateByteCount();
+      });
+
+      function updateByteCount() {
+        var content = editor.getValue();
+        var byteCount = new Blob([content]).size;
+        document.getElementById("byteCount").textContent = byteCount + " bytes";
+      }
+
+
+
+
+
+
+    </script>
+  </body>
+</html>
