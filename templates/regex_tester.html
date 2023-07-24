@@ -39,8 +39,8 @@
     <h1>正则表达式测试工具</h1>
     <p>输入要测试的文本和正则表达式，并实时显示匹配结果。</p>
 
-    <textarea id="input-text" style="height: 200px;" placeholder="在此处输入文本" oninput="testRegex()"></textarea>
-    <textarea id="input-regex" placeholder="在此处输入正则表达式" oninput="testRegex()"></textarea>
+    <textarea style="display:block;" id="input-text" style="height: 200px;" placeholder="在此处输入文本" oninput="testRegex()"></textarea>
+    <textarea style="display:block;" id="input-regex" placeholder="在此处输入正则表达式" oninput="testRegex()"></textarea>
     <label for="global-match">
       <input type="checkbox" id="global-match" onchange="testRegex()" />
       全局匹配

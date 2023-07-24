@@ -1,9 +1,70 @@
-% rebase('templates/base.html', title='HTML 5 Gallery')
-<p>
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cheatsheet</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" > -->
+  <link rel="stylesheet" href="../static/css/style.css" type="text/css">
+
+  </head>
+  <body>
+
+  <!-- 文档结构 -->
+  <h2>文档结构</h2>
+  <header>
+    <h1>网页标题</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">首页</a></li>
+        <li><a href="#about">关于我们</a></li>
+        <li><a href="#services">服务</a></li>
+        <li><a href="#contact">联系我们</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <!-- 主要内容 -->
+
+  <!-- 定义列表 -->
+  <h2>定义列表</h2>
+  <dl>
+    <dt>术语1：</dt>
+    <dd>定义1</dd>
+    <dt>术语2：</dt>
+    <dd>定义2</dd>
+  </dl>
+
+ <!-- 区块 -->
+ <h2>区块</h2>
+ <section>
+   <h3>区块标题</h3>
+   <p>区块内容</p>
+ </section>
+
+
+
+  <!-- 字体样式 -->
+  <h2>字体样式</h2>
+  <p><font face="Arial" color="red" size="4">这是一段使用 Arial 字体、红色和字号为 4 的文本。</font></p>
+  
+
+  <!-- 进度条 -->
+  <h2>进度条</h2>
+  <progress value="70" max="100"></progress>
+  
+  <!-- 计量单位 -->
+  <h2>计量单位</h2>
+  <p>这个物体重量是 <meter value="500" min="100" max="1000">500 kg</meter>。</p>
+  
+
+
+   <form>
     
-    <div>
-        <h2>Text-based Inputs:</h2>
-    
+
+        <fieldset>
+          <legend>Text-based Inputs:</legend>
         <label for="text">Text Input:</label>
         <input type="text" id="text">
         
@@ -21,6 +82,9 @@
         
         <label for="time">Time Input:</label>
         <input type="time" id="time">
+
+        <label for="time">DateTime Input:</label>
+        <input type="datetime-local" id="dateTime">
         
         <label for="color">Color Input:</label>
         <input type="color" id="color">
@@ -39,11 +103,12 @@
         
         <label for="file">File Input:</label>
         <input type="file" id="file">
-      </div>
+        </fieldset>
       
-      <div>
-        <h2>Selection Controls:</h2>
-        
+      
+
+        <fieldset>
+          <legend>Selection Controls:</legend>
         <label for="checkbox">Checkbox:</label>
         <input type="checkbox" id="checkbox">
         
@@ -62,16 +127,88 @@
         
         <label for="textarea">Textarea:</label>
         <textarea id="textarea"></textarea>
-      </div>
+        </fieldset>
       
-      <div>
-        <h2>Buttons:</h2>
-        
+        <fieldset>
+          <legend>Buttons:</legend>
         <button>Button</button>
         
         <input type="submit" value="Submit">
         
         <input type="reset" value="Reset">
-      </div>
+        </fieldset>
 
-</p>
+
+    </form>
+
+
+
+
+
+  <!-- 文本格式化 -->
+  <h2>文本格式化</h2>
+  <p><b>加粗文本</b></p>
+  <p><i>斜体文本</i></p>
+  <p><u>下划线文本</u></p>
+  <p><del>删除线文本</del></p>
+  <p><sup>上标文本</sup></p>
+  <p><sub>下标文本</sub></p>
+  <p><small>小号文本</small></p>
+  <p><mark>标记文本</mark></p>
+  
+  <!-- 块级元素 -->
+  <h2>块级元素</h2>
+  <div>这是一个 div 块级元素。</div>
+  <blockquote>这是一个引用块级元素。</blockquote>
+  <pre>这是一个预格式化文本块级元素。</pre>
+  
+  <!-- 内联元素 -->
+  <h2>内联元素</h2>
+  <span>这是一个 span 内联元素。</span>
+  <strong>这是一个 strong 内联元素。</strong>
+  <em>这是一个 em 内联元素。</em>
+  
+  <!-- 水平线 -->
+  <h2>水平线</h2>
+  <hr>
+  
+  <!-- 注释 -->
+  <!-- 这是一个注释 -->
+  
+  <!-- iframe -->
+  <h2>嵌入网页</h2>
+  <iframe src="https://www.example.com" width="500" height="300"></iframe>
+  
+  <!-- 视频 -->
+  <h2>视频</h2>
+  <video src="video.mp4" controls width="400"></video>
+  
+  <!-- 音频 -->
+  <h2>音频</h2>
+  <audio src="audio.mp3" controls></audio>
+  
+  <!-- 代码 -->
+  <h2>代码</h2>
+  <code>这是一段代码</code>
+  
+  <!-- 注脚 -->
+  <h2>注脚</h2>
+  <p>这是一个普通段落 <sup><a href="#footnote">[1]</a></sup>.</p>
+  <footer>
+    <ol>
+      <li id="footnote">注脚1：注脚内容</li>
+    </ol>
+  </footer>
+
+  </main>
+  
+  <footer>
+    <!-- 页脚内容 -->
+  </footer>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

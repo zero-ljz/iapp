@@ -20,7 +20,7 @@
 
         <input type="submit" value="Submit" onclick="document.getElementById('form1').action = '/c">
 
-        <textarea id="textarea" name="1" placeholder="1" required></textarea>
+        <textarea style="display:block;" id="textarea" name="1" placeholder="1" required></textarea>
 
     </form>
 </p>
@@ -37,6 +37,7 @@
         const paramName = (textareaCount + 1);
         newTextArea.name = paramName;
         newTextArea.placeholder = paramName;
+        newTextArea.style.display = 'block';
 
         // 加载保存的记录
         newTextArea.value = sessionStorage.getItem(paramName)

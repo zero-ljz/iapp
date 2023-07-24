@@ -53,7 +53,7 @@ def home(url):
             print('转发给目标服务器的请求头', headers)
 
             # 发起代理请求
-            proxy_response = requests.request(request.method, url, headers=headers, data=request.body.read(), stream=True, allow_redirects=True, verify=False, timeout=300)
+            proxy_response = requests.request(request.method, url, headers=headers, data=request.body.read(), stream=True, allow_redirects=True, verify=False, timeout=600)
             print(url)
             print(proxy_response.status_code)
             
@@ -63,7 +63,7 @@ def home(url):
             # 将代理响应的头部字段复制到响应对象
             for key, value in proxy_response.headers.items():
                 print(key, value)
-                if key not in ('Content-Encoding', 'Transfer-Encoding'):  # 'Connection'
+                if key not in ('Content-Encoding', 'Transfer-Encoding', 'Cache-Control'):  # 'Connection'
                     response.headers[key] = value
 
             # 设置允许的请求来源
@@ -77,15 +77,18 @@ def home(url):
 
             print('响应头', dict(response.headers))
 
+            if "Content-Length" in proxy_response.headers and int(proxy_response.headers["Content-Length"]) > 8192:
+                print('大于8192')
+                # 边收边传，通过生成器逐步返回响应内容
+                def generate_content():
+                    for chunk in proxy_response.iter_content(chunk_size=8192):
+                        yield chunk
 
-            # 边收边传，通过生成器逐步返回响应内容
-            def generate_content():
-                for chunk in proxy_response.iter_content(chunk_size=8192):
-                    yield chunk
-
-            # 返回生成器作为响应
-            return generate_content()
-
+                # 返回生成器作为响应
+                return generate_content()
+            else:
+                # 直接返回响应内容
+                return proxy_response.content
 
         except requests.exceptions.RequestException as e:
             return f"Error occurred: {str(e)}"
