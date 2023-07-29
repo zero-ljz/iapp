@@ -1,5 +1,6 @@
 import os
-from bottle import Bottle, request, response, template, static_file
+import base64
+from bottle import Bottle, request, response, template, static_file, abort, HTTPError, HTTPResponse
 
 app = Bottle()
 
@@ -10,34 +11,41 @@ UPLOAD_FOLDER = "uploads/file_share"
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
+# 假设这是保存在服务器端的用户名和密码信息
+users = {
+    'user1': '123123'
+}
+
+def check_auth(username, password):
+    """检查用户名和密码是否有效"""
+    return username in users and users[username] == password
+
+def requires_auth(f):
+    """装饰器函数，用于进行基本认证"""
+    def wrapper(*args, **kwargs):
+        auth_header = request.headers.get('Authorization')
+        if auth_header:
+            auth_type, credentials = auth_header.split(' ')
+            if auth_type.lower() == 'basic':
+                decoded_credentials = base64.b64decode(credentials).decode('utf-8')
+                username, password = decoded_credentials.split(':', 1)
+                if check_auth(username, password):
+                    # 用户名和密码有效，继续执行被装饰的视图函数
+                    return f(*args, **kwargs)
+        
+        # 认证失败，返回401 Unauthorized状态码，并添加WWW-Authenticate头
+        response = HTTPResponse(status=401)
+        response.headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+        return response
+
+    return wrapper
+
+
 # 上传文件页面
 @app.route('/')
+@requires_auth
 def upload_page():
-    return '''
-        <a href="/share/files">View Uploaded Files</a>
-
-        <form action="/share/upload" method="post" enctype="multipart/form-data">
-        <fieldset>
-          <legend>文件上传:</legend>
-            <input type="file" name="file">
-            <label>Custom Filename:</label>
-            <input type="text" name="filename">
-            <input type="submit" value="Upload">
-            </fieldset>
-        </form>
-
-        <form action="/share/upload" method="post" enctype="application/x-www-form-urlencoded;charset=UTF-8">
-        <fieldset>
-          <legend>文件创建:</legend>
-            <div style="margin-bottom:5px">
-            <label>Filename: *</label>
-            <input type="text" name="filename">
-            </div>
-            <textarea style="display:block;" name="file_content" rows="5" cols="40" placeholder="Enter file content..."></textarea>
-            <input type="submit" value="Create">
-        </fieldset>
-        </form>
-    '''
+    return template('templates/file_share.html')
 
 # 上传文件处理
 @app.route('/upload', method='POST')

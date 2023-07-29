@@ -1,7 +1,7 @@
 
 from gevent import monkey; monkey.patch_all()
 from bottle import Bottle, route, run, template, request, response, static_file
-from views import http_client, sql_executor, textio, short_url, http_proxy, data_converter, code_compress, file_share
+from views import http_client, smtp_client, sql_executor, textio, short_url, http_proxy, data_converter, code_compress, file_share, ftp_uploader
 import logging
 import time
 
@@ -16,10 +16,12 @@ app.mount('/c', textio.app)
 app.mount('/u', short_url.app)
 app.mount('/proxy', http_proxy.app)
 app.mount('/http-client', http_client.app)
+app.mount('/smtp-client', smtp_client.app)
 app.mount('/sql-executor', sql_executor.app)
 app.mount('/data-converter', data_converter.app)
 app.mount('/code-compress', code_compress.app)
 app.mount('/share', file_share.app)
+app.mount('/ftp-uploader', ftp_uploader.app)
 
 # 定义路由和处理函数
 @app.route('/')

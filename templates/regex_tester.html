@@ -1,11 +1,6 @@
 % rebase('templates/base.html', title='正则表达式测试工具')
 
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        /*margin: 20px;*/
-      }
-
       button {
         margin-top: 10px;
         padding: 5px 10px;
@@ -58,7 +53,7 @@
       显示匹配位置
     </label>
     <div>
-    <input type="text" size="50%" id="replace-text" oninput="testRegex()" /> <button onclick="replaceText()">replace</button>
+    <input type="text" id="replace-text" oninput="testRegex()" /> <button onclick="replaceText()">replace</button>
     </div>
     <div id="result"></div>
 

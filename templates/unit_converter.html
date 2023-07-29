@@ -1,416 +1,618 @@
 % rebase('templates/base.html', title='单位换算器')
 
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        /*margin: 20px;*/
-      }
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    /*margin: 20px;*/
+  }
 
-      h1 {
-        margin-bottom: 20px;
-      }
+  h1 {
+    margin-bottom: 20px;
+  }
 
-      label {
-        display: block;
-        margin-top: 10px;
-      }
+  label {
+    display: block;
+    margin-top: 10px;
+  }
 
-      input[type="number"] {
-        /*width: 100%;*/
-        padding: 5px;
-      }
+  input[type="number"] {
+    /*width: 100%;*/
+    padding: 5px;
+  }
 
-      select {
-        /*width: 100%;*/
-        padding: 5px;
-      }
+  select {
+    /*width: 100%;*/
+    padding: 5px;
+  }
 
-      button {
-        margin-top: 10px;
-        padding: 5px 10px;
-      }
+  button {
+    margin-top: 10px;
+    padding: 5px 10px;
+  }
 
-      h2 {
-        font-size: 1.2em;
-      }
-    </style>
-
-    
-    <h1>换算工具</h1>
+  h2 {
+    font-size: 1.2em;
+  }
+</style>
 
 
+<h1>换算工具</h1>
 
-    <!-- 长度换算 -->
-    <h2>长度换算</h2>
-    <label for="length-from">长度（从）:</label>
-    <input type="number" id="length-from" />
-    <select id="length-from-unit">
-      <option value="mm">毫米</option>
-      <option value="cm">厘米</option>
-      <option value="m">米</option>
-      <option value="km">千米</option>
-    </select>
+<fieldset>
+  <legend>长度换算</legend>
+  <label for="length-from">长度（从）:</label>
+  <input type="number" id="length-from" />
+  <select id="length-from-unit">
+    <option value="mm">毫米 (mm)</option>
+    <option value="cm">厘米 (cm)</option>
+    <option value="m">米 (m)</option>
+    <option value="km">千米 (km)</option>
+    <option value="inch">英寸 (inch)</option>
+    <option value="li">市里 (li)</option>
+    <option value="zhang">市丈 (zhang)</option>
+    <option value="chi">市尺 (chi)</option>
+    <option value="cun">市寸 (cun)</option>
+    <option value="fen">市分 (fen)</option>
 
-    <label for="length-to">长度（到）:</label>
-    <input type="number" id="length-to" readonly />
-    <select id="length-to-unit">
-      <option value="mm">毫米</option>
-      <option value="cm">厘米</option>
-      <option value="m">米</option>
-      <option value="km">千米</option>
-    </select>
+  </select>
 
-    <button onclick="convertLength()">转换</button>
+  <label for="length-to">长度（到）:</label>
+  <input type="number" id="length-to" readonly />
+  <select id="length-to-unit">
+    <option value="mm">毫米 (mm)</option>
+    <option value="cm">厘米 (cm)</option>
+    <option value="m">米 (m)</option>
+    <option value="km">千米 (km)</option>
+    <option value="inch">英寸 (inch)</option>
+    <option value="li">市里 (li)</option>
+    <option value="zhang">市丈 (zhang)</option>
+    <option value="chi">市尺 (chi)</option>
+    <option value="cun">市寸 (cun)</option>
+    <option value="fen">市分 (fen)</option>
+    <option value="li">市厘 (li)</option>
+  </select>
 
-    <!-- 重量换算 -->
-    <h2>重量换算</h2>
-    <label for="weight-from">重量（从）:</label>
-    <input type="number" id="weight-from" />
-    <select id="weight-from-unit">
-      <option value="g">克</option>
-      <option value="kg">千克</option>
-      <option value="lb">磅</option>
-      <option value="oz">盎司</option>
-    </select>
+  <button onclick="convertLength()">转换</button>
+</fieldset>
 
-    <label for="weight-to">重量（到）:</label>
-    <input type="number" id="weight-to" readonly />
-    <select id="weight-to-unit">
-      <option value="g">克</option>
-      <option value="kg">千克</option>
-      <option value="lb">磅</option>
-      <option value="oz">盎司</option>
-    </select>
+<fieldset>
+  <legend>重量换算</legend>
+  <label for="weight-from">重量（从）:</label>
+  <input type="number" id="weight-from" />
+  <select id="weight-from-unit">
+    <option value="g">克 (g)</option>
+    <option value="kg">千克 (kg)</option>
+    <option value="lb">磅 (lb)</option>
+    <option value="oz">盎司 (oz)</option>
+    <option value="jin">斤 (jin)</option>
+    <option value="liang">两 (liang)</option>
+    <option value="qian">钱 (qian)</option>
+  </select>
 
-    <button onclick="convertWeight()">转换</button>
+  <label for="weight-to">重量（到）:</label>
+  <input type="number" id="weight-to" readonly />
+  <select id="weight-to-unit">
+    <option value="g">克 (g)</option>
+    <option value="kg">千克 (kg)</option>
+    <option value="lb">磅 (lb)</option>
+    <option value="oz">盎司 (oz)</option>
+    <option value="jin">斤 (jin)</option>
+    <option value="liang">两 (liang)</option>
+    <option value="qian">钱 (qian)</option>
+  </select>
 
-    <!-- 进制换算 -->
-    <h2>进制换算</h2>
-    <label for="number-from">数值（从）:</label>
-    <input type="number" id="number-from" />
-    <select id="number-from-base">
-      <option value="2">二进制</option>
-      <option value="8">八进制</option>
-      <option value="10">十进制</option>
-      <option value="16">十六进制</option>
-    </select>
+  <button onclick="convertWeight()">转换</button>
+</fieldset>
 
-    <label for="number-to">数值（到）:</label>
-    <input type="text" id="number-to" readonly />
-    <select id="number-to-base">
-      <option value="2">二进制</option>
-      <option value="8">八进制</option>
-      <option value="10">十进制</option>
-      <option value="16">十六进制</option>
-    </select>
+<fieldset>
+  <legend>进制换算</legend>
+  <label for="number-from">数值（从）:</label>
+  <input type="number" id="number-from" />
+  <select id="number-from-base">
+    <option value="2">二进制 (binary)</option>
+    <option value="8">八进制 (octal)</option>
+    <option value="10">十进制 (decimal)</option>
+    <option value="16">十六进制 (hexadecimal)</option>
+  </select>
 
-    <button onclick="convertNumber()">转换</button>
+  <label for="number-to">数值（到）:</label>
+  <input type="text" id="number-to" readonly />
+  <select id="number-to-base">
+    <option value="2">二进制 (binary)</option>
+    <option value="8">八进制 (octal)</option>
+    <option value="10">十进制 (decimal)</option>
+    <option value="16">十六进制 (hexadecimal)</option>
+  </select>
 
-    <!-- 时间换算 -->
-    <h2>时间换算</h2>
-    <label for="time-from">时间（从）:</label>
-    <input type="number" id="time-from" />
-    <select id="time-from-unit">
-      <option value="s">秒</option>
-      <option value="min">分钟</option>
-      <option value="h">小时</option>
-      <option value="d">天</option>
-    </select>
+  <button onclick="convertNumber()">转换</button>
+</fieldset>
 
-    <label for="time-to">时间（到）:</label>
-    <input type="number" id="time-to" readonly />
-    <select id="time-to-unit">
-      <option value="s">秒</option>
-      <option value="min">分钟</option>
-      <option value="h">小时</option>
-      <option value="d">天</option>
-    </select>
+<fieldset>
+  <legend>时间换算</legend>
 
-    <button onclick="convertTime()">转换</button>
+  <label for="time-from">时间（从）:</label>
+  <input type="number" id="time-from" />
+  <select id="time-from-unit">
+    <option value="s">秒 (second)</option>
+    <option value="min">分钟 (minute)</option>
+    <option value="h">小时 (hour)</option>
+    <option value="d">天 (day)</option>
+  </select>
+
+  <label for="time-to">时间（到）:</label>
+  <input type="number" id="time-to" readonly />
+  <select id="time-to-unit">
+    <option value="s">秒 (second)</option>
+    <option value="min">分钟 (minute)</option>
+    <option value="h">小时 (hour)</option>
+    <option value="d">天 (day)</option>
+  </select>
+
+  <button onclick="convertTime()">转换</button>
+</fieldset>
+
+<fieldset>
+  <legend>存储容量换算</legend>
+  <label for="storage-from">容量（从）:</label>
+  <input type="number" id="storage-from" />
+  <select id="storage-from-unit">
+    <option value="bit">比特/位（bit）</option>
+    <option value="B">字节（B）</option>
+    <option value="KB">千字节（KB）</option>
+    <option value="MB">兆字节（MB）</option>
+    <option value="GB">千兆字节（GB）</option>
+    <option value="TB">太字节（TB）</option>
+  </select>
+
+  <label for="storage-to">容量（到）:</label>
+  <input type="number" id="storage-to" readonly />
+  <select id="storage-to-unit">
+    <option value="bit">比特/位（bit）</option>
+    <option value="B">字节（B）</option>
+    <option value="KB">千字节（KB）</option>
+    <option value="MB">兆字节（MB）</option>
+    <option value="GB">千兆字节（GB）</option>
+    <option value="TB">太字节（TB）</option>
+  </select>
+
+  <button onclick="convertStorage()">转换</button>
+</fieldset>
+
+<fieldset>
+  <legend>热量（能量）换算</legend>
+  <label for="energy-from">热量（从）:</label>
+  <input type="number" id="energy-from" />
+  <select id="energy-from-unit">
+    <option value="cal">卡路里 (cal)</option>
+    <option value="kcal">千卡 (kcal)</option>
+    <option value="J">焦耳 (J)</option>
+    <option value="kJ">千焦 (kJ)</option>
+    <option value="BTU">英热单位 (BTU)</option>
+    <option value="kWh">千瓦时 (kWh)</option>
+  </select>
+
+  <label for="energy-to">热量（到）:</label>
+  <input type="number" id="energy-to" readonly />
+  <select id="energy-to-unit">
+    <option value="cal">卡路里 (cal)</option>
+    <option value="kcal">千卡 (kcal)</option>
+    <option value="J">焦耳 (J)</option>
+    <option value="kJ">千焦 (kJ)</option>
+    <option value="BTU">英热单位 (BTU)</option>
+    <option value="kWh">千瓦时 (kWh)</option>
+  </select>
+
+  <button onclick="convertEnergy()">转换</button>
+</fieldset>
 
 
-    <h2>存储容量换算</h2>
-<label for="storage-from">容量（从）:</label>
-<input type="number" id="storage-from" />
-<select id="storage-from-unit">
-  <option value="bit">比特/位（bit）</option>
-  <option value="B">字节（B）</option>
-  <option value="KB">千字节（KB）</option>
-  <option value="MB">兆字节（MB）</option>
-  <option value="GB">千兆字节（GB）</option>
-  <option value="TB">太字节（TB）</option>
-</select>
 
-<label for="storage-to">容量（到）:</label>
-<input type="number" id="storage-to" readonly />
-<select id="storage-to-unit">
-  <option value="bit">比特/位（bit）</option>
-  <option value="B">字节（B）</option>
-  <option value="KB">千字节（KB）</option>
-  <option value="MB">兆字节（MB）</option>
-  <option value="GB">千兆字节（GB）</option>
-  <option value="TB">太字节（TB）</option>
-</select>
+<fieldset>
+  <legend>屏幕尺寸转换器</legend>
+<input
+  type="number"
+  id="inchDiagonal"
+  placeholder="屏幕对角线尺寸（inch）"
+/>
+<input type="text" id="aspectRatio" placeholder="宽高比（例如16:9）" />
+<button onclick="convertToCm()">转换为屏幕高度宽度（cm）</button>
 
-<button onclick="convertStorage()">转换</button>
+<input type="number" id="cmHeight" placeholder="屏幕高度（cm）" />
+<input type="number" id="cmWidth" placeholder="屏幕宽度（cm）" />
+
+<button onclick="convertToInchAndAspectRatio()">
+  转换为屏幕对角线尺寸和屏幕宽高比
+</button>
+</fieldset>
 
 
-    <!-- 热量（能量）换算 -->
-    <h2>热量（能量）换算</h2>
-    <label for="energy-from">热量（从）:</label>
-    <input type="number" id="energy-from" />
-    <select id="energy-from-unit">
-        <option value="cal">卡路里</option>
-        <option value="J">焦耳</option>
-        <option value="BTU">英热单位</option>
-        <option value="kWh">千瓦时</option>
-    </select>
 
-    <label for="energy-to">热量（到）:</label>
-    <input type="number" id="energy-to" readonly />
-    <select id="energy-to-unit">
-        <option value="cal">卡路里</option>
-        <option value="J">焦耳</option>
-        <option value="BTU">英热单位</option>
-        <option value="kWh">千瓦时</option>
-    </select>
-
-    <button onclick="convertEnergy()">转换</button>
-
-
-    <script>
+<script>
 
 
 
 
-      function convertLength() {
-        var lengthFrom = document.getElementById("length-from").value;
-        var lengthFromUnit = document.getElementById("length-from-unit").value;
-        var lengthToUnit = document.getElementById("length-to-unit").value;
+  function convertLength() {
+    var lengthFrom = parseFloat(document.getElementById("length-from").value);
+    var lengthFromUnit = document.getElementById("length-from-unit").value;
+    var lengthToUnit = document.getElementById("length-to-unit").value;
 
-        var conversionFactor = getLengthConversionFactor(lengthFromUnit, lengthToUnit);
-        var lengthTo = lengthFrom * conversionFactor;
+    var conversionFactor = getLengthConversionFactor(lengthFromUnit, lengthToUnit);
+    var lengthTo = lengthFrom * conversionFactor;
 
-        document.getElementById("length-to").value = lengthTo;
-      }
+    document.getElementById("length-to").value = lengthTo.toFixed(2);
+  }
 
-      function getLengthConversionFactor(fromUnit, toUnit) {
-        // Conversion factors for different length units
-        var conversionTable = {
-          mm: {
-            cm: 0.1,
-            m: 0.001,
-            km: 0.000001,
-          },
-          cm: {
-            mm: 10,
-            m: 0.01,
-            km: 0.00001,
-          },
-          m: {
-            mm: 1000,
-            cm: 100,
-            km: 0.001,
-          },
-          km: {
-            mm: 1000000,
-            cm: 100000,
-            m: 1000,
-          },
+  function getLengthConversionFactor(fromUnit, toUnit) {
+    // Conversion factors for different length units
+    var conversionTable = {
+      mm: {
+        cm: 0.1,
+        m: 0.001,
+        km: 0.000001,
+        inch: 0.0393701,
+        li: 0.0000157828,
+        zhang: 0.000158728,
+        chi: 0.0158728,
+        cun: 1.58728,
+        fen: 15.8728,
+        li: 158.728,
+      },
+      cm: {
+        mm: 10,
+        m: 0.01,
+        km: 0.00001,
+        inch: 0.393701,
+        li: 0.000157828,
+        zhang: 0.00158728,
+        chi: 0.158728,
+        cun: 15.8728,
+        fen: 158.728,
+        li: 1587.28,
+      },
+      m: {
+        mm: 1000,
+        cm: 100,
+        km: 0.001,
+        inch: 39.3701,
+        li: 0.0157828,
+        zhang: 0.158728,
+        chi: 15.8728,
+        cun: 1587.28,
+        fen: 15872.8,
+        li: 158728,
+      },
+      km: {
+        mm: 1000000,
+        cm: 100000,
+        m: 1000,
+        inch: 39370.1,
+        li: 15.7828,
+        zhang: 158.728,
+        chi: 15872.8,
+        cun: 1587280,
+        fen: 15872800,
+        li: 158728000,
+      },
+      inch: {
+        mm: 25.4,
+        cm: 2.54,
+        m: 0.0254,
+        km: 0.0000254,
+        li: 0.0000063712,
+        zhang: 0.000063712,
+        chi: 0.0063712,
+        cun: 0.63712,
+        fen: 6.3712,
+        li: 63.712,
+      },
+      li: {
+        mm: 500000,
+        cm: 50000,
+        m: 500,
+        km: 0.5,
+        inch: 19685.04,
+        zhang: 2,
+        chi: 200,
+        cun: 20000,
+        fen: 200000,
+        li: 1,
+      },
+      zhang: {
+        mm: 3330,
+        cm: 333,
+        m: 3.33,
+        km: 0.00333,
+        inch: 131,
+        li: 0.000165,
+        zhang: 1,
+        chi: 100,
+        cun: 1000,
+        fen: 10000,
+        li: 33333,
+      },
+      chi: {
+        mm: 333,
+        cm: 33.3,
+        m: 0.333,
+        km: 0.000333,
+        inch: 13.1,
+        li: 0.000165,
+        zhang: 0.0000333,
+        chi: 1,
+        cun: 10,
+        fen: 100,
+        li: 3333,
+      },
+      cun: {
+        mm: 33.3,
+        cm: 3.33,
+        m: 0.0333,
+        km: 0.0000333,
+        inch: 1.31,
+        li: 0.00001665,
+        zhang: 0.00000333,
+        chi: 0.000333,
+        cun: 1,
+        fen: 10,
+        li: 333,
+      },
+      fen: {
+        mm: 0.333,
+        cm: 0.0333,
+        m: 0.000333,
+        km: 0.000000333,
+        inch: 0.0131,
+        li: 0.0000001665,
+        zhang: 0.0000000333,
+        chi: 0.00000333,
+        cun: 0.333,
+        fen: 1,
+        li: 33.3,
+      },
+
+    };
+
+    return conversionTable[fromUnit][toUnit];
+  }
+
+  function convertWeight() {
+    var weightFrom = document.getElementById("weight-from").value;
+    var weightFromUnit = document.getElementById("weight-from-unit").value;
+    var weightToUnit = document.getElementById("weight-to-unit").value;
+
+    var conversionFactor = getWeightConversionFactor(weightFromUnit, weightToUnit);
+    var weightTo = weightFrom * conversionFactor;
+
+    document.getElementById("weight-to").value = weightTo;
+  }
+
+  function getWeightConversionFactor(fromUnit, toUnit) {
+    // Conversion factors for different weight units
+    var conversionTable = {
+          g: { kg: 0.001, lb: 0.00220462, oz: 0.035274, jin: 0.002, liang: 0.02, qian: 0.2 },
+          kg: { g: 1000, lb: 2.20462, oz: 35.274, jin: 2, liang: 20, qian: 200 },
+          lb: { g: 453.592, kg: 0.453592, oz: 16, jin: 0.907185, liang: 9.07185, qian: 90.7185 },
+          oz: { g: 28.3495, kg: 0.0283495, lb: 0.0625, jin: 0.0567, liang: 0.567, qian: 5.67 },
+          jin: { g: 500, kg: 0.5, lb: 1.10231, oz: 35.274, liang: 10, qian: 100 },
+          liang: { g: 50, kg: 0.05, lb: 0.110231, oz: 3.5274, jin: 0.1, qian: 10 },
+          qian: { g: 5, kg: 0.005, lb: 0.0110231, oz: 0.35274, jin: 0.01, liang: 0.1 },
         };
+    return conversionTable[fromUnit][toUnit];
+  }
 
-        return conversionTable[fromUnit][toUnit];
-      }
+  function convertNumber() {
+    var numberFrom = document.getElementById("number-from").value;
+    var numberFromBase = document.getElementById("number-from-base").value;
+    var numberToBase = document.getElementById("number-to-base").value;
 
-      function convertWeight() {
-        var weightFrom = document.getElementById("weight-from").value;
-        var weightFromUnit = document.getElementById("weight-from-unit").value;
-        var weightToUnit = document.getElementById("weight-to-unit").value;
+    var numberTo = parseInt(numberFrom, numberFromBase).toString(numberToBase);
 
-        var conversionFactor = getWeightConversionFactor(weightFromUnit, weightToUnit);
-        var weightTo = weightFrom * conversionFactor;
+    document.getElementById("number-to").value = numberTo;
+  }
 
-        document.getElementById("weight-to").value = weightTo;
-      }
+  function convertTime() {
+    var timeFrom = document.getElementById("time-from").value;
+    var timeFromUnit = document.getElementById("time-from-unit").value;
+    var timeToUnit = document.getElementById("time-to-unit").value;
 
-      function getWeightConversionFactor(fromUnit, toUnit) {
-        // Conversion factors for different weight units
-        var conversionTable = {
-          g: {
-            kg: 0.001,
-            lb: 0.00220462,
-            oz: 0.035274,
-          },
-          kg: {
-            g: 1000,
-            lb: 2.20462,
-            oz: 35.274,
-          },
-          lb: {
-            g: 453.592,
-            kg: 0.453592,
-            oz: 16,
-          },
-          oz: {
-            g: 28.3495,
-            kg: 0.0283495,
-            lb: 0.0625,
-          },
-        };
+    var conversionFactor = getTimeConversionFactor(timeFromUnit, timeToUnit);
+    var timeTo = timeFrom * conversionFactor;
 
-        return conversionTable[fromUnit][toUnit];
-      }
+    document.getElementById("time-to").value = timeTo;
+  }
 
-      function convertNumber() {
-        var numberFrom = document.getElementById("number-from").value;
-        var numberFromBase = document.getElementById("number-from-base").value;
-        var numberToBase = document.getElementById("number-to-base").value;
+  function getTimeConversionFactor(fromUnit, toUnit) {
+    // Conversion factors for different time units
+    var conversionTable = {
+      s: {
+        min: 1 / 60,
+        h: 1 / 3600,
+        d: 1 / 86400,
+      },
+      min: {
+        s: 60,
+        h: 1 / 60,
+        d: 1 / 1440,
+      },
+      h: {
+        s: 3600,
+        min: 60,
+        d: 1 / 24,
+      },
+      d: {
+        s: 86400,
+        min: 1440,
+        h: 24,
+      },
+    };
 
-        var numberTo = parseInt(numberFrom, numberFromBase).toString(numberToBase);
-
-        document.getElementById("number-to").value = numberTo;
-      }
-
-      function convertTime() {
-        var timeFrom = document.getElementById("time-from").value;
-        var timeFromUnit = document.getElementById("time-from-unit").value;
-        var timeToUnit = document.getElementById("time-to-unit").value;
-
-        var conversionFactor = getTimeConversionFactor(timeFromUnit, timeToUnit);
-        var timeTo = timeFrom * conversionFactor;
-
-        document.getElementById("time-to").value = timeTo;
-      }
-
-      function getTimeConversionFactor(fromUnit, toUnit) {
-        // Conversion factors for different time units
-        var conversionTable = {
-          s: {
-            min: 1 / 60,
-            h: 1 / 3600,
-            d: 1 / 86400,
-          },
-          min: {
-            s: 60,
-            h: 1 / 60,
-            d: 1 / 1440,
-          },
-          h: {
-            s: 3600,
-            min: 60,
-            d: 1 / 24,
-          },
-          d: {
-            s: 86400,
-            min: 1440,
-            h: 24,
-          },
-        };
-
-        return conversionTable[fromUnit][toUnit];
-      }
+    return conversionTable[fromUnit][toUnit];
+  }
 
 
 
-      function convertStorage() {
-        var storageFrom = document.getElementById("storage-from").value;
-        var storageFromUnit = document.getElementById("storage-from-unit").value;
-        var storageToUnit = document.getElementById("storage-to-unit").value;
-    
-        var conversionFactor = getStorageConversionFactor(storageFromUnit, storageToUnit);
-        var storageTo = storageFrom * conversionFactor;
-    
-        document.getElementById("storage-to").value = storageTo;
-      }
-    
-      function getStorageConversionFactor(fromUnit, toUnit) {
-        // Conversion factors for different storage units
-        var conversionTable = {
-          bit: {
-            B: 1 / 8,
-            KB: 1 / (8 * 1024),
-            MB: 1 / (8 * 1024 * 1024),
-            GB: 1 / (8 * 1024 * 1024 * 1024),
-            TB: 1 / (8 * 1024 * 1024 * 1024 * 1024),
-          },
-          B: {
-            bit: 8,
-            KB: 1 / 1024,
-            MB: 1 / (1024 * 1024),
-            GB: 1 / (1024 * 1024 * 1024),
-            TB: 1 / (1024 * 1024 * 1024 * 1024),
-          },
-          KB: {
-            bit: 8 * 1024,
-            B: 1024,
-            MB: 1 / 1024,
-            GB: 1 / (1024 * 1024),
-            TB: 1 / (1024 * 1024 * 1024),
-          },
-          MB: {
-            bit: 8 * 1024 * 1024,
-            B: 1024 * 1024,
-            KB: 1024,
-            GB: 1 / 1024,
-            TB: 1 / (1024 * 1024),
-          },
-          GB: {
-            bit: 8 * 1024 * 1024 * 1024,
-            B: 1024 * 1024 * 1024,
-            KB: 1024 * 1024,
-            MB: 1024,
-            TB: 1 / 1024,
-          },
-          TB: {
-            bit: 8 * 1024 * 1024 * 1024 * 1024,
-            B: 1024 * 1024 * 1024 * 1024,
-            KB: 1024 * 1024 * 1024,
-            MB: 1024 * 1024,
-            GB: 1024,
-          },
-        };
-    
-        return conversionTable[fromUnit][toUnit];
-      }
+  function convertStorage() {
+    var storageFrom = document.getElementById("storage-from").value;
+    var storageFromUnit = document.getElementById("storage-from-unit").value;
+    var storageToUnit = document.getElementById("storage-to-unit").value;
+
+    var conversionFactor = getStorageConversionFactor(storageFromUnit, storageToUnit);
+    var storageTo = storageFrom * conversionFactor;
+
+    document.getElementById("storage-to").value = storageTo;
+  }
+
+  function getStorageConversionFactor(fromUnit, toUnit) {
+    // Conversion factors for different storage units
+    var conversionTable = {
+      bit: {
+        B: 1 / 8,
+        KB: 1 / (8 * 1024),
+        MB: 1 / (8 * 1024 * 1024),
+        GB: 1 / (8 * 1024 * 1024 * 1024),
+        TB: 1 / (8 * 1024 * 1024 * 1024 * 1024),
+      },
+      B: {
+        bit: 8,
+        KB: 1 / 1024,
+        MB: 1 / (1024 * 1024),
+        GB: 1 / (1024 * 1024 * 1024),
+        TB: 1 / (1024 * 1024 * 1024 * 1024),
+      },
+      KB: {
+        bit: 8 * 1024,
+        B: 1024,
+        MB: 1 / 1024,
+        GB: 1 / (1024 * 1024),
+        TB: 1 / (1024 * 1024 * 1024),
+      },
+      MB: {
+        bit: 8 * 1024 * 1024,
+        B: 1024 * 1024,
+        KB: 1024,
+        GB: 1 / 1024,
+        TB: 1 / (1024 * 1024),
+      },
+      GB: {
+        bit: 8 * 1024 * 1024 * 1024,
+        B: 1024 * 1024 * 1024,
+        KB: 1024 * 1024,
+        MB: 1024,
+        TB: 1 / 1024,
+      },
+      TB: {
+        bit: 8 * 1024 * 1024 * 1024 * 1024,
+        B: 1024 * 1024 * 1024 * 1024,
+        KB: 1024 * 1024 * 1024,
+        MB: 1024 * 1024,
+        GB: 1024,
+      },
+    };
+
+    return conversionTable[fromUnit][toUnit];
+  }
 
 
-      function convertEnergy() {
-        var energyFrom = document.getElementById("energy-from").value;
-        var energyFromUnit = document.getElementById("energy-from-unit").value;
-        var energyToUnit = document.getElementById("energy-to-unit").value;
+  function convertEnergy() {
+    var energyFrom = document.getElementById("energy-from").value;
+    var energyFromUnit = document.getElementById("energy-from-unit").value;
+    var energyToUnit = document.getElementById("energy-to-unit").value;
 
-        var conversionFactor = getEnergyConversionFactor(energyFromUnit, energyToUnit);
-        var energyTo = energyFrom * conversionFactor;
+    var conversionFactor = getEnergyConversionFactor(energyFromUnit, energyToUnit);
+    var energyTo = energyFrom * conversionFactor;
 
-        document.getElementById("energy-to").value = energyTo;
-    }
+    document.getElementById("energy-to").value = energyTo;
+  }
 
-    function getEnergyConversionFactor(fromUnit, toUnit) {
-        // Conversion factors for different energy units
-        var conversionTable = {
-            cal: {
-                J: 4.184,
-                BTU: 0.003968,
-                kWh: 0.00000116222222,
-            },
-            J: {
-                cal: 0.239006,
-                BTU: 0.000947817,
-                kWh: 0.000000277777778,
-            },
-            BTU: {
-                cal: 252.164,
-                J: 1055.06,
-                kWh: 0.000293071,
-            },
-            kWh: {
-                cal: 859.845,
-                J: 3600000,
-                BTU: 3412.14,
-            },
-        };
+  function getEnergyConversionFactor(fromUnit, toUnit) {
+    // Conversion factors for different energy units
+    var conversionTable = {
+      cal: {
+        kcal: 0.001,
+        J: 4.184,
+        kJ: 0.004184,
+        BTU: 0.003968,
+        kWh: 0.00000116222222,
+      },
+      kcal: {
+        cal: 1000, // 千卡与卡路里的换算关系
+        J: 4184, // 千卡与焦耳的换算关系
+        kJ: 4.184,
+        BTU: 3.968, // 千卡与英热单位的换算关系
+        kWh: 0.00116222222, // 千卡与千瓦时的换算关系
+      },
+      J: {
+        cal: 0.239006,
+        kcal: 0.000239006,
+        BTU: 0.000947817,
+        kJ: 0.001,
+        kWh: 0.000000277777778,
+      },
+      kJ: {
+        cal: 239.006, // 千焦与卡路里的换算关系
+        J: 1000, // 千焦与焦耳的换算关系
+        BTU: 0.948817, // 千焦与英热单位的换算关系
+        kWh: 0.000277777778, // 千焦与千瓦时的换算关系
+        kcal: 0.239006, // 千焦与千卡的换算关系
+      },
+      BTU: {
+        cal: 252.164,
+        kcal: 0.252164,
+        J: 1055.06,
+        kJ: 1.05506,
+        kWh: 0.000293071,
+      },
+      kWh: {
+        cal: 859.845,
+        kcal: 859.845,
+        J: 3600000,
+        kJ: 3600,
+        BTU: 3412.14,
+      },
+    };
 
-        return conversionTable[fromUnit][toUnit];
-    }
+    return conversionTable[fromUnit][toUnit];
+  }
 
-    </script>
+
+  function convertToCm() {
+    var inchDiagonal = parseFloat(document.getElementById("inchDiagonal").value);
+    var aspectRatio = document.getElementById("aspectRatio").value;
+
+    var aspectRatioArr = aspectRatio.split(":");
+    var widthRatio = parseFloat(aspectRatioArr[0]);
+    var heightRatio = parseFloat(aspectRatioArr[1]);
+
+    var diagonalCm = inchDiagonal * 2.54; // 将inch转换为cm
+    var diagonalRatio = Math.sqrt(widthRatio * widthRatio + heightRatio * heightRatio); // 计算宽高比的对角线比例
+    var widthCm = diagonalCm * (widthRatio / diagonalRatio);
+    var heightCm = diagonalCm * (heightRatio / diagonalRatio);
+
+    document.getElementById("cmHeight").value = heightCm.toFixed(2);
+    document.getElementById("cmWidth").value = widthCm.toFixed(2);
+}
+
+function convertToInchAndAspectRatio() {
+    var cmHeight = parseFloat(document.getElementById("cmHeight").value);
+    var cmWidth = parseFloat(document.getElementById("cmWidth").value);
+
+    var inchDiagonal = Math.sqrt(cmHeight * cmHeight + cmWidth * cmWidth) / 2.54; // 将cm转换为inch
+
+    var widthRatio = cmWidth / cmHeight;
+    var heightRatio = 1;
+    var aspectRatio = widthRatio.toFixed(2) + ":" + heightRatio.toFixed(2);
+
+    document.getElementById("inchDiagonal").value = inchDiagonal.toFixed(2);
+    document.getElementById("aspectRatio").value = aspectRatio;
+}
+
+
+
+
+
+
+
+
+
+</script>

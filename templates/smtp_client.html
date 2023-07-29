@@ -1,0 +1,30 @@
+% rebase('templates/base.html', title='SMTP 客户端')
+
+<h1>在线SMTP发邮件工具</h1>
+<form action="/smtp-client/send_email" method="post">
+  <label for="host">服务器主机名：</label>
+  <input type="text" id="host" name="host" value="smtp.qq.com" /><br />
+
+  <label for="port">服务器端口号：</label>
+  <input type="text" id="port" name="port" value="587" /><br />
+
+  <label for="username">用户名：</label>
+  <input type="text" id="username" name="username" /><br />
+
+  <label for="password">密码：</label>
+  <input type="password" id="password" name="password" /><br />
+
+  <label for="sender">发件人：</label>
+  <input type="text" id="sender" name="sender" /><br />
+
+  <label for="receiver">收件人：</label>
+  <input type="text" id="receiver" name="receiver" /><br />
+
+  <label for="subject">主题：</label>
+  <input type="text" id="subject" name="subject" /><br />
+
+  <label for="content">内容：</label>
+  <textarea style="display:block;" id="content" name="content" rows="4" cols="50"></textarea><br />
+
+  <input type="submit" value="发送邮件" />
+</form>
