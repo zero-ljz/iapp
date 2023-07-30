@@ -201,36 +201,31 @@
     <option value="BTU">英热单位 (BTU)</option>
     <option value="kWh">千瓦时 (kWh)</option>
   </select>
-
+  
   <button onclick="convertEnergy()">转换</button>
 </fieldset>
 
-
-
 <fieldset>
   <legend>屏幕尺寸转换器</legend>
+  <label>转换为屏幕高度宽度（cm）</label>
 <input
   type="number"
   id="inchDiagonal"
   placeholder="屏幕对角线尺寸（inch）"
 />
 <input type="text" id="aspectRatio" placeholder="宽高比（例如16:9）" />
-<button onclick="convertToCm()">转换为屏幕高度宽度（cm）</button>
+<button onclick="convertToCm()">转换</button>
 
+<label>转换为屏幕对角线尺寸和屏幕宽高比</label>
 <input type="number" id="cmHeight" placeholder="屏幕高度（cm）" />
 <input type="number" id="cmWidth" placeholder="屏幕宽度（cm）" />
 
 <button onclick="convertToInchAndAspectRatio()">
-  转换为屏幕对角线尺寸和屏幕宽高比
+  转换
 </button>
 </fieldset>
 
-
-
 <script>
-
-
-
 
   function convertLength() {
     var lengthFrom = parseFloat(document.getElementById("length-from").value);
@@ -244,7 +239,7 @@
   }
 
   function getLengthConversionFactor(fromUnit, toUnit) {
-    // Conversion factors for different length units
+    // 不同单位的转换系数
     var conversionTable = {
       mm: {
         cm: 0.1,
@@ -388,7 +383,6 @@
   }
 
   function getWeightConversionFactor(fromUnit, toUnit) {
-    // Conversion factors for different weight units
     var conversionTable = {
           g: { kg: 0.001, lb: 0.00220462, oz: 0.035274, jin: 0.002, liang: 0.02, qian: 0.2 },
           kg: { g: 1000, lb: 2.20462, oz: 35.274, jin: 2, liang: 20, qian: 200 },
@@ -450,8 +444,6 @@
     return conversionTable[fromUnit][toUnit];
   }
 
-
-
   function convertStorage() {
     var storageFrom = document.getElementById("storage-from").value;
     var storageFromUnit = document.getElementById("storage-from-unit").value;
@@ -464,7 +456,6 @@
   }
 
   function getStorageConversionFactor(fromUnit, toUnit) {
-    // Conversion factors for different storage units
     var conversionTable = {
       bit: {
         B: 1 / 8,
@@ -513,7 +504,6 @@
     return conversionTable[fromUnit][toUnit];
   }
 
-
   function convertEnergy() {
     var energyFrom = document.getElementById("energy-from").value;
     var energyFromUnit = document.getElementById("energy-from-unit").value;
@@ -526,7 +516,6 @@
   }
 
   function getEnergyConversionFactor(fromUnit, toUnit) {
-    // Conversion factors for different energy units
     var conversionTable = {
       cal: {
         kcal: 0.001,
@@ -536,11 +525,11 @@
         kWh: 0.00000116222222,
       },
       kcal: {
-        cal: 1000, // 千卡与卡路里的换算关系
-        J: 4184, // 千卡与焦耳的换算关系
+        cal: 1000, 
+        J: 4184,
         kJ: 4.184,
-        BTU: 3.968, // 千卡与英热单位的换算关系
-        kWh: 0.00116222222, // 千卡与千瓦时的换算关系
+        BTU: 3.968,
+        kWh: 0.00116222222,
       },
       J: {
         cal: 0.239006,
@@ -550,11 +539,11 @@
         kWh: 0.000000277777778,
       },
       kJ: {
-        cal: 239.006, // 千焦与卡路里的换算关系
-        J: 1000, // 千焦与焦耳的换算关系
-        BTU: 0.948817, // 千焦与英热单位的换算关系
-        kWh: 0.000277777778, // 千焦与千瓦时的换算关系
-        kcal: 0.239006, // 千焦与千卡的换算关系
+        cal: 239.006,
+        J: 1000,
+        BTU: 0.948817,
+        kWh: 0.000277777778,
+        kcal: 0.239006,
       },
       BTU: {
         cal: 252.164,
@@ -574,7 +563,6 @@
 
     return conversionTable[fromUnit][toUnit];
   }
-
 
   function convertToCm() {
     var inchDiagonal = parseFloat(document.getElementById("inchDiagonal").value);
@@ -606,13 +594,6 @@ function convertToInchAndAspectRatio() {
     document.getElementById("inchDiagonal").value = inchDiagonal.toFixed(2);
     document.getElementById("aspectRatio").value = aspectRatio;
 }
-
-
-
-
-
-
-
 
 
 </script>

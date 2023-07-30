@@ -20,7 +20,7 @@ app.mount('/smtp-client', smtp_client.app)
 app.mount('/sql-executor', sql_executor.app)
 app.mount('/data-converter', data_converter.app)
 app.mount('/code-compress', code_compress.app)
-app.mount('/share', file_share.app)
+app.mount('/s', file_share.app)
 app.mount('/ftp-uploader', ftp_uploader.app)
 
 # 定义路由和处理函数
@@ -63,10 +63,6 @@ def code_formatter():
 @app.route('/code-editor')
 def code_editor():
     return template('templates/code_editor.html')
-
-@app.route('/rich-editor')
-def rich_editor():
-    return template('templates/rich_editor.html')
 
 @app.route('/regex-tester')
 def regex_tester():

@@ -43,9 +43,13 @@ def requires_auth(f):
 
 # 上传文件页面
 @app.route('/')
+@app.route('/<filename>')
 @requires_auth
-def upload_page():
-    return template('templates/file_share.html')
+def upload_page(filename=None):
+    if not filename:
+        return template('templates/file_share.html')
+    else: 
+        return static_file(filename, root=UPLOAD_FOLDER)
 
 # 上传文件处理
 @app.route('/upload', method='POST')
@@ -73,19 +77,12 @@ def do_upload():
         return "Upload failed."
     
     # 生成链接
-    file_url = f"/share/file/{filename}"
+    file_url = f"/s/{filename}"
     return f"File uploaded successfully! Link: <a href='{file_url}'>{file_url}</a>"
-
-
-# 提供静态文件服务
-@app.route('/file/<filename>')
-def serve_file(filename):
-    return static_file(filename, root=UPLOAD_FOLDER)
-
 
 # 展示文件列表
 @app.route('/files')
 def show_files():
     files = os.listdir(UPLOAD_FOLDER)
-    file_links = [f"<a href='/share/file/{file}'>{file}</a>" for file in files]
+    file_links = [f"<a href='/s/{file}'>{file}</a>" for file in files]
     return "<br>".join(file_links)

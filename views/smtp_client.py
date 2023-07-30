@@ -17,7 +17,7 @@ def send_email():
     username = request.forms.get('username')
     password = request.forms.get('password')
 
-    sender = request.forms.get('sender')
+    sender = username
     receiver = request.forms.get('receiver') # 接收邮件的邮箱地址，可以是单个地址或多个地址，使用逗号分隔
     subject = request.forms.get('subject')
     content = request.forms.get('content')

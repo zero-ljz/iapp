@@ -1,9 +1,9 @@
 
 % rebase('templates/base.html', title='文件上传分享')
 
-<a href="/share/files">View Uploaded Files</a>
+<a href="/s/files">View Uploaded Files</a>
 
-<form action="/share/upload" method="post" enctype="multipart/form-data">
+<form action="/s/upload" method="post" enctype="multipart/form-data">
 <fieldset>
   <legend>文件上传:</legend>
     <input type="file" name="file">
@@ -13,7 +13,7 @@
     </fieldset>
 </form>
 
-<form action="/share/upload" method="post" enctype="application/x-www-form-urlencoded;charset=UTF-8">
+<form action="/s/upload" method="post" enctype="application/x-www-form-urlencoded;charset=UTF-8">
 <fieldset>
   <legend>文件创建:</legend>
     <div style="margin-bottom:5px">
