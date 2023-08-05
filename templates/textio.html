@@ -4,23 +4,23 @@
 </h1>
 <p>
 
-    <form id="form1" method="get" onsubmit="saveFormData()">
+    <form id="form1" method="get" onsubmit="return saveFormData();">
         <label for="text">Text I/O:</label>
 
-        <input type="text" list="optionList" id="option" name="program" placeholder="option">
+        <input type="text" list="optionList" id="0" placeholder="0">
         <datalist id="optionList">
             <option value="python">python</option>
             <option value="node">node</option>
             <option value="curl">curl</option>
         </datalist>
-        <button type="button" onclick="document.getElementById('option').value = ''">ReSelect</button>
+        <button type="button" onclick="document.getElementById('0').value = ''">ReSelect</button>
 
         <button type="button" onclick="addParam()">+</button>
         <button type="button" onclick="removeParam()">-</button>
 
-        <input type="submit" value="Submit" onclick="document.getElementById('form1').action = '/c">
+        <input type="submit" value="Execute" onclick="setAction()">
 
-        <textarea style="display:block;" id="textarea" name="1" placeholder="1" required></textarea>
+        <textarea style="display:block;" id="1" placeholder="1"></textarea>
 
     </form>
 </p>
@@ -35,7 +35,7 @@
 
         // 设置新的 textarea 的 name 和 placeholder 属性
         const paramName = (textareaCount + 1);
-        newTextArea.name = paramName;
+        newTextArea.id = paramName;
         newTextArea.placeholder = paramName;
         newTextArea.style.display = 'block';
 
@@ -65,29 +65,58 @@
     }
 
     function saveFormData() {
-        const form = document.getElementById('form1');
-        const formData = new FormData(form);
-        for (let pair of formData) {
-            sessionStorage.setItem(pair[0], pair[1]);
-        }
+        let form = document.getElementById('form1');
 
-        // 单独处理自动完成文本框
-        const option = document.getElementById('option');
-        sessionStorage.setItem('option', option.value);
+        sessionStorage.clear();
+        let elements = getElementsWithNumberId(form);
+        elements.forEach(element => {
+            sessionStorage.setItem(element.id, element.value);
+        });
+
+        return false;
     }
 
-    window.onload = function () {
+    function loadFormData() {
         const form = document.getElementById('form1');
         for (let i = 0; i < form.elements.length; i++) {
             const element = form.elements[i];
-            const value = sessionStorage.getItem(element.name);
+            const value = sessionStorage.getItem(element.id);
             if (value) {
                 element.value = value;
             }
         }
-
-        // 单独处理自动完成文本框
-        const option = document.getElementById('option');
-        option.value = sessionStorage.getItem('option');
     }
+
+    function setAction() {
+            const form = document.getElementById('form1');
+
+            const textareas = form.getElementsByTagName('textarea');
+            let paramStr = '';
+            for (let i = 0; i < textareas.length; i++) {
+                const paramValue = textareas[i].value;
+                paramStr += '/' + encodeURIComponent(paramValue);
+            }
+            
+            let href = '/c/' + document.getElementById('0').value + '/' + paramStr.substr(1);
+            window.location.href = href;
+    }
+
+    window.onload = function () {
+        loadFormData();
+    }
+
+    function getElementsWithNumberId(parentElement) {
+            const elements = [];
+            const children = parentElement.children;
+            for (let i = 0; i < children.length; i++) {
+                const element = children[i];
+                if (element.id && element.id.match(/^\d+$/)) {
+                    elements.push(element);
+                }
+                if (element.children.length > 0) {
+                    elements.push(...getElementsWithNumberId(element));
+                }
+            }
+            return elements;
+        }
 </script>

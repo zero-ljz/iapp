@@ -33,9 +33,14 @@ def send_email():
         smtp = smtplib.SMTP(host, port)
         smtp.starttls()  # 使用TLS加密传输
         smtp.login(username, password)  # 登录邮箱
-        smtp.sendmail(sender, receiver.split(','), msg.as_string())  # 发送邮件，receiver可以是多个邮箱地址
+        failed_recipients = smtp.sendmail(sender, receiver.split(','), msg.as_string())  # 发送邮件，receiver可以是多个邮箱地址
         smtp.quit()
-        out = "邮件发送成功"
+        if not failed_recipients:
+            out = "邮件发送成功！"
+        else:
+            out = "邮件发送失败，以下收件人发送失败：\n"
+            for recipient, error in failed_recipients.items():
+                out += f"{recipient}: {error}\n"
     except Exception as e:
         out = str(e)
 

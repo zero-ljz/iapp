@@ -15,22 +15,16 @@ app = Bottle()
 @app.route('/', method='GET')
 @app.route('/<path:re:.*>')
 def handle_request(path=None):
-    query = request.query.decode('utf-8')
-    # 获取查询参数，如果没有则使用路径分割
-    params = [value for index, (key, value) in enumerate(dict(query).items())]
-    #print(params)
-    if len(params) == 0 and path is not None:
+    query = dict(request.query.decode('utf-8'))
+    if 'command' in query:
+        command = query['c']
+        output = subprocess.check_output(command, shell=True).decode("utf-8", errors="ignore")
+    elif path is not None:
         params = path.split('/')
-    #print(params)
-    if len(params) == 0:
+        command = " ".join(f'"{value}"' for value in params)
+        output = subprocess.run(params, capture_output=True, text=True, encoding='utf-8', errors='ignore').stdout
+    else:
         return template('templates/textio.html')
-
-    # 简单的命令执行
-    # command = " ".join(f'"{value}"' for value in params)
-    # output = subprocess.check_output(command, shell=True).decode("utf-8", errors="ignore")
-    
-    # 灵活的命令执行
-    output = subprocess.run(params, capture_output=True, text=True, encoding='utf-8', errors='ignore').stdout
 
     response.headers['Content-Type'] = 'text/plain; charset=UTF-8'
     return f'{output}'

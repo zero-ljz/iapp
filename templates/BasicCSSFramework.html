@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Basic CSS Framework</title>
+    <style>
+        /* Reset some default styles */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Basic styles for container and columns */
+        .container {
+            max-width: 1200px;
+            /* Set your desired max width */
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .column {
+            flex: 1;
+            margin: 5px;
+            padding: 10px;
+        }
+
+        /* Basic responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .column {
+                margin: 10px 0;
+            }
+        }
+
+        /* Example styles for different column widths */
+        .col-1 {
+            flex-basis: 8%;
+        }
+
+        .col-2 {
+            flex-basis: 16%;
+        }
+
+        .col-3 {
+            flex-basis: 25%;
+        }
+
+        .col-4 {
+            flex-basis: 33.33%;
+        }
+
+        .col-6 {
+            flex-basis: 50%;
+        }
+
+        .col-8 {
+            flex-basis: 66.66%;
+        }
+
+        .col-12 {
+            flex-basis: 100%;
+        }
+
+        /* Example styles for header and footer */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Styles for Buttons */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styles for Navigation Bar */
+        .navbar {
+            background-color: #333;
+            padding: 10px;
+        }
+
+        .nav {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin-right: 10px;
+        }
+
+        .nav-item:last-child {
+            margin-right: 0;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px;
+        }
+
+        .nav-link:hover {
+            background-color: #444;
+        }
+
+        /* Styles for Cards */
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .card-img {
+            width: 100%;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .card-content {
+            padding: 10px;
+        }
+
+        .card-title {
+            margin-top: 0;
+        }
+
+        /* Styles for Forms */
+        .form {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Styles for Alert Boxes */
+        .alert {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Styles for Tabbed Navigation */
+        .tabs {
+            display: flex;
+            list-style: none;
+            padding: 0;
+        }
+
+        .tab-item {
+            margin-right: 10px;
+        }
+
+        .tab-item:last-child {
+            margin-right: 0;
+        }
+
+        .tab-link {
+            color: #333;
+            text-decoration: none;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .tab-link.active {
+            background-color: #007bff;
+            color: #fff;
+            border-bottom-color: transparent;
+        }
+
+        /* Styles for Breadcrumb Navigation */
+        .breadcrumb {
+            list-style: none;
+            padding: 0;
+        }
+
+        .breadcrumb-item {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        /* Styles for Image Carousel */
+        .carousel {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-item {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .carousel-item.active {
+            display: block;
+        }
+
+        /* Styles for Dropdown Select */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            min-width: 100px;
+            z-index: 1;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 5px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f8f8;
+        }
+
+        /* Styles for Search Box */
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+        }
+
+        .search-icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        /* Styles for Table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        /* Styles for Pagination */
+        .pagination {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .page-item {
+            margin: 0 5px;
+        }
+
+        .page-link {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .page-link:hover {
+            background-color: #f8f8f8;
+        }
+
+        /* Styles for Panels */
+        .panel {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .panel-title {
+            margin-top: 0;
+        }
+
+        /* Styles for Tooltips */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip-text {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 4px;
+            top: -25px;
+            left: 0;
+        }
+
+        .tooltip:hover .tooltip-text {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <h1>My Basic CSS Framework</h1>
+        <ul class="nav">
+            <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+        </ul>
+    </header>
+
+    <div class="container">
+
+        <div class="column col-4">
+            <h2>Column 1</h2>
+            <p>Content goes here...</p>
+        </div>
+        <div class="column col-4">
+            <h2>Column 2</h2>
+            <p>Content goes here...</p>
+        </div>
+        <div class="column col-4">
+            <h2>Column 3</h2>
+            <p>Content goes here...</p>
+        </div>
+
+        <div class="column col-4">
+            <h2>Column 1</h2>
+            <p>Content goes here...</p>
+            <button class="button">Button</button>
+        </div>
+        <div class="column col-4">
+            <h2>Column 2</h2>
+            <p>Content goes here...</p>
+            <div class="card">
+                <img src="image.jpg" alt="Image" class="card-img">
+                <div class="card-content">
+                    <h3 class="card-title">Card Title</h3>
+                    <p>Card content goes here...</p>
+                </div>
+            </div>
+        </div>
+        <div class="column col-4">
+            <h2>Column 3</h2>
+            <p>Content goes here...</p>
+            <form class="form">
+                <div class="form-group">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-control">
+                </div>
+                <button type="submit" class="button">Submit</button>
+            </form>
+            <div class="alert alert-success">This is a success message.</div>
+            <div class="alert alert-warning">This is a warning message.</div>
+            <div class="alert alert-danger">This is an error message.</div>
+
+            <!-- Tabbed Navigation -->
+            <ul class="tabs">
+                <li class="tab-item"><a href="#" class="tab-link active">Tab 1</a></li>
+                <li class="tab-item"><a href="#" class="tab-link">Tab 2</a></li>
+                <li class="tab-item"><a href="#" class="tab-link">Tab 3</a></li>
+            </ul>
+
+            <!-- Breadcrumb Navigation -->
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Category</a></li>
+                <li class="breadcrumb-item active">Subcategory</li>
+            </ul>
+
+            <!-- Image Carousel -->
+            <div class="carousel">
+                <div class="carousel-item active">
+                    <img src="image1.jpg" alt="Image 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="image2.jpg" alt="Image 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="image3.jpg" alt="Image 3">
+                </div>
+            </div>
+
+            <!-- Dropdown Select -->
+            <div class="dropdown">
+                <div class="dropdown-toggle" onclick="toggleDropdown()">Select an option</div>
+                <ul class="dropdown-menu" id="dropdownMenu">
+                    <li class="dropdown-item">Option 1</li>
+                    <li class="dropdown-item">Option 2</li>
+                    <li class="dropdown-item">Option 3</li>
+                </ul>
+            </div>
+
+            <!-- Search Box -->
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search...">
+                <div class="search-icon">🔍</div>
+            </div>
+
+            <!-- Table -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Column 1</th>
+                        <th>Column 2</th>
+                        <th>Column 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Value 1</td>
+                        <td>Value 2</td>
+                        <td>Value 3</td>
+                    </tr>
+                    <!-- Add more rows here -->
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <ul class="pagination">
+                <li class="page-item"><a href="#" class="page-link">1</a></li>
+                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                <li class="page-item"><a href="#" class="page-link">3</a></li>
+            </ul>
+
+            <!-- Panel -->
+            <div class="panel">
+                <h3 class="panel-title">Panel Title</h3>
+                <p>Panel content goes here...</p>
+            </div>
+
+            <!-- Tooltip -->
+            <div class="tooltip">
+                Hover over me to see tooltip
+                <div class="tooltip-text">This is a tooltip</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 My Website. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript function to toggle the dropdown menu
+        function toggleDropdown() {
+            var dropdownMenu = document.getElementById('dropdownMenu');
+            dropdownMenu.classList.toggle('show');
+        }
+    </script>
+</body>
+
+</html>
