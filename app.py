@@ -84,6 +84,18 @@ def html_runner():
 def js_runner():
     return template('templates/js_runner.html')
 
+@app.route('/form-builder')
+def form_builder():
+    return template('templates/form_builder.html')
+
+@app.route('/password-generator')
+def password_generator():
+    return template('templates/password_generator.html')
+
+@app.route('/timer')
+def timer():
+    return template('templates/timer.html')
+
 @app.route('/log')
 def applog():
     return static_file('app.log', root='.')

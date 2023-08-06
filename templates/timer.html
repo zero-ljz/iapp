@@ -1,0 +1,121 @@
+% rebase('templates/base.html', title='在线秒表、计时器、闹钟')
+
+  <!-- 秒表 -->
+  <h2>秒表</h2>
+  <div id="stopwatch">
+    <span id="stopwatchDisplay">00:00:00</span>
+    <button onclick="startStopwatch()">开始</button>
+    <button onclick="stopStopwatch()">停止</button>
+    <button onclick="resetStopwatch()">重置</button>
+  </div>
+
+  <!-- 计时器 -->
+  <h2>计时器</h2>
+  <div id="timer">
+    <input type="number" id="timerInput" value="0" min="0" step="1">
+    <button onclick="startTimer()">开始</button>
+    <button onclick="stopTimer()">停止</button>
+    <button onclick="resetTimer()">重置</button>
+  </div>
+
+  <!-- 闹钟 -->
+  <h2>闹钟</h2>
+  <div id="alarm">
+    <input type="time" id="alarmInput">
+    <button onclick="setAlarm()">设置</button>
+  </div>
+
+  <script>
+    // 秒表
+    let stopwatchInterval;
+    let stopwatchTime = 0;
+
+    function updateStopwatch() {
+      stopwatchTime++;
+      const hours = Math.floor(stopwatchTime / 3600);
+      const minutes = Math.floor((stopwatchTime % 3600) / 60);
+      const seconds = stopwatchTime % 60;
+      document.getElementById("stopwatchDisplay").textContent = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    }
+
+    function startStopwatch() {
+      stopwatchInterval = setInterval(updateStopwatch, 1000);
+    }
+
+    function stopStopwatch() {
+      clearInterval(stopwatchInterval);
+    }
+
+    function resetStopwatch() {
+      stopStopwatch();
+      stopwatchTime = 0;
+      updateStopwatch();
+    }
+
+    // 计时器
+    let timerInterval;
+    let timerTime = 0;
+
+    function updateTimer() {
+      if (timerTime > 0) {
+        timerTime--;
+      } else {
+        stopTimer();
+        showNotification("计时器已完成", "时间到了！");
+      }
+      const minutes = Math.floor(timerTime / 60);
+      const seconds = timerTime % 60;
+      document.getElementById("timerInput").value = timerTime;
+    }
+
+    function startTimer() {
+      if (!timerInterval) {
+        timerTime = parseInt(document.getElementById("timerInput").value);
+        if (timerTime > 0) {
+          timerInterval = setInterval(updateTimer, 1000);
+        }
+      }
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+
+    function resetTimer() {
+      stopTimer();
+      document.getElementById("timerInput").value = 0;
+    }
+
+    // 闹钟
+    function setAlarm() {
+      const alarmTime = document.getElementById("alarmInput").value;
+      if (alarmTime) {
+        const now = new Date();
+        const [hours, minutes] = alarmTime.split(":");
+        const alarmDateTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+        const timeToAlarm = alarmDateTime - now;
+        if (timeToAlarm > 0) {
+          setTimeout(() => {
+            showNotification("闹钟响了", "时间到了！");
+          }, timeToAlarm);
+        } else {
+          showNotification("闹钟时间无效", "请设置未来的时间");
+        }
+      }
+    }
+
+    // 通知
+    function showNotification(title, message) {
+      if (Notification.permission === "granted") {
+        new Notification(title, { body: message });
+      } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then(permission => {
+          if (permission === "granted") {
+            new Notification(title, { body: message });
+          }
+        });
+      }
+    }
+  </script>
+

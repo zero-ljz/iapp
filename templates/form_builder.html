@@ -1,0 +1,124 @@
+% rebase('templates/base.html', title='Form Builder')
+
+
+
+<form method="get" action="echo">
+    <div style="margin-bottom: 15px;">
+        <input list="input-type-options" id="input-type" placeholder="type" value="text">
+        <datalist id="input-type-options">
+            <option value="text">
+            <option value="file">
+            <option value="textarea">
+            <option value="date">
+            <option value="time">
+            <option value="datetime-local">
+        </datalist>
+        <button type="button" onclick="document.getElementById('input-type').value = ''">重选</button>
+        <br/>
+        <input id="input-name" type="text" placeholder="name">
+        <button type="button" onclick="addParam(event)">添加</button>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <select id="form-method">
+            <option value="get">GET</option>
+            <option value="post">POST</option>
+            <option value="put">PUT</option>
+            <option value="delete">DELETE</option>
+            <option value="patch">PATCH</option>
+            <option value="head">HEAD</option>
+        </select>
+        <input id="form-action" type="text" placeholder="action" value="echo">
+        <br/>
+        <input id="form-enctype" list="enctype-options" placeholder="enctype" value="application/x-www-form-urlencoded">
+        <datalist id="enctype-options">
+            <option value="application/x-www-form-urlencoded">URL编码表单（默认）</option>
+            <option value="multipart/form-data">多部分表单数据（文件上传）</option>
+            <option value="text/plain">纯文本</option>
+        </datalist>
+        <button type="button" onclick="document.getElementById('form-enctype').value = ''">重选</button>
+        <button type="submit">提交</button>
+    </div>
+
+</form>
+
+<script>
+    // 处理添加参数的函数
+    function addParam(event) {
+        var paramName = document.getElementById('input-name').value;
+        var paramType = document.getElementById('input-type').value;
+
+        if (paramName.trim() !== '') {
+            var form = document.querySelector('form');
+            if (paramType === 'text') {
+                var input = document.createElement('input');
+                input.name = paramName;
+                input.type = 'text';
+                input.placeholder = paramName;
+            } else if (paramType === 'file') {
+                var input = document.createElement('input');
+                input.title = paramName;
+                input.name = paramName;
+                input.type = 'file';
+            } else if(paramType === 'textarea') {
+                var input = document.createElement('textarea');
+                input.name = paramName;
+                input.placeholder = paramName;
+            } else if (paramType === 'date' || paramType === 'time' || paramType === 'datetime-local') {
+                var input = document.createElement('input');
+                input.title = paramName;
+                input.name = paramName;
+                input.type = paramType;
+            }
+            else
+            {
+                var input = document.createElement('input');
+                input.title = paramName;
+                input.name = paramName;
+                input.type = paramType;
+            }
+
+            input.style = "margin-right: 5px;"
+            
+            // Create remove button
+            var removeButton = document.createElement('button');
+            removeButton.textContent = '移除 ' + paramName;
+            removeButton.type = 'button';
+            removeButton.onclick = function () {
+                form.removeChild(input);
+                form.removeChild(removeButton);
+            };
+
+            form.appendChild(input);
+            form.appendChild(removeButton);
+
+            form.insertAdjacentHTML('beforeend', '<hr style="margin-bottom:5px; border:0;">');
+            document.getElementById('input-name').value = "";
+        }
+    }
+
+    // 为form-action添加改变事件，绑定到当前form的action属性
+    var formActionInput = document.getElementById('form-action');
+    formActionInput.addEventListener('change', function () {
+        var form = document.querySelector('form');
+        form.action = formActionInput.value;
+    });
+
+    // 为form-method添加切换事件，绑定到当前form的method属性
+    var formMethodSelect = document.getElementById('form-method');
+    formMethodSelect.addEventListener('change', function () {
+        var form = document.querySelector('form');
+        form.method = formMethodSelect.value;
+    });
+
+    // 为form-enctype添加切换事件，绑定到当前form的enctype属性
+    var formEnctypeSelect = document.getElementById('form-enctype');
+    formEnctypeSelect.addEventListener('change', function () {
+        var form = document.querySelector('form');
+        form.enctype = formEnctypeSelect.value;
+    });
+</script>
+
+</body>
+
+</html>

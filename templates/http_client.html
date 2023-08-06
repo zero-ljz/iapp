@@ -15,13 +15,13 @@
     <h1>HTTP Client</h1>
     <div style="margin-bottom: 5px;">
       <label for="url">URL:</label>
-      <input type="text" id="url" placeholder="Enter URL">
+      <input type="text" id="url" placeholder="url" >
     </div>
     <div style="margin-bottom: 5px;">
       <label for="method">Method:</label>
       <select id="method">
-        <option value="GET">GET</option>
         <option value="POST">POST</option>
+        <option value="GET">GET</option>
         <option value="PUT">PUT</option>
         <option value="DELETE">DELETE</option>
       </select>
@@ -37,31 +37,37 @@ Accept: */*
       <textarea style="display:block;" id="body" placeholder="Enter request body" rows="4" cols="50"></textarea>
     </div>
     <div style="margin-bottom: 5px;">
-      <label for="contentType">Content Type:</label>
-      <select id="contentType">
-        <option value="application/json">JSON</option>
-        <option value="application/xml">XML</option>
-        <option value="text/plain">Plain Text</option>
-        <option value="application/x-www-form-urlencoded">Form Data</option>
-      </select>
+      <label for="contentType">content-type:</label>
+      <input id="contentType" list="content-type-options" placeholder="content-type" value="application/json">
+        <datalist id="content-type-options">
+            <option value="application/json">JSON</option>
+            <option value="application/xml">XML</option>
+            <option value="text/plain">纯文本</option>
+            <option value="application/x-www-form-urlencoded">URL编码表单（默认）</option>
+            <option value="multipart/form-data">多部分表单数据（文件上传）</option>
+        </datalist>
+        <button type="button" onclick="document.getElementById('contentType').value = ''">重选</button>
     </div>
     <div style="margin-bottom: 5px;">
-        <label for="target">Target:</label>
-        <input type="radio" name="target" value="local"> Local
-        <input type="radio" name="target" value="server" checked> Server
+        <label for="origin">Origin:</label>
+        <input type="radio" name="origin" value="local"> Local
+        <input type="radio" name="origin" value="server" checked> Server
       </div>
     <button onclick="sendRequest()">Send Request</button>
     <div id="response" class="response"></div>
 
 
   <script>
+
+    document.getElementById('url').value = window.location.protocol + '//' + window.location.host + '/echo';
+
     function sendRequest() {
       var url = document.getElementById('url').value;
       var method = document.getElementById('method').value;
       var headers = document.getElementById('headers').value;
       var body = document.getElementById('body').value;
       var contentType = document.getElementById('contentType').value;
-      var target = document.querySelector('input[name="target"]:checked').value;
+      var origin = document.querySelector('input[name="origin"]:checked').value;
 
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function() {
@@ -76,7 +82,7 @@ Accept: */*
       };
 
       var requestUrl = url;
-      if (target === 'server') {
+      if (origin === 'server') {
         requestUrl = '/proxy/' + url;
       }
 
