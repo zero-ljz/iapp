@@ -63,7 +63,7 @@ def home(url):
             # 将代理响应的头部字段复制到响应对象
             for key, value in proxy_response.headers.items():
                 print(key, value)
-                if key not in ('Content-Encoding', 'Transfer-Encoding', 'Cache-Control'):  # 'Connection'
+                if key not in ('Content-Encoding', 'Transfer-Encoding', 'Cache-Control', 'Content-Length'):  # 'Connection'
                     response.headers[key] = value
 
             # 设置允许的请求来源
@@ -71,7 +71,7 @@ def home(url):
             # 设置允许的请求方法
             response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
             # 设置允许的请求头部
-            # response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With'
+            response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With'
 
             response.status = proxy_response.status_code
 
