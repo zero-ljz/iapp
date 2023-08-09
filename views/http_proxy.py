@@ -53,7 +53,7 @@ def home(url):
             print('转发给目标服务器的请求头', headers)
 
             # 发起代理请求
-            proxy_response = requests.request(request.method, url, headers=headers, data=request.body.read(), stream=True, allow_redirects=True, verify=False, timeout=600)
+            proxy_response = requests.request(request.method, url, headers=headers, data=request.body.read(), stream=True, allow_redirects=True, verify=False, timeout=600, cache=False)
             print(url)
             print(proxy_response.status_code)
             
@@ -71,7 +71,7 @@ def home(url):
             # 设置允许的请求方法
             response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
             # 设置允许的请求头部
-            response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With'
+            # response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With'
 
             response.status = proxy_response.status_code
 
