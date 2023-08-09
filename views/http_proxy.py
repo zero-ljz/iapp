@@ -77,11 +77,11 @@ def home(url):
 
             print('响应头', dict(response.headers))
 
-            if "Content-Length" in proxy_response.headers and int(proxy_response.headers["Content-Length"]) > 8192:
-                print('大于8192')
+            if "Content-Length" in proxy_response.headers and int(proxy_response.headers["Content-Length"]) > 1048576:
+                print('大于1MB')
                 # 边收边传，通过生成器逐步返回响应内容
                 def generate_content():
-                    for chunk in proxy_response.iter_content(chunk_size=8192):
+                    for chunk in proxy_response.iter_content(chunk_size=1048576):
                         yield chunk
 
                 # 返回生成器作为响应
