@@ -63,7 +63,7 @@ def home(url):
             # 将代理响应的头部字段复制到响应对象
             for key, value in proxy_response.headers.items():
                 print(key, value)
-                if key not in ('Content-Length', 'Transfer-Encoding', 'Cache-Control'):  # 'Connection'
+                if key not in ('Content-Length', 'Content-Encoding', 'Transfer-Encoding', 'Cache-Control'):  # 'Connection'
                     response.headers[key] = value
 
             # 设置允许的请求来源
