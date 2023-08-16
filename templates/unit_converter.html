@@ -1,46 +1,15 @@
 % rebase('templates/base.html', title='单位换算器')
 
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    /*margin: 20px;*/
-  }
 
-  h1 {
-    margin-bottom: 20px;
-  }
-
-  label {
-    display: block;
-    margin-top: 10px;
-  }
-
-  input[type="number"] {
-    /*width: 100%;*/
-    padding: 5px;
-  }
-
-  select {
-    /*width: 100%;*/
-    padding: 5px;
-  }
-
-  button {
-    margin-top: 10px;
-    padding: 5px 10px;
-  }
-
-  h2 {
-    font-size: 1.2em;
-  }
 </style>
 
 
-<h1>换算工具</h1>
+<h2>换算工具</h2>
 
 <fieldset>
   <legend>长度换算</legend>
-  <label for="length-from">长度（从）:</label>
+  <label style="display: block; margin: 1rem 0;" for="length-from">长度（从）:</label>
   <input type="number" id="length-from" />
   <select id="length-from-unit">
     <option value="mm">毫米 (mm)</option>
@@ -56,7 +25,7 @@
 
   </select>
 
-  <label for="length-to">长度（到）:</label>
+  <label style="display: block; margin: 1rem 0;" for="length-to">长度（到）:</label>
   <input type="number" id="length-to" readonly />
   <select id="length-to-unit">
     <option value="mm">毫米 (mm)</option>
@@ -72,12 +41,12 @@
     <option value="li">市厘 (li)</option>
   </select>
 
-  <button onclick="convertLength()">转换</button>
+  <button style="display: block; margin: 1rem 0;" onclick="convertLength()">转换</button>
 </fieldset>
 
 <fieldset>
   <legend>重量换算</legend>
-  <label for="weight-from">重量（从）:</label>
+  <label style="display: block; margin: 1rem 0;" for="weight-from">重量（从）:</label>
   <input type="number" id="weight-from" />
   <select id="weight-from-unit">
     <option value="g">克 (g)</option>
@@ -89,7 +58,7 @@
     <option value="qian">钱 (qian)</option>
   </select>
 
-  <label for="weight-to">重量（到）:</label>
+  <label style="display: block; margin: 1rem 0;" for="weight-to">重量（到）:</label>
   <input type="number" id="weight-to" readonly />
   <select id="weight-to-unit">
     <option value="g">克 (g)</option>
@@ -101,12 +70,12 @@
     <option value="qian">钱 (qian)</option>
   </select>
 
-  <button onclick="convertWeight()">转换</button>
+  <button style="display: block; margin: 1rem 0;" onclick="convertWeight()">转换</button>
 </fieldset>
 
 <fieldset>
   <legend>进制换算</legend>
-  <label for="number-from">数值（从）:</label>
+  <label style="display: block; margin: 1rem 0;" for="number-from">数值（从）:</label>
   <input type="number" id="number-from" />
   <select id="number-from-base">
     <option value="2">二进制 (binary)</option>
@@ -115,7 +84,7 @@
     <option value="16">十六进制 (hexadecimal)</option>
   </select>
 
-  <label for="number-to">数值（到）:</label>
+  <label style="display: block; margin: 1rem 0;" for="number-to">数值（到）:</label>
   <input type="text" id="number-to" readonly />
   <select id="number-to-base">
     <option value="2">二进制 (binary)</option>
@@ -124,13 +93,13 @@
     <option value="16">十六进制 (hexadecimal)</option>
   </select>
 
-  <button onclick="convertNumber()">转换</button>
+  <button style="display: block; margin: 1rem 0;" onclick="convertNumber()">转换</button>
 </fieldset>
 
 <fieldset>
   <legend>时间换算</legend>
 
-  <label for="time-from">时间（从）:</label>
+  <label style="display: block; margin: 1rem 0;" for="time-from">时间（从）:</label>
   <input type="number" id="time-from" />
   <select id="time-from-unit">
     <option value="s">秒 (second)</option>
@@ -139,7 +108,7 @@
     <option value="d">天 (day)</option>
   </select>
 
-  <label for="time-to">时间（到）:</label>
+  <label style="display: block; margin: 1rem 0;" for="time-to">时间（到）:</label>
   <input type="number" id="time-to" readonly />
   <select id="time-to-unit">
     <option value="s">秒 (second)</option>
@@ -148,12 +117,12 @@
     <option value="d">天 (day)</option>
   </select>
 
-  <button onclick="convertTime()">转换</button>
+  <button style="display: block; margin: 1rem 0;" onclick="convertTime()">转换</button>
 </fieldset>
 
 <fieldset>
   <legend>存储容量换算</legend>
-  <label for="storage-from">容量（从）:</label>
+  <label style="display: block; margin: 1rem 0;" for="storage-from">容量（从）:</label>
   <input type="number" id="storage-from" />
   <select id="storage-from-unit">
     <option value="bit">比特/位（bit）</option>
@@ -164,7 +133,7 @@
     <option value="TB">太字节（TB）</option>
   </select>
 
-  <label for="storage-to">容量（到）:</label>
+  <label style="display: block; margin: 1rem 0;" for="storage-to">容量（到）:</label>
   <input type="number" id="storage-to" readonly />
   <select id="storage-to-unit">
     <option value="bit">比特/位（bit）</option>
@@ -175,12 +144,12 @@
     <option value="TB">太字节（TB）</option>
   </select>
 
-  <button onclick="convertStorage()">转换</button>
+  <button style="display: block; margin: 1rem 0;" onclick="convertStorage()">转换</button>
 </fieldset>
 
 <fieldset>
   <legend>热量（能量）换算</legend>
-  <label for="energy-from">热量（从）:</label>
+  <label style="display: block; margin: 1rem 0;" for="energy-from">热量（从）:</label>
   <input type="number" id="energy-from" />
   <select id="energy-from-unit">
     <option value="cal">卡路里 (cal)</option>
@@ -191,7 +160,7 @@
     <option value="kWh">千瓦时 (kWh)</option>
   </select>
 
-  <label for="energy-to">热量（到）:</label>
+  <label style="display: block; margin: 1rem 0;" for="energy-to">热量（到）:</label>
   <input type="number" id="energy-to" readonly />
   <select id="energy-to-unit">
     <option value="cal">卡路里 (cal)</option>
@@ -202,12 +171,12 @@
     <option value="kWh">千瓦时 (kWh)</option>
   </select>
   
-  <button onclick="convertEnergy()">转换</button>
+  <button style="display: block; margin: 1rem 0;" onclick="convertEnergy()">转换</button>
 </fieldset>
 
 <fieldset>
   <legend>屏幕尺寸转换器</legend>
-  <label>转换为屏幕高度宽度（cm）</label>
+  <label style="display: block; margin: 1rem 0;">转换为屏幕高度宽度（cm）</label>
 <input
   type="number"
   id="inchDiagonal"
@@ -216,11 +185,11 @@
 <input type="text" id="aspectRatio" placeholder="宽高比（例如16:9）" />
 <button onclick="convertToCm()">转换</button>
 
-<label>转换为屏幕对角线尺寸和屏幕宽高比</label>
+<label style="display: block; margin: 1rem 0;">转换为屏幕对角线尺寸和屏幕宽高比</label>
 <input type="number" id="cmHeight" placeholder="屏幕高度（cm）" />
 <input type="number" id="cmWidth" placeholder="屏幕宽度（cm）" />
 
-<button onclick="convertToInchAndAspectRatio()">
+<button style="display: block; margin: 1rem 0;" onclick="convertToInchAndAspectRatio()">
   转换
 </button>
 </fieldset>

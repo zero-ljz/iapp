@@ -1,9 +1,9 @@
 % rebase('templates/base.html', title='Form Builder')
 
 
-
+<h2>表单构建器</h2>
 <form method="get" action="echo">
-    <div style="margin-bottom: 15px;">
+    <div style="display: block; margin: 1rem 0;">
         <input list="input-type-options" id="input-type" placeholder="type" value="text">
         <datalist id="input-type-options">
             <option value="text">
@@ -14,12 +14,13 @@
             <option value="datetime-local">
         </datalist>
         <button type="button" onclick="document.getElementById('input-type').value = ''">重选</button>
-        <br/>
+    </div>
+    <div style="display: block; margin: 1rem 0;">
         <input id="input-name" type="text" placeholder="name">
         <button type="button" onclick="addParam(event)">添加</button>
     </div>
 
-    <div style="margin-bottom: 15px;">
+    <div style="display: block; margin: 1rem 0;">
         <select id="form-method">
             <option value="get">GET</option>
             <option value="post">POST</option>
@@ -29,7 +30,8 @@
             <option value="head">HEAD</option>
         </select>
         <input id="form-action" type="text" placeholder="action" value="echo">
-        <br/>
+        </div>
+    <div style="display: block; margin: 1rem 0;">
         <input id="form-enctype" list="enctype-options" placeholder="enctype" value="application/x-www-form-urlencoded">
         <datalist id="enctype-options">
             <option value="application/x-www-form-urlencoded">URL编码表单（默认）</option>

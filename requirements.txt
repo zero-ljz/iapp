@@ -8,3 +8,4 @@ pyyaml==6.0.1
 jsmin==3.0.1
 csscompressor==0.9.5
 htmlmin==0.1.12
+qrcode==7.4.2

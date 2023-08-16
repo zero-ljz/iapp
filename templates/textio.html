@@ -1,12 +1,12 @@
-% rebase('templates/base.html', title='文本输入输出')
-<h1>
-文本输入输出
-</h1>
+% rebase('templates/base.html', title='执行命令')
+<h2>
+    执行命令
+</h2>
 <p>
 
     <form id="form1" method="get" onsubmit="return saveFormData();">
-        <label for="text">Text I/O:</label>
-
+        
+<div style="display: block; margin: 1rem 0;">
         <input type="text" list="optionList" id="0" placeholder="0">
         <datalist id="optionList">
             <option value="python">python</option>
@@ -19,6 +19,7 @@
         <button type="button" onclick="removeParam()">-</button>
 
         <input type="submit" value="Execute" onclick="setAction()">
+    </div>
 
         <textarea style="display:block;" id="1" placeholder="1"></textarea>
 

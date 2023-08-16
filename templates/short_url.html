@@ -1,12 +1,12 @@
 % rebase('templates/base.html', title='URL 缩短器')
-<h1>
+<h2>
 URL Shortener
-</h1>
+</h2>
 <p>
 
 <form method="get" action="/u/shorten">
-    <label for="text">URL Shortener</label>
-    <textarea style="display:block;" id="textarea" name="url" data-dl-input-translation="true" required></textarea>
+    <label style="display: block; margin: 1rem 0;" for="text">URL Shortener</label>
+    <textarea style="display: block; margin: 1rem 0;" id="textarea" name="url" data-dl-input-translation="true" required></textarea>
     <input type="text" name="suffix" id="suffix" placeholder="Custom suffix">
     <input type="submit" value="Shorten">
 </form>

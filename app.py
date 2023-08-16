@@ -1,9 +1,10 @@
 
 from gevent import monkey; monkey.patch_all()
 from bottle import Bottle, route, run, template, request, response, static_file
-from views import http_client, smtp_client, sql_executor, textio, short_url, http_proxy, data_converter, code_compress, file_share, ftp_uploader
+from views import http_client, smtp_client, sql_executor, textio, short_url, http_proxy, data_converter, code_compress, file_share, ftp_uploader, qrcode
 import logging
 import time
+import datetime
 
 # 设置日志记录的配置
 logging.basicConfig(filename='app.log', level=logging.INFO)
@@ -22,6 +23,7 @@ app.mount('/data-converter', data_converter.app)
 app.mount('/code-compress', code_compress.app)
 app.mount('/s', file_share.app)
 app.mount('/ftp-uploader', ftp_uploader.app)
+app.mount('/qrcode', qrcode.app)
 
 # 定义路由和处理函数
 @app.route('/')
@@ -105,21 +107,19 @@ def echo():
     # client_ip = request.remote_addr
     client_ip = request.environ.get('REMOTE_ADDR') # 获取客户端IP地址
 
-    # 获取原始请求标头
+    request_line = f'{request.method} {request.path} {request.environ.get("SERVER_PROTOCOL")}'
     headers = '\n'.join([f'{key}: {value}' for key, value in sorted(request.headers.items())])
+    body = request.body.read().decode("utf-8")
 
-    request_line = f'{request.method} {request.url} {request.environ.get("SERVER_PROTOCOL")}'
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Content-Type'] = 'text/plain; charset=UTF-8'
+    response.body = f'IP Address: {client_ip}\n' + f'Time Zone: {datetime.datetime.now().astimezone().tzinfo}\n' + f'Date: {time.strftime("%Y-%m-%d %H:%M:%S")}\n' + f'Timestamp: {int(time.time())}\n\n' + '\n'.join([f"{key}: {value}" for key, value in response.headerlist]) + '\n\n' + f'{request_line}\n{headers}\n\n{body}'
 
-    response.headers['Content-Type'] = 'text/plain; charset=UTF-8' # 设置响应内容类型
-    response.headers['Content-Language'] = 'zh-CN'
-    response.headers['Server'] = 'nginx' # 伪造服务器标头
-    response.headers['Access-Control-Allow-Origin'] = '*' # 允许跨域请求
+    print(response.body)
 
-    resp = f'IP Address: {client_ip}\n' + f'Date: {time.strftime("%Y-%m-%d %H:%M:%S")}\n' + f'Timestamp: {int(time.time())}\n\n' + '\n'.join([f"{key}: {value}" for key, value in response.headerlist]) + '\n\n' + f'{request_line}\n{headers}\n\n{request.body.read().decode("utf-8")}'
+    logging.info('\n' + response.body)
 
-    logging.info('\n' + resp)
-
-    return resp
+    return response
 
 @app.route('/static/<filename:path>')
 def serve_static(filename):

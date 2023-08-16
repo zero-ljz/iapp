@@ -93,45 +93,66 @@
 <fieldset>
   <legend>计算时间差</legend>
   <p>请输入开始日期和结束日期来计算它们之间的时间差：</p>
-  <label for="start-date">开始日期：</label>
+  <label style="display: block; margin: 1rem 0;" for="start-date">开始日期：</label>
   <input type="datetime-local" id="start-date">
-  <br>
-  <label for="end-date">结束日期：</label>
+  <label style="display: block; margin: 1rem 0;" for="end-date">结束日期：</label>
   <input type="datetime-local" id="end-date">
-  <br>
-  <button onclick="calculateDifference()">计算时间差</button>
-  <br>
+  <button style="display: block; margin: 1rem 0;" onclick="calculateDifference()">计算时间差</button>
   <p id="time-difference"></p>
 </fieldset>
 
-  <fieldset>
-    <legend>计算指定时间后的时间</legend>
-    <p>请输入基准时间和要添加的天数/小时数/分钟数/秒数来计算结果时间：</p>
-    <label for="base-time">基准时间：</label>
-    <input type="datetime-local" id="base-time">
-    <br>
-    <label for="time-direction">时间方向：</label>
+<fieldset>
+  <legend>计算指定时间后的时间</legend>
+  <p>请输入基准时间和要添加的天数/小时数/分钟数/秒数来计算结果时间：</p>
+  <label style="display: block; margin: 1rem 0;" for="base-time">基准时间：</label>
+  <input type="datetime-local" id="base-time">
+  <p>
+    <label style="display: block; margin: 1rem 0;" for="time-direction">时间方向：</label>
     <select id="time-direction">
       <option value="future">未来时间</option>
       <option value="past">过去时间</option>
     </select>
-    <br>
+  </p>
+  <p>
     <label for="days">天数：</label>
     <input type="number" id="days">
-    <br>
+  </p>
+  <p>
     <label for="hours">小时数：</label>
     <input type="number" id="hours">
-    <br>
+  </p>
+  <p>
     <label for="minutes">分钟数：</label>
     <input type="number" id="minutes">
-    <br>
+  </p>
+  <p>
     <label for="seconds">秒数：</label>
     <input type="number" id="seconds">
-    <br>
-    <button onclick="calculateTime()">计算</button>
-    <br>
-    <p id="future-time"></p>
-  </fieldset>
+  </p>
+  <button onclick="calculateTime()">计算</button>
+  <p id="future-time"></p>
+</fieldset>
+
+
+<script>
+
+
+
+  function appendValue(value) {
+    var input = document.getElementById('calc_result');
+    input.value += value;
+  }
+
+  function calculate() {
+    var input = document.getElementById('calc_result');
+    var result = eval(input.value);
+    input.value = result;
+  }
+
+  function clearInput() {
+    var input = document.getElementById('calc_result');
+    input.value = '';
+  }
 
 
 
@@ -140,27 +161,142 @@
 
 
 
+  function calculatePercentageOf() {
+    var value1 = parseFloat(document.getElementById("value1").value);
+    var percentage = parseFloat(document.getElementById("percentage").value);
+
+    if (isNaN(value1) || isNaN(percentage)) {
+      document.getElementById("result").textContent = "请输入有效的数值和百分比";
+    } else {
+      var result = (value1 * percentage) / 100;
+      document.getElementById("result").textContent =
+        "数值 1 的百分之 " + percentage + " 是 " + result.toFixed(2);
+    }
+  }
+
+  function calculatePercentageFrom() {
+    var value1 = parseFloat(document.getElementById("value1").value);
+    var value2 = parseFloat(document.getElementById("value2").value);
+
+    if (isNaN(value1) || isNaN(value2)) {
+      document.getElementById("result").textContent = "请输入有效的数值";
+    } else {
+      var percentage = (value1 / value2) * 100;
+      document.getElementById("result").textContent =
+        "数值 1 是数值 2 的百分之 " + percentage.toFixed(2);
+    }
+  }
+
+  function calculatePercentageOfValue() {
+    var value1 = parseFloat(document.getElementById("value1").value);
+    var percentage = parseFloat(document.getElementById("percentage").value);
+
+    if (isNaN(value1) || isNaN(percentage)) {
+      document.getElementById("result").textContent = "请输入有效的数值和百分比";
+    } else {
+      var result = value1 / (percentage / 100);
+      document.getElementById("result").textContent =
+        "数值 1 是 " + result.toFixed(2) + " 的百分之 " + percentage;
+    }
+  }
+
+  function calculatePercentageChange() {
+    var value1 = parseFloat(document.getElementById("value1").value);
+    var value2 = parseFloat(document.getElementById("value2").value);
+
+    if (isNaN(value1) || isNaN(value2)) {
+      document.getElementById("result").textContent = "请输入有效的数值";
+    } else {
+      var percentageChange = ((value2 - value1) / value1) * 100;
+      document.getElementById("result").textContent =
+        "数值 1 到数值 2 的百分比变化是 " + percentageChange.toFixed(2) + "%";
+    }
+  }
+
+  function calculateIncrease() {
+    var value1 = parseFloat(document.getElementById("value1").value);
+    var percentage = parseFloat(document.getElementById("percentage").value);
+
+    if (isNaN(value1) || isNaN(percentage)) {
+      document.getElementById("result").textContent = "请输入有效的数值和百分比";
+    } else {
+      var increase = value1 + (value1 * percentage) / 100;
+      document.getElementById("result").textContent =
+        "数值 1 加上百分之 " + percentage + " 是 " + increase.toFixed(2);
+    }
+  }
+
+  function calculateDecrease() {
+    var value1 = parseFloat(document.getElementById("value1").value);
+    var percentage = parseFloat(document.getElementById("percentage").value);
+
+    if (isNaN(value1) || isNaN(percentage)) {
+      document.getElementById("result").textContent = "请输入有效的数值和百分比";
+    } else {
+      var decrease = value1 - (value1 * percentage) / 100;
+      document.getElementById("result").textContent =
+        "数值 1 减去百分之 " + percentage + " 是 " + decrease.toFixed(2);
+    }
+  }
 
 
-  <script>
 
 
 
-    function appendValue(value) {
-      var input = document.getElementById('calc_result');
-      input.value += value;
+
+
+  function calculateDifference() {
+    var startDate = new Date(document.getElementById("start-date").value);
+    var endDate = new Date(document.getElementById("end-date").value);
+
+    var diffMilliseconds = endDate.getTime() - startDate.getTime();
+    var diffSeconds = Math.floor(diffMilliseconds / 1000);
+    var diffMinutes = Math.floor(diffSeconds / 60);
+    var diffHours = Math.floor(diffMinutes / 60);
+    var diffDays = Math.floor(diffHours / 24);
+
+    document.getElementById("time-difference").innerHTML = "相差 " + diffDays + " 天, " + (diffHours % 24) + " 小时, " + (diffMinutes % 60) + " 分钟, " + (diffSeconds % 60) + " 秒.";
+  }
+
+  function calculateTime() {
+    var baseTime = new Date(document.getElementById("base-time").value);
+    var days = parseInt(document.getElementById("days").value) || 0;
+    var hours = parseInt(document.getElementById("hours").value) || 0;
+    var minutes = parseInt(document.getElementById("minutes").value) || 0;
+    var seconds = parseInt(document.getElementById("seconds").value) || 0;
+
+    if (document.getElementById("time-direction").value === "past") {
+      days *= -1;
+      hours *= -1;
+      minutes *= -1;
+      seconds *= -1;
     }
 
-    function calculate() {
-      var input = document.getElementById('calc_result');
-      var result = eval(input.value);
-      input.value = result;
+    baseTime.setDate(baseTime.getDate() + days);
+    baseTime.setHours(baseTime.getHours() + hours);
+    baseTime.setMinutes(baseTime.getMinutes() + minutes);
+    baseTime.setSeconds(baseTime.getSeconds() + seconds);
+
+    var formats = {
+      '默认时间': baseTime.toString(),
+      'ISO 8601': baseTime.toISOString(),
+      '本地时间': baseTime.toLocaleString(),
+      '时间戳（10位）': Math.floor(baseTime.getTime() / 1000),
+      '年-月-日 时:分:秒': baseTime.getFullYear() + '-' + padZero(baseTime.getMonth() + 1) + '-' + padZero(baseTime.getDate()) + ' ' + padZero(baseTime.getHours()) + ':' + padZero(baseTime.getMinutes()) + ':' + padZero(baseTime.getSeconds())
+    };
+
+    var resultHTML = "计算结果：<br>";
+
+    for (var format in formats) {
+      resultHTML += format + ": " + formats[format] + "<br>";
     }
 
-    function clearInput() {
-      var input = document.getElementById('calc_result');
-      input.value = '';
-    }
+    document.getElementById("future-time").innerHTML = resultHTML;
+  }
+
+  function padZero(number) {
+    return number < 10 ? '0' + number : number;
+  }
 
 
 
@@ -168,172 +304,28 @@
 
 
 
+  // 获取当前时间
+  var currentDate = new Date();
 
-    function calculatePercentageOf() {
-      var value1 = parseFloat(document.getElementById("value1").value);
-      var percentage = parseFloat(document.getElementById("percentage").value);
+  // 格式化当前时间为合适的字符串
+  var currentDateString = formatDate(currentDate);
 
-      if (isNaN(value1) || isNaN(percentage)) {
-        document.getElementById("result").textContent = "请输入有效的数值和百分比";
-      } else {
-        var result = (value1 * percentage) / 100;
-        document.getElementById("result").textContent =
-          "数值 1 的百分之 " + percentage + " 是 " + result.toFixed(2);
-      }
-    }
-
-    function calculatePercentageFrom() {
-      var value1 = parseFloat(document.getElementById("value1").value);
-      var value2 = parseFloat(document.getElementById("value2").value);
-
-      if (isNaN(value1) || isNaN(value2)) {
-        document.getElementById("result").textContent = "请输入有效的数值";
-      } else {
-        var percentage = (value1 / value2) * 100;
-        document.getElementById("result").textContent =
-          "数值 1 是数值 2 的百分之 " + percentage.toFixed(2);
-      }
-    }
-
-    function calculatePercentageOfValue() {
-      var value1 = parseFloat(document.getElementById("value1").value);
-      var percentage = parseFloat(document.getElementById("percentage").value);
-
-      if (isNaN(value1) || isNaN(percentage)) {
-        document.getElementById("result").textContent = "请输入有效的数值和百分比";
-      } else {
-        var result = value1 / (percentage / 100);
-        document.getElementById("result").textContent =
-          "数值 1 是 " + result.toFixed(2) + " 的百分之 " + percentage;
-      }
-    }
-
-    function calculatePercentageChange() {
-      var value1 = parseFloat(document.getElementById("value1").value);
-      var value2 = parseFloat(document.getElementById("value2").value);
-
-      if (isNaN(value1) || isNaN(value2)) {
-        document.getElementById("result").textContent = "请输入有效的数值";
-      } else {
-        var percentageChange = ((value2 - value1) / value1) * 100;
-        document.getElementById("result").textContent =
-          "数值 1 到数值 2 的百分比变化是 " + percentageChange.toFixed(2) + "%";
-      }
-    }
-
-    function calculateIncrease() {
-      var value1 = parseFloat(document.getElementById("value1").value);
-      var percentage = parseFloat(document.getElementById("percentage").value);
-
-      if (isNaN(value1) || isNaN(percentage)) {
-        document.getElementById("result").textContent = "请输入有效的数值和百分比";
-      } else {
-        var increase = value1 + (value1 * percentage) / 100;
-        document.getElementById("result").textContent =
-          "数值 1 加上百分之 " + percentage + " 是 " + increase.toFixed(2);
-      }
-    }
-
-    function calculateDecrease() {
-      var value1 = parseFloat(document.getElementById("value1").value);
-      var percentage = parseFloat(document.getElementById("percentage").value);
-
-      if (isNaN(value1) || isNaN(percentage)) {
-        document.getElementById("result").textContent = "请输入有效的数值和百分比";
-      } else {
-        var decrease = value1 - (value1 * percentage) / 100;
-        document.getElementById("result").textContent =
-          "数值 1 减去百分之 " + percentage + " 是 " + decrease.toFixed(2);
-      }
-    }
+  // 将当前时间设置为开始时间输入框的默认值
+  document.getElementById("start-date").value = currentDateString;
+  // 将当前时间设置为基准时间输入框的默认值
+  document.getElementById("base-time").value = currentDateString;
 
 
+  // 辅助函数：格式化日期为合适的字符串
+  function formatDate(date) {
+    var year = date.getFullYear();
+    var month = padZero(date.getMonth() + 1);
+    var day = padZero(date.getDate());
+    var hours = padZero(date.getHours());
+    var minutes = padZero(date.getMinutes());
 
-
-
-
-
-    function calculateDifference() {
-      var startDate = new Date(document.getElementById("start-date").value);
-      var endDate = new Date(document.getElementById("end-date").value);
-
-      var diffMilliseconds = endDate.getTime() - startDate.getTime();
-      var diffSeconds = Math.floor(diffMilliseconds / 1000);
-      var diffMinutes = Math.floor(diffSeconds / 60);
-      var diffHours = Math.floor(diffMinutes / 60);
-      var diffDays = Math.floor(diffHours / 24);
-
-      document.getElementById("time-difference").innerHTML = "相差 " + diffDays + " 天, " + (diffHours % 24) + " 小时, " + (diffMinutes % 60) + " 分钟, " + (diffSeconds % 60) + " 秒.";
-    }
-
-    function calculateTime() {
-      var baseTime = new Date(document.getElementById("base-time").value);
-      var days = parseInt(document.getElementById("days").value) || 0;
-      var hours = parseInt(document.getElementById("hours").value) || 0;
-      var minutes = parseInt(document.getElementById("minutes").value) || 0;
-      var seconds = parseInt(document.getElementById("seconds").value) || 0;
-
-      if (document.getElementById("time-direction").value === "past") {
-        days *= -1;
-        hours *= -1;
-        minutes *= -1;
-        seconds *= -1;
-      }
-
-      baseTime.setDate(baseTime.getDate() + days);
-      baseTime.setHours(baseTime.getHours() + hours);
-      baseTime.setMinutes(baseTime.getMinutes() + minutes);
-      baseTime.setSeconds(baseTime.getSeconds() + seconds);
-
-      var formats = {
-        '默认时间': baseTime.toString(),
-        'ISO 8601': baseTime.toISOString(),
-        '本地时间': baseTime.toLocaleString(),
-        '时间戳（10位）': Math.floor(baseTime.getTime() / 1000),
-        '年-月-日 时:分:秒': baseTime.getFullYear() + '-' + padZero(baseTime.getMonth() + 1) + '-' + padZero(baseTime.getDate()) + ' ' + padZero(baseTime.getHours()) + ':' + padZero(baseTime.getMinutes()) + ':' + padZero(baseTime.getSeconds())
-      };
-
-      var resultHTML = "计算结果：<br>";
-
-      for (var format in formats) {
-        resultHTML += format + ": " + formats[format] + "<br>";
-      }
-
-      document.getElementById("future-time").innerHTML = resultHTML;
-    }
-
-    function padZero(number) {
-      return number < 10 ? '0' + number : number;
-    }
-
-
-
-
-
-
-
-    // 获取当前时间
-    var currentDate = new Date();
-
-    // 格式化当前时间为合适的字符串
-    var currentDateString = formatDate(currentDate);
-
-    // 将当前时间设置为开始时间输入框的默认值
-    document.getElementById("start-date").value = currentDateString;
-    // 将当前时间设置为基准时间输入框的默认值
-    document.getElementById("base-time").value = currentDateString;
-
-
-    // 辅助函数：格式化日期为合适的字符串
-    function formatDate(date) {
-      var year = date.getFullYear();
-      var month = padZero(date.getMonth() + 1);
-      var day = padZero(date.getDate());
-      var hours = padZero(date.getHours());
-      var minutes = padZero(date.getMinutes());
-
-      return `${year}-${month}-${day}T${hours}:${minutes}`;
-    }
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  }
 
 
 
@@ -344,4 +336,4 @@
 
 
 
-  </script>
+</script>

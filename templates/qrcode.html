@@ -1,0 +1,37 @@
+% rebase('templates/base.html', title='QR Code Generator')
+
+    <script>
+        function updateQRCode() {
+            var text = document.getElementById("text").value;
+            var version = document.getElementById("version").value;
+            var errorCorrection = document.getElementById("errorCorrection").value;
+            var boxSize = document.getElementById("boxSize").value;
+            var border = document.getElementById("border").value;
+            var img = document.getElementById("qrcode");
+            img.src = "/qrcode/generate?text=" + encodeURIComponent(text) + "&varsion=" + version + "&errorCorrection=" + errorCorrection + "&boxSize=" + boxSize + "&border=" + border;
+        }
+    </script>
+</head>
+<body>
+    <h2>QR Code Generator</h2>
+    <span id="counter"></span>
+    <textarea style="display: block; margin: 1rem 0;" id="text" rows="4" cols="50" placeholder="Enter text" oninput="updateQRCode(); document.getElementById('counter').innerHTML = new TextEncoder().encode(this.value).length + ` / 2953 字节`"></textarea>
+
+    <label for="version">Version:</label>
+    <input type="number" id="version" value="1" min="1" max="40" oninput="updateQRCode()">
+    <label for="errorCorrection">Error Correction:</label>
+    <select id="errorCorrection" oninput="updateQRCode()">
+        <option value="L">L</option>
+        <option value="M">M</option>
+        <option value="Q">Q</option>
+        <option value="H">H</option>
+    </select>
+    <label for="boxSize">Box Size:</label>
+    <input type="number" id="boxSize" value="10" min="1" max="100" oninput="updateQRCode()">
+    <label for="border">Border:</label>
+    <input type="number" id="border" value="4" min="0" max="20" oninput="updateQRCode()">
+    <br>
+    <h2>Generated QR Code:</h2>
+    <img id="qrcode" alt="Generated QR Code">
+</body>
+</html>
