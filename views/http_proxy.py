@@ -35,7 +35,7 @@ def home(url):
                 # 'Sec-Fetch-Mode',
                 # 'Sec-Fetch-User',
                 # 'Sec-Fetch-Dest',
-                'Accept-Encoding',
+                'Accept-Encoding', # 不把浏览器支持的编码方式发送给代理网址
                 # 'Accept-Language',
                 # 'Cookie'
             ]
@@ -63,7 +63,10 @@ def home(url):
             # 将代理响应的头部字段复制到响应对象
             for key, value in proxy_response.headers.items():
                 print(key, value)
-                if key not in ('Content-Length', 'Content-Encoding', 'Transfer-Encoding', 'Cache-Control'):  # 'Connection'
+                if key not in ('Content-Length', 
+                               'Content-Encoding', # 使浏览器不对响应内容进行解码
+                               'Transfer-Encoding', 
+                               'Cache-Control'):  # 'Connection'
                     response.headers[key] = value
 
             # 设置允许的请求来源
