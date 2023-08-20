@@ -1,5 +1,5 @@
 # 如需更多资料，请参阅 https://aka.ms/vscode-docker-python
-FROM python:3.9-slim
+FROM python:3.10-slim
 
 EXPOSE 8000
 
@@ -11,8 +11,8 @@ ENV PYTHONUNBUFFERED=1
 
 # 安装 pip requirements
 COPY requirements.txt .
-RUN python3 -m pip install -r requirements.txt \
-    && apt-get update && apt-get install curl nodejs npm tree zip unzip
+RUN python -m pip install -r requirements.txt \
+    && apt install curl nodejs npm tree zip unzip
 
 WORKDIR /app
 COPY . /app
