@@ -11,8 +11,8 @@ ENV PYTHONUNBUFFERED=1
 
 # 安装 pip requirements
 COPY requirements.txt .
-RUN python -m pip install -r requirements.txt \
-    && apt install curl nodejs npm tree zip unzip
+RUN python3 -m pip install -r requirements.txt \
+    && apt-get update && apt-get install curl nodejs npm tree zip unzip
 
 WORKDIR /app
 COPY . /app
