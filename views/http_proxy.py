@@ -3,7 +3,7 @@ import re
 import requests
 import sys
 from urllib.parse import urlparse
-from bottle import Bottle, request, response, template
+from bottle import Bottle, request, response, template, redirect
 
 app = Bottle()
 
@@ -53,10 +53,9 @@ def home(url):
             print('转发给目标服务器的请求头', headers)
 
             # 发起代理请求
-            proxy_response = requests.request(request.method, url, headers=headers, data=request.body.read(), stream=True, allow_redirects=True, verify=False, timeout=600)
+            proxy_response = requests.request(request.method, url, headers=headers, data=request.body.read(), stream=True, allow_redirects=False, verify=False, timeout=600)
             print(url)
-            print(proxy_response.status_code)
-            
+            print(proxy_response.status_code)            
 
             print('目标服务器的响应头', proxy_response.headers)
 
@@ -64,7 +63,7 @@ def home(url):
             for key, value in proxy_response.headers.items():
                 print(key, value)
                 if key not in ('Content-Length', 
-                               'Content-Encoding', # 使浏览器不对响应内容进行解码
+                               'Content-Encoding', # 使浏览器不对代理网址响应的内容进行解码
                                'Transfer-Encoding', 
                                'Cache-Control'):  # 'Connection'
                     response.headers[key] = value
@@ -77,6 +76,9 @@ def home(url):
             # response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With'
 
             response.status = proxy_response.status_code
+
+            if proxy_response.status_code in (301, 302, 303, 307, 308): # 遇到重定向时重定向到代理地址
+                response.headers['Location'] = f'{request.urlparts.scheme}://{request.urlparts.netloc}/proxy/' + proxy_response.headers.get('Location')
 
             print('响应头', dict(response.headers))
 
