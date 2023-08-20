@@ -1,5 +1,5 @@
 # 如需更多资料，请参阅 https://aka.ms/vscode-docker-python
-FROM python:3.9-slim
+FROM python:3.9-slim-bullseye
 
 EXPOSE 8000
 
@@ -12,7 +12,7 @@ ENV PYTHONUNBUFFERED=1
 # 安装 pip requirements
 COPY requirements.txt .
 RUN python -m pip install -r requirements.txt \
-    && apt-get update && apt-get -y install curl nodejs npm tree zip unzip
+    && apt update && apt -y install curl nodejs npm tree zip unzip
 
 WORKDIR /app
 COPY . /app
