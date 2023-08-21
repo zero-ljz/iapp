@@ -6,9 +6,56 @@
   <h1>二维码生成器和解析器</h1>
 
   <h2>生成二维码</h2>
-  <label for="text-input">输入文本：</label>
-  <textarea style="display:block;" id="text-input"  oninput="generateQRCode()" required></textarea>
-  <canvas id="qrcode"></canvas>
+
+  <img id="qrious">
+
+  <form autocomplete="off">
+    <label>
+      value
+      <input type="text" name="value" value="" spellcheck="false">
+    </label>
+
+    <label>
+      size
+      <input type="number" name="size" placeholder="100" min="100" max="1000" value="250">
+    </label>
+
+    <label>
+      padding
+      <input type="number" name="padding" placeholder="Auto" min="0">
+    </label>
+
+    <label>
+      level
+      <select name="level">
+        <option value="L">L - 7% damage</option>
+        <option value="M">M - 15% damage</option>
+        <option value="Q">Q - 25% damage</option>
+        <option value="H">H - 30% damage</option>
+      </select>
+    </label>
+<br/>
+<br/>
+    <label>
+      background color
+      <input type="color" name="background" value="#ffffff">
+    </label>
+
+    <label>
+      background alpha
+      <input type="number" name="backgroundAlpha" placeholder="1" min="0" max="1" step="0.1" value="1">
+    </label>
+
+    <label>
+      foreground color
+      <input type="color" name="foreground" value="#000000">
+    </label>
+
+    <label>
+      foreground alpha
+      <input type="number" name="foregroundAlpha" placeholder="1" min="0" max="1" step="0.1" value="1">
+    </label>
+  </form>
 
   <h2>从本地上传二维码并识别</h2>
   <input type="file" accept="image/*" id="upload-input">
@@ -16,15 +63,65 @@
   <div id="decoded-text"></div>
   <script>
 
-    function generateQRCode() {
-      var text = document.getElementById("text-input").value;
+(function() {
+    var $background = document.querySelector('main form [name="background"]');
+    var $backgroundAlpha = document.querySelector('main form [name="backgroundAlpha"]');
+    var $foreground = document.querySelector('main form [name="foreground"]');
+    var $foregroundAlpha = document.querySelector('main form [name="foregroundAlpha"]');
+    var $level = document.querySelector('main form [name="level"]');
+    var $section = document.querySelector('main section');
+    var $padding = document.querySelector('main form [name="padding"]');
+    var $size = document.querySelector('main form [name="size"]');
+    var $value = document.querySelector('main form [name="value"]');
 
-      var qr = new QRious({
-        element: document.getElementById("qrcode"),
-        value: text,
-        size: 128
-      });
-    }
+    var qr = window.qr = new QRious({
+      element: document.getElementById('qrious'),
+      size: 250,
+      value: ''
+    });
+
+    $background.addEventListener('change', function() {
+      qr.background = $background.value || null;
+    });
+
+    $backgroundAlpha.addEventListener('change', function() {
+      qr.backgroundAlpha = $backgroundAlpha.value || null;
+    });
+
+    $foreground.addEventListener('change', function() {
+      qr.foreground = $foreground.value || null;
+    });
+
+    $foregroundAlpha.addEventListener('change', function() {
+      qr.foregroundAlpha = $foregroundAlpha.value || null;
+    });
+
+    $level.addEventListener('change', function() {
+      qr.level = $level.value;
+    });
+
+    $padding.addEventListener('change', function() {
+      if ($padding.validity.valid) {
+        qr.padding = $padding.value !== '' ? $padding.value : null;
+      }
+    });
+
+    $size.addEventListener('change', function() {
+      if (!$size.validity.valid) {
+        return;
+      }
+
+      qr.size = $size.value || null;
+
+      $section.style.minWidth = qr.size + 'px';
+    });
+
+
+    $value.addEventListener('input', function() {
+      qr.value = $value.value;
+    });
+  })();
+
 
     function decodeQRCode() {
         var fileInput = document.getElementById("upload-input");

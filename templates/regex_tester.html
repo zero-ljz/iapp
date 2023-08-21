@@ -99,6 +99,8 @@
 
             result = result.replace(regex, function (match) {
               var className = "match";
+              var matchCount = matches.length;
+              console.log('matchCount: ' + matchCount)
               if (showMatchPositions) {
                 var startIndex = result.indexOf(match);
                 var endIndex = startIndex + match.length;

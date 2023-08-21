@@ -1,13 +1,13 @@
 % rebase('templates/base.html', title='HTTP 代理')
-<h1>
+<h2>
 HTTP Proxy
-</h1>
-<p>
+</h2>
+
 
 <form id="form1">
-    <label for="text">输入要代理的页面或文件URL</label>
-    <textarea id="url" placeholder="url" required></textarea>
-    <input type="submit" value="Send">
+    <label style="display: block; margin: 1rem 0;" for="text">输入要代理的页面或文件URL</label>
+    <textarea style="display: block; margin: 1rem 0;" id="url" placeholder="url" required></textarea>
+    <input type="submit" value="Send Request">
 </form>
 
 <script>
@@ -20,4 +20,3 @@ HTTP Proxy
     });
   </script>
 
-</p>

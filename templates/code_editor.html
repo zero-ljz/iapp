@@ -38,7 +38,8 @@
 
       <button onclick="formatCode()">Format</button>
 
-      <span id="byteCount">0 bytes</span>
+      <span id="byteCount"></span>&nbsp;
+      <span id="strLength"></span>
     </div>
 
     
@@ -121,6 +122,8 @@
         var content = editor.getValue();
         var byteCount = new Blob([content]).size;
         document.getElementById("byteCount").textContent = byteCount + " bytes";
+
+        document.getElementById("strLength").textContent = content.length + " character";
       }
 
 
