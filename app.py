@@ -111,9 +111,12 @@ def echo():
     headers = '\n'.join([f'{key}: {value}' for key, value in sorted(request.headers.items())])
     body = request.body.read().decode("utf-8")
 
-    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Date'] = datetime.datetime.utcnow().strftime('%a, %d %b %Y %H:%M:%S GMT')
+    response.headers['Server'] = 'Nginx'
     response.headers['Content-Type'] = 'text/plain; charset=UTF-8'
-    response.body = f'IP Address: {client_ip}\n' + f'Time Zone: {datetime.datetime.now().astimezone().tzinfo}\n' + f'Date: {time.strftime("%Y-%m-%d %H:%M:%S")}\n' + f'Timestamp: {int(time.time())}\n\n' + '\n'.join([f"{key}: {value}" for key, value in response.headerlist]) + '\n\n' + f'{request_line}\n{headers}\n\n{body}'
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.body = f'IP Address: {client_ip}\n' + f'Time Zone: {datetime.datetime.now().astimezone().tzinfo}\n' + f'Date: {time.strftime("%Y-%m-%d %H:%M:%S")}\n' + f'Timestamp: {int(time.time())}\n\n' 
+    response.body += f'{request.environ.get("SERVER_PROTOCOL")} 200 OK\n' + '\n'.join([f"{key}: {value}" for key, value in response.headerlist]) + '\n\n' + f'{request_line}\n{headers}\n\n{body}'
 
     print(response.body)
 
