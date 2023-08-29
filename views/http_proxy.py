@@ -48,7 +48,7 @@ def home(url):
             #headers['Accept'] = '*/*'
             #headers['User-Agent'] = 'curl/7.85.0'
 
-            headers['Cache-Control'] = 'no-cache'
+            headers['Cache-Control'] = 'max-age=0'
 
             print('转发给目标服务器的请求头', headers)
 
