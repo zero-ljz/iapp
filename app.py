@@ -107,7 +107,7 @@ def echo():
     # client_ip = request.remote_addr
     client_ip = request.environ.get('REMOTE_ADDR') # 获取客户端IP地址
 
-    request_line = f'{request.method} {request.path} {request.environ.get("SERVER_PROTOCOL")}'
+    request_line = f'{request.method} {request.path}{"?" + request.query_string if request.query_string else ""} {request.environ.get("SERVER_PROTOCOL")}'
     headers = '\n'.join([f'{key}: {value}' for key, value in sorted(request.headers.items())])
     body = request.body.read().decode("utf-8")
 
