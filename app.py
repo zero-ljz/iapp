@@ -13,7 +13,7 @@ logging.basicConfig(filename='app.log', level=logging.INFO)
 app = Bottle()
 
 # 注册视图
-app.mount('/c', textio.app)
+# app.mount('/c', textio.app)
 app.mount('/u', short_url.app)
 app.mount('/proxy', http_proxy.app)
 app.mount('/http-client', http_client.app)
