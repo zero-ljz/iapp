@@ -1,6 +1,6 @@
 
 from gevent import monkey; monkey.patch_all()
-from bottle import Bottle, route, run, template, request, response, static_file
+from bottle import Bottle, request, response, template, static_file
 from views import http_client, smtp_client, sql_executor, textio, short_url, http_proxy, data_converter, code_compress, file_share, ftp_uploader, qrcode
 import logging
 import time
@@ -102,7 +102,7 @@ def timer():
 def applog():
     return static_file('app.log', root='.')
 
-@app.route('/echo', method=['GET', 'POST'])
+@app.route('/echo', method=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'])
 def echo():
     # client_ip = request.remote_addr
     client_ip = request.environ.get('REMOTE_ADDR') # 获取客户端IP地址
@@ -128,6 +128,5 @@ def echo():
 def serve_static(filename):
     return static_file(filename, root='static')
 
-# 运行应用程序
 if __name__ == '__main__':
-    run(app, host='0.0.0.0', port=8000, debug=True, reloader=True, server='gevent')
+    app.run(host='0.0.0.0', port=8000, debug=True, reloader=True, server='gevent')
