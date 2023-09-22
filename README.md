@@ -10,4 +10,4 @@ pip3 install -r requirements.txt
 python3 -m gunicorn -w 2 -b 0.0.0.0:8000 -k gevent app:app
 ```
 
-bash fast.sh create_supervisor iapp "/root/repos/iapp/.venv/bin/python3 -m gunicorn -w 2 -b 0.0.0.0:8000 -k gevent app:app" "/root/repos/iapp/"
+bash fast.sh create_supervisor iapp "./.venv/bin/python3 -m gunicorn -w 2 -b 0.0.0.0:8000 -k gevent app:app" "/root/repos/iapp/"

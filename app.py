@@ -1,6 +1,6 @@
 
 from gevent import monkey; monkey.patch_all()
-from bottle import Bottle, request, response, template, static_file
+from bottle import Bottle, request, response, template, static_file, redirect, abort
 from views import http_client, smtp_client, sql_executor, textio, short_url, http_proxy, data_converter, code_compress, file_share, ftp_uploader, qrcode
 import logging
 import time
@@ -129,4 +129,10 @@ def serve_static(filename):
     return static_file(filename, root='static')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=True, reloader=True, server='gevent')
+    import argparse
+    parser = argparse.ArgumentParser(description='Run the server.')
+    parser.add_argument('--host', '-H', default='0.0.0.0', help='Host to listen on (default: 0.0.0.0)')
+    parser.add_argument('--port', '-p', type=int, default=8000, help='Port to listen on (default: 8000)')
+    args = parser.parse_args()
+
+    app.run(host=args.host, port=args.port, debug=True, reloader=True, server='gevent')
