@@ -103,7 +103,8 @@ def applog():
     return static_file('app.log', root='.')
 
 @app.route('/echo', method=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'])
-def echo():
+@app.route('/echo/<path:re:.*>', method=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'])
+def echo(path=None):
     # client_ip = request.remote_addr
     client_ip = request.environ.get('REMOTE_ADDR') # 获取客户端IP地址
 
