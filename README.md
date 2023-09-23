@@ -1,7 +1,7 @@
 # iapp
 
 ``` bash
-# 创建虚拟环境和安装依赖
+# 创建、激活虚拟环境和安装依赖
 python3 -m venv .venv
 source .venv/bin/activate
 pip3 install -r requirements.txt

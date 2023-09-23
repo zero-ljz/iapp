@@ -1,7 +1,7 @@
 
 from gevent import monkey; monkey.patch_all()
 from bottle import Bottle, request, response, template, static_file, redirect, abort
-from views import http_client, smtp_client, sql_executor, textio, short_url, http_proxy, data_converter, code_compress, file_share, ftp_uploader, qrcode
+from views import http_client, smtp_client, sql_executor, textio, short_url, web_proxy, data_converter, code_compress, file_share, ftp_uploader, qrcode
 import logging
 import time
 import datetime
@@ -15,7 +15,7 @@ app = Bottle()
 # 注册视图
 # app.mount('/c', textio.app)
 app.mount('/u', short_url.app)
-app.mount('/proxy', http_proxy.app)
+app.mount('/proxy', web_proxy.app)
 app.mount('/http-client', http_client.app)
 app.mount('/smtp-client', smtp_client.app)
 app.mount('/sql-executor', sql_executor.app)
