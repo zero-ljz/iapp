@@ -105,7 +105,7 @@ def applog():
 @app.route('/echo', method=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'])
 @app.route('/echo/<path:re:.*>', method=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'])
 def echo(path=None):
-    client_ip = request.headers.get('X-Forwarded-For').split(',')[0].strip() if request.headers.get('X-Forwarded-For') else request.headers.get('X-Real-IP') or request.environ.get('REMOTE_ADDR')
+    client_ip = request.headers.get('X-Forwarded-For').split(',')[-1].strip() if request.headers.get('X-Forwarded-For') else request.headers.get('X-Real-IP') or request.environ.get('REMOTE_ADDR')
 
     request_line = f'{request.method} {request.path}{"?" + request.query_string if request.query_string else ""} {request.environ.get("SERVER_PROTOCOL")}'
     headers = '\n'.join([f'{key}: {value}' for key, value in sorted(request.headers.items())])
