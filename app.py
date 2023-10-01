@@ -15,7 +15,7 @@ app = Bottle()
 # 注册视图
 # app.mount('/c', textio.app)
 app.mount('/u', short_url.app)
-app.mount('/proxy', web_proxy.app)
+app.mount('/p', web_proxy.app)
 app.mount('/http-client', http_client.app)
 app.mount('/smtp-client', smtp_client.app)
 app.mount('/sql-executor', sql_executor.app)
@@ -105,17 +105,18 @@ def applog():
 @app.route('/echo', method=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'])
 @app.route('/echo/<path:re:.*>', method=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'])
 def echo(path=None):
-    # client_ip = request.remote_addr
-    client_ip = request.environ.get('REMOTE_ADDR') # 获取客户端IP地址
+    client_ip = request.headers.get('X-Forwarded-For').split(',')[0].strip() if request.headers.get('X-Forwarded-For') else request.headers.get('X-Real-IP') or request.environ.get('REMOTE_ADDR')
 
     request_line = f'{request.method} {request.path}{"?" + request.query_string if request.query_string else ""} {request.environ.get("SERVER_PROTOCOL")}'
     headers = '\n'.join([f'{key}: {value}' for key, value in sorted(request.headers.items())])
     body = request.body.read().decode("utf-8")
 
     response.headers['Date'] = datetime.datetime.utcnow().strftime('%a, %d %b %Y %H:%M:%S GMT')
-    response.headers['Server'] = 'Nginx'
     response.headers['Content-Type'] = 'text/plain; charset=UTF-8'
     response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE, PATCH'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    response.headers['Cache-Control'] = 'no-store'
     response.body = f'IP Address: {client_ip}\n' + f'Time Zone: {datetime.datetime.now().astimezone().tzinfo}\n' + f'Date: {time.strftime("%Y-%m-%d %H:%M:%S")}\n' + f'Timestamp: {int(time.time())}\n\n' 
     response.body += f'{request.environ.get("SERVER_PROTOCOL")} 200 OK\n' + '\n'.join([f"{key}: {value}" for key, value in response.headerlist]) + '\n\n' + f'{request_line}\n{headers}\n\n{body}'
 
