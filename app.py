@@ -126,9 +126,9 @@ def echo(path=None):
 
     return response
 
-@app.route('/static/<filename:path>')
-def serve_static(filename):
-    return static_file(filename, root='static')
+@app.route('/<filepath:path>')
+def serve_static(filepath):
+    return static_file(filepath, root='static')
 
 if __name__ == '__main__':
     import argparse
