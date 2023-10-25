@@ -98,7 +98,7 @@ def home(url):
         except requests.exceptions.RequestException as e:
             return f"Error occurred: {str(e)}"
     else:
-        return template('templates/web_proxy.html')
+        return template('web_proxy/index.html')
 
 
 

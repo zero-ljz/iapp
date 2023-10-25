@@ -7,7 +7,7 @@ app = Bottle()
 
 @app.route('/')
 def index():
-    return template('templates/code_compress.html')
+    return template('code_compress/index.html')
 
 @app.route('/', method='POST')
 def compress_code():

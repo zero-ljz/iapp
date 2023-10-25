@@ -16,9 +16,9 @@ def index():
         result = execute_sql(sql, conn_str)
         
         # 渲染结果模板并返回
-        return template('templates/sql_executor/result.html', result=result)
+        return template('templates/result.html', result=result)
     
-    return template('templates/sql_executor/index.html')
+    return template('templates/index.html')
 
 
 def execute_sql(sql, conn_str):

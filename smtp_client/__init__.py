@@ -8,7 +8,7 @@ app = Bottle()
 
 @app.route('/')
 def index():
-    return template('templates/smtp_client.html', response='')
+    return template('smtp_client/index.html', response='')
 
 @app.route('/send_email', method='POST')
 def send_email():

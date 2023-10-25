@@ -8,7 +8,7 @@ app = Bottle()
 
 @app.route('/')
 def index():
-    return template('templates/data_converter.html')
+    return template('data_converter/index.html')
 
 @app.route('/', method='POST')
 def data_converter():

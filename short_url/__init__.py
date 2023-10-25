@@ -5,7 +5,7 @@ import random
 
 app = Bottle()
 
-DATABASE = 'data/short_url/urls.db'
+DATABASE = 'short_url/urls.db'
 
 
 def generate_short_url(length=6):
@@ -47,7 +47,7 @@ def init_database():
 
 @app.route('/')
 def home():
-    return template('templates/short_url.html')
+    return template('short_url/index.html')
 
 
 @app.route('/shorten', method='GET')

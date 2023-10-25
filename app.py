@@ -1,7 +1,17 @@
 
 from gevent import monkey; monkey.patch_all()
 from bottle import Bottle, request, response, template, static_file, redirect, abort
-from views import http_client, smtp_client, sql_executor, textio, short_url, web_proxy, data_converter, code_compress, file_share, ftp_uploader, qrcode
+import short_url
+import file_share
+import web_proxy
+import http_client
+import smtp_client
+import sql_executor
+import data_converter
+import code_compress
+import ftp_uploader
+import qrcode
+
 import logging
 import time
 import datetime
@@ -12,18 +22,18 @@ logging.basicConfig(filename='app.log', level=logging.INFO)
 # 创建 Bottle 应用程序对象
 app = Bottle()
 
-# 注册视图
-# app.mount('/c', textio.app)
-app.mount('/u', short_url.app)
+# 挂载应用实例到主程序
 app.mount('/p', web_proxy.app)
 app.mount('/http-client', http_client.app)
 app.mount('/smtp-client', smtp_client.app)
 app.mount('/sql-executor', sql_executor.app)
 app.mount('/data-converter', data_converter.app)
 app.mount('/code-compress', code_compress.app)
-app.mount('/s', file_share.app)
 app.mount('/ftp-uploader', ftp_uploader.app)
 app.mount('/qrcode', qrcode.app)
+
+app.mount('/u', short_url.app)
+app.mount('/s', file_share.app)
 
 # 定义路由和处理函数
 @app.route('/')

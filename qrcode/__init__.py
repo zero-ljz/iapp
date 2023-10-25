@@ -7,7 +7,7 @@ app = Bottle()
 
 @app.route('/')
 def index():
-    return template('templates/qrcode.html')
+    return template('qrcode/index.html')
 
 @app.route('/generate')
 @app.route('/generate/<text>/<version:int>/<error_correction>/<box_size:int>/<border:int>')

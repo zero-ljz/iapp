@@ -23,4 +23,4 @@ COPY . /app
 # USER appuser
 
 # 在调试期间，这个入口点将被覆盖。 如需更多资料，请参阅 https://aka.ms/vscode-docker-python-debug
-CMD ["python", "app.py"]
+CMD ["bash", "-c", "python -m gunicorn -w 2 -b 0.0.0.0:8000 -k gevent app:app"]

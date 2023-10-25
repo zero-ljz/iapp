@@ -5,7 +5,7 @@ from bottle import Bottle, request, response, template, static_file, abort, HTTP
 app = Bottle()
 
 # 设置静态文件目录
-UPLOAD_FOLDER = "uploads/file_share"
+UPLOAD_FOLDER = "file_share/uploads"
 
 # 检查文件夹是否存在，不存在则创建
 if not os.path.exists(UPLOAD_FOLDER):
@@ -32,12 +32,10 @@ def requires_auth(f):
                 if check_auth(username, password):
                     # 用户名和密码有效，继续执行被装饰的视图函数
                     return f(*args, **kwargs)
-        
         # 认证失败，返回401 Unauthorized状态码，并添加WWW-Authenticate头
         response = HTTPResponse(status=401)
         response.headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
         return response
-
     return wrapper
 
 
@@ -47,7 +45,7 @@ def requires_auth(f):
 @requires_auth
 def upload_page(filename=None):
     if not filename:
-        return template('templates/file_share.html')
+        return template('file_share/index.html')
     else: 
         return static_file(filename, root=UPLOAD_FOLDER)
 
