@@ -102,6 +102,7 @@
   <label style="display: block; margin: 1rem 0;" for="time-from">时间（从）:</label>
   <input type="number" id="time-from" />
   <select id="time-from-unit">
+    <option value="μs">微秒 (microsecond)</option>
     <option value="ms">毫秒 (millisecond)</option>
     <option value="s">秒 (second)</option>
     <option value="min">分钟 (minute)</option>
@@ -112,6 +113,7 @@
   <label style="display: block; margin: 1rem 0;" for="time-to">时间（到）:</label>
   <input type="number" id="time-to" readonly />
   <select id="time-to-unit">
+    <option value="μs">微秒 (microsecond)</option>
     <option value="ms">毫秒 (millisecond)</option>
     <option value="s">秒 (second)</option>
     <option value="min">分钟 (minute)</option>
@@ -390,31 +392,43 @@
   function getTimeConversionFactor(fromUnit, toUnit) {
     // Conversion factors for different time units
     var conversionTable = {
+      μs: {
+        ms: 1 / 1000,
+        s: 1 / 1000000,
+        min: 1 / 60000000,
+        h: 1 / 3600000000,
+        d: 1 / 86400000000,
+      },
       ms: {
+        μs: 1000,
         s: 1 / 1000,
         min: 1 / 60000,
         h: 1 / 3600000,
         d: 1 / 86400000,
       },
       s: {
+        μs: 1000000,
         ms: 1000,
         min: 1 / 60,
         h: 1 / 3600,
         d: 1 / 86400,
       },
       min: {
+        μs: 60000000,
         ms: 60000,
         s: 60,
         h: 1 / 60,
         d: 1 / 1440,
       },
       h: {
+        μs: 3600000000,
         ms: 3600000,
         s: 3600,
         min: 60,
         d: 1 / 24,
       },
       d: {
+        μs: 86400000000,
         ms: 86400000,
         s: 86400,
         min: 1440,
