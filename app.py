@@ -127,7 +127,7 @@ def echo(path=None):
     response.headers['Access-Control-Allow-Methods'] = 'GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE, PATCH'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
     response.headers['Cache-Control'] = 'no-store'
-    response.body = f'{request_line}\n{headers}\n\n{body}' + '\n\n'
+    response.body = f'{request_line}\n{headers}\n\n' + (body and f'{body}\n\n')
     response.body += f'{request.environ.get("SERVER_PROTOCOL")} 200 OK\n' + '\n'.join([f"{key}: {value}" for key, value in response.headerlist]) + '\n\n'
     response.body += f'IP Address: {client_ip}\n' + f'Time Zone: {datetime.datetime.now().astimezone().tzinfo}\n' + f'Date: {time.strftime("%Y-%m-%d %H:%M:%S")}\n' + f'Timestamp: {int(time.time())}'
 
