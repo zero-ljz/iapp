@@ -50,7 +50,7 @@ fetch(this.parentNode.action + (this.parentNode.method === 'get' ? (this.parentN
 ">后台提交</button>
 
         <button type="button" onclick="
-window.location.href = this.parentNode.action + (this.parentNode.method === 'get' ? (this.parentNode.action.includes('?') ? '&' : '?') + new URLSearchParams(new FormData(this.parentNode).entries()).toString() : '');
+window.location.href = this.parentNode.action + (this.parentNode.action.includes('?') ? '&' : '?') + new URLSearchParams(new FormData(this.parentNode).entries()).toString();
 ">GET跳转</button>
     
 <br/>
