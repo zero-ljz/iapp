@@ -1,24 +1,26 @@
 % rebase('templates/base.html', title='Code Compress')
-<h2>Code Compress</h2>
-  <div>
-    <label style="display: block; margin: 1rem 0;"  for="data-input">Input Data:</label>
-    <textarea  id="data-input" rows="10" cols="45"></textarea>
-  </div>
-  <div style="margin: 1rem 0;">
+<section style="padding: 10px; background-color: #fff;">
+  <h2 style="font-size: 1rem; margin-top: 0;">代码压缩器</h2>
+  <p>
+    <label for="data-input">Input Data:</label><br/>
+    <textarea id="data-input" rows="10" cols="45"></textarea>
+  </p>
+  <p>
     <label for="operation-select">Operation:</label>
     <select id="operation-select">
       <option value="js">JS</option>
       <option value="css">CSS</option>
       <option value="html">HTML</option>
     </select>
-  </div>
+  </p>
 
-    <button style="display: block; margin: 1rem 0;" id="convert-btn">Convert</button>
+    <button id="convert-btn">Convert</button>
 
-  <div>
-    <label style="display: block; margin: 1rem 0;" for="output">Output:</label>
-    <textarea style="display: block; margin: 1rem 0;" id="output" rows="10" cols="45" readonly></textarea>
-  </div>
+    <hr style="margin-bottom:5px; border:0;">
+  <p>
+    <textarea id="output" rows="10" cols="45" readonly></textarea>
+  </p>
+</section>
 
   <script>
     const convertButton = document.getElementById('convert-btn');

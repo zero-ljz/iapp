@@ -1,47 +1,39 @@
 
 % rebase('templates/base.html', title='HTTP 客户端')
 
+  <section style="padding: 10px; background-color: #fff;">
+    <h2 style="font-size: 1rem; margin-top: 0;">HTTP客户端</h2>
 
-  <style>
-    .response {
-      margin-top: 20px;
-      border: 1px solid #ccc;
-      padding: 10px;
-      background-color: #f5f5f5;
-    }
-  </style>
+    <p>
+        <label for="url">URL:</label>
+        <input type="text" id="url" placeholder="" value="http://">
+    </p>
 
+    <p>
+        <label for="method">method:</label>
+        <select id="method">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+            <option value="PUT">PUT</option>
+            <option value="DELETE">DELETE</option>
+            <option value="OPTIONS">OPTIONS</option>
+            <option value="PATCH">PATCH</option>
+        </select>
+    </p>
 
-    <h1>HTTP Client</h1>
-    <div style="display: block; margin: 1rem 0;">
-      <label for="url">URL:</label>
-      <input type="text" id="url" placeholder="url" >
-    </div>
-    <div style="display: block; margin: 1rem 0;">
-      <label for="method">Method:</label>
-      <select id="method">
-        <option value="GET">GET</option>
-        <option value="POST">POST</option>
-        <option value="PUT">PUT</option>
-        <option value="DELETE">DELETE</option>
-        <option value="PATCH">PATCH</option>
-        <option value="HEAD">HEAD</option>
-        <option value="OPTIONS">OPTIONS</option>
-      </select>
-    </div>
+    <p>
+        <label for="headers">headers:</label><br/>
+        <textarea id="headers" cols="40" rows="10" placeholder="" value=""></textarea>
+    </p>
 
-      <label style="display: block; margin: 1rem 0;" for="headers">Headers:</label>
-      <textarea style="display:block;" id="headers" placeholder="Enter headers" rows="4" cols="45">
-Accept: */*
-</textarea>
+    <p>
+        <label for="body">body:</label><br/>
+        <textarea id="body" cols="40" rows="10" placeholder=""></textarea>
+    </p>
 
-
-      <label style="display: block; margin: 1rem 0;" for="body">Body:</label>
-      <textarea style="display:block;" id="body" placeholder="Enter request body" rows="4" cols="45"></textarea>
-
-    <div style="display: block; margin: 1rem 0;">
-      <label for="contentType">content-type:</label>
-      <input id="contentType" list="content-type-options" placeholder="content-type" value="application/json">
+    <p>
+      <label for="contentType">Content-Type:</label><br/>
+      <input id="contentType" list="content-type-options" value="">
         <datalist id="content-type-options">
             <option value="application/json">JSON</option>
             <option value="application/xml">XML</option>
@@ -50,67 +42,87 @@ Accept: */*
             <option value="multipart/form-data">多部分表单数据（文件上传）</option>
         </datalist>
         <button type="button" onclick="document.getElementById('contentType').value = ''">重选</button>
-    </div>
-    <div style="display: block; margin: 1rem 0;">
-        <label for="origin">Origin:</label>
-        <input type="radio" name="origin" value="local"> Local
-        <input type="radio" name="origin" value="server" checked> Server
-      </div>
-    <button onclick="sendRequest()">Send Request</button>
-    <div id="response" class="response"></div>
+    </p>
 
+    <p>
+        <label for="redirects">重定向:</label>
+        <input type="checkbox" id="redirects">
+    </p>
 
-  <script>
+    <p>
+      <label for="origin">Origin:</label>
+      <input type="radio" name="origin" value="local"> Local
+      <input type="radio" name="origin" value="server" checked> Server
+    </p>
 
-    document.getElementById('url').value = window.location.protocol + '//' + window.location.host + '/echo';
+    <p>
+        <button onclick="send()">Send</button>
+    </p>
 
-    function sendRequest() {
-      var url = document.getElementById('url').value;
-      var method = document.getElementById('method').value;
-      var headers = document.getElementById('headers').value;
-      var body = document.getElementById('body').value;
-      var contentType = document.getElementById('contentType').value;
-      var origin = document.querySelector('input[name="origin"]:checked').value;
+    <hr style="margin-bottom:5px; border:0;">
+    <pre id="res" style="white-space: pre-wrap;"></pre>
 
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-          var responseDiv = document.getElementById('response');
-          responseDiv.innerHTML = htmlEncode(`Status code: ${this.status}
+  </section>
 
-          ${this.getAllResponseHeaders()}
+    <script>
 
-          ${this.responseText}`);
+        document.getElementById('url').value = window.location.protocol + '//' + window.location.host + '/echo';
+
+        async function send() {
+            let url = document.getElementById('url').value;
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+              url = 'http://' + url;
+            }
+            const method = document.getElementById('method').value;
+            const headers = document.getElementById('headers').value;
+            const body = document.getElementById('body').value || undefined;
+            const contentType = document.getElementById('contentType').value;
+            const redirects = document.getElementById('redirects').checked;
+            const origin = document.querySelector('input[name="origin"]:checked').value;
+            if (origin === 'server') {
+              url = '/p/' + url;
+            }
+
+            const options = {
+                method,
+                headers: Object.assign(
+                  headers ? parseHeaders(headers) : {}, 
+                  contentType ? {'Content-Type': contentType} : {}
+                ),
+                body,
+                redirect: redirects ? 'follow' : 'manual'
+            };
+
+            try {
+                const res = await fetch(url, options);
+                const data = await res.text();
+                document.getElementById('res').textContent = `${res.status} ${res.statusText} ${res.ok ? '✅' : '❌'} 
+${Array.from(res.headers.entries()).map(([name, value]) => `${name}: ${value}`).join('\n')}
+
+${data}
+                `;
+            } catch (err) {
+                document.getElementById('res').textContent = '请求失败: ' + err.message;
+            }
         }
-      };
 
-      var requestUrl = url;
-      if (origin === 'server') {
-        requestUrl = '/p/' + url;
-      }
+        function parseHeaders(headers) {
+            const lines = headers.split('\n');
+            const obj = {};
 
-      xhttp.open(method, requestUrl, true);
-      
-      xhttp.setRequestHeader('Content-Type', contentType);
-      
-      // 设置请求头
-      var headersArr = headers.split('\n');
-      headersArr.forEach(function(header) {
-        var parts = header.split(':');
-        if (parts.length === 2) {
-          var key = parts[0].trim();
-          var value = parts[1].trim();
-          xhttp.setRequestHeader(key, value);
+            for (const line of lines) {
+                const [key, value] = line.split(':');
+                if (key && value) {
+                    obj[key.trim()] = value.trim();
+                }
+            }
+
+            return obj;
         }
-      });
 
-      xhttp.send(body);
-    }
-
-
-    function htmlEncode(text) {
-        var element = document.createElement('div');
-        element.innerText = text;
-        return element.innerHTML;
+        function htmlEncode(text) {
+          var element = document.createElement('div');
+          element.innerText = text;
+          return element.innerHTML;
       }
-  </script>
+    </script>

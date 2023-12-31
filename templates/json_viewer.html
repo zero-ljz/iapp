@@ -113,15 +113,19 @@
   </style>
 
   
-  <h2>JSON Viewer</h2>
+<section style="padding: 10px; background-color: #fff;">
+  <h2 style="font-size: 1rem; margin-top: 0;">JSON浏览器</h2>
   
-  <div>
-    <textarea style="display: block; margin: 1rem 0;" id="json-input" placeholder="在此处输入 JSON" rows="10"></textarea>
-    <button style="display: block; margin: 1rem 0;" onclick="visualizeJson()">Visualize</button>
-  </div>
+  <p>
+    <textarea id="json-input" placeholder="在此处输入 JSON" rows="10"></textarea>
+  </p>
+  <p>
+    <button onclick="visualizeJson()">Visualize</button>
+  </p>
   
   <div id="json-output"></div>
-  
+</section>
+
   <script>
     function visualizeJson() {
       const jsonInput = document.getElementById("json-input").value;

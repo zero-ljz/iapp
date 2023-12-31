@@ -1,11 +1,18 @@
 % rebase('templates/base.html', title='SQL Executor')
 
-    <h2>SQL Executor</h2>
+<section style="padding: 10px; background-color: #fff;">
+    <h2 style="font-size: 1rem; margin-top: 0;">SQL 执行器</h2>
         
     <form action="/sql-executor" method="POST" enctype="application/x-www-form-urlencoded">
-        <input style="display: block; margin: 1rem 0;" type="text" name="conn_str" value="mysql://root:password@localhost:3306/mysql">
-        <textarea style="display: block; margin: 1rem 0;" name="sql" rows="5" cols="45" placeholder="输入SQL语句"></textarea>
-        <input style="display: block; margin: 1rem 0;" type="submit" value="执行SQL">
+        <p>
+        <textarea name="conn_str" rows="3" cols="40" placeholder="url">mysql://root:password@localhost:3306/mysql</textarea>
+    </p>
+    <p>
+        <textarea name="sql" rows="5" cols="40" placeholder="sql statement"></textarea>
+    </p>
+    <p>
+        <input type="submit" value="Execute">
+    </p>
     </form>
-    
+</section>
 

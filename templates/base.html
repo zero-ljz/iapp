@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hans" style="height: 99%;">
 <head>
   <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <link
+  <!-- <link
   rel="stylesheet"
   href="https://necolas.github.io/normalize.css/8.0.1/normalize.css"
-/>
+/> -->
 
   <!-- <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"> -->
   <!-- <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css"> -->
@@ -19,24 +19,41 @@
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/script.js"></script>
   <title>{{ title }} - 我的应用</title>
+  <style>
+    body {
+        display: flex;
+        flex-direction: column;
+        /* 主轴的排列方向 */
+        justify-content: flex-start;
+        /* 在主轴上的对齐方式 */
+        align-items: center;
+        /* 在交叉轴上的对齐方式 */
+        background-color: #f0f0f0;
+    }
+
+    a {
+        text-decoration: none;
+    }
+</style>
 </head>
-<body style="padding: 1rem;">
+<body style="height: 99%;">
 
-<!-- <header>
-  <nav>
-    <ul style="list-style-type: none;">
-        <li><a href="/">首页</a></li>
-        <li><a href="/about">关于</a></li>
-    </ul>
-</nav>
-</header> -->
+<header style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
+  <h1 style="font-size: 1rem; margin: 0;"><a href="/"><b style="color: #0D6EFD;">我的应用</b></a></h1>
+  <nav style="text-align: right;">
+      <a href="/"><b>首页</b></a>
+      <a href="/about">关于</a>
+  </nav>
+</header>
 
-<main class="container">
+<main class="container" style="width: 95%; max-width: 1200px; flex: 1; margin-top: 10px; margin-bottom: 10px;">
     {{!base}}
 </main>
 
 <footer>
-
+  <p style="text-align: center;">
+    <small>© 2015-2023 <a href="https://iapp.run">zero-ljz 空心</a>. All Rights Reserved<br/>Designed & crafted with care.</small>
+  </p>
 </footer>
 </body>
 </html>

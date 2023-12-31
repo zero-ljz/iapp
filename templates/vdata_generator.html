@@ -1,22 +1,11 @@
 % rebase('templates/base.html', title='Virtual Data Generator')
 
-    <style>
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
 
-        .result-container {
-            margin-top: 10px;
-        }
 
-    </style>
-
-<div class="container">
-    <label style="display: block; margin: 1rem 0;" for="dataTypes">选择数据种类:</label>
-    <select style="display: block; margin: 1rem 0;" id="dataTypes">
+<section style="padding: 10px; background-color: #fff;">
+    <h2 style="font-size: 1rem; margin-top: 0;">虚拟数据生成器</h2>
+    <label for="dataTypes">数据种类:</label><br/>
+    <select id="dataTypes">
         <option value="name">姓名</option>
         <option value="email">电子邮件</option>
         <option value="age">年龄</option>
@@ -66,9 +55,9 @@
         <option value="drink">饮料</option>
         <option value="timezoneAbbreviation">时区缩写</option>
     </select>
-    <button onclick="generateData()">生成数据</button>
+    <button onclick="generateData()">Generate</button>
     <div id="resultContainer"></div>
-</div>
+</section>
 
 <script src="https://gcore.jsdelivr.net/npm/chance/dist/chance.min.js"></script>
 <script>

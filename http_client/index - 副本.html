@@ -1,0 +1,120 @@
+
+% rebase('templates/base.html', title='HTTP 客户端')
+
+
+  <style>
+    .response {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background-color: #f5f5f5;
+    }
+  </style>
+
+
+<section style="padding: 10px; background-color: #fff;">
+  <h2 style="font-size: 1rem; margin-top: 0;">HTTP客户端</h2>
+    <p>
+      <label for="url">URL:</label>
+      <input type="text" id="url" placeholder="url" >
+    </p>
+    <p>
+      <label for="method">Method:</label>
+      <select id="method">
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+        <option value="PUT">PUT</option>
+        <option value="DELETE">DELETE</option>
+        <option value="PATCH">PATCH</option>
+        <option value="HEAD">HEAD</option>
+        <option value="OPTIONS">OPTIONS</option>
+      </select>
+    </p>
+
+    <p>
+      <label for="headers">Headers:</label><br/>
+      <textarea style="display:block;" id="headers" placeholder="Enter headers" rows="4" cols="45">
+Accept: */*
+</textarea>
+</p>
+
+      <p>
+      <label for="body">Body:</label><br/>
+      <textarea style="display:block;" id="body" placeholder="Enter request body" rows="4" cols="45"></textarea>
+    </p>
+
+    <p>
+      <label for="contentType">content-type:</label>
+      <input id="contentType" list="content-type-options" placeholder="content-type" value="application/json">
+        <datalist id="content-type-options">
+            <option value="application/json">JSON</option>
+            <option value="application/xml">XML</option>
+            <option value="text/plain">纯文本</option>
+            <option value="application/x-www-form-urlencoded">URL编码表单（默认）</option>
+            <option value="multipart/form-data">多部分表单数据（文件上传）</option>
+        </datalist>
+        <button type="button" onclick="document.getElementById('contentType').value = ''">重选</button>
+    </p>
+    <p>
+        <label for="origin">Origin:</label>
+        <input type="radio" name="origin" value="local"> Local
+        <input type="radio" name="origin" value="server" checked> Server
+      </p>
+    <button onclick="sendRequest()">Send Request</button>
+    <div id="response" class="response"></div>
+
+
+  <script>
+
+    document.getElementById('url').value = window.location.protocol + '//' + window.location.host + '/echo';
+
+    function sendRequest() {
+      var url = document.getElementById('url').value;
+      var method = document.getElementById('method').value;
+      var headers = document.getElementById('headers').value;
+      var body = document.getElementById('body').value;
+      var contentType = document.getElementById('contentType').value;
+      var origin = document.querySelector('input[name="origin"]:checked').value;
+
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+          var responseDiv = document.getElementById('response');
+          responseDiv.innerHTML = htmlEncode(`Status code: ${this.status}
+
+          ${this.getAllResponseHeaders()}
+
+          ${this.responseText}`);
+        }
+      };
+
+      var requestUrl = url;
+      if (origin === 'server') {
+        requestUrl = '/p/' + url;
+      }
+
+      xhttp.open(method, requestUrl, true);
+      
+      xhttp.setRequestHeader('Content-Type', contentType);
+      
+      // 设置请求头
+      var headersArr = headers.split('\n');
+      headersArr.forEach(function(header) {
+        var parts = header.split(':');
+        if (parts.length === 2) {
+          var key = parts[0].trim();
+          var value = parts[1].trim();
+          xhttp.setRequestHeader(key, value);
+        }
+      });
+
+      xhttp.send(body);
+    }
+
+
+    function htmlEncode(text) {
+        var element = document.createElement('div');
+        element.innerText = text;
+        return element.innerHTML;
+      }
+  </script>

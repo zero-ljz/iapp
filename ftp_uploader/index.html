@@ -1,11 +1,19 @@
 
 % rebase('templates/base.html', title='FTP 上传器')
+<section style="padding: 10px; background-color: #fff;">
+    <h2 style="font-size: 1rem; margin-top: 0;">上传文件到FTP服务器</h2>
 
-<h2>上传文件到FTP服务器</h2>
         <form action="/ftp-uploader/upload" method="post" enctype="multipart/form-data">
-            <label for="file">选择文件：</label>
-            <input type="file" name="file" id="file"><br><br>
-            <label for="ftp_address">FTP地址：</label>
-            <input type="text" name="ftp_address" value="ftp://username:password@127.0.0.1:21/" id="ftp_address"><br><br>
-            <input type="submit" value="上传">
+            <p>
+            <input type="file" name="file" id="file">
+        </p>
+        <p>
+            <label for="ftp_address">FTP地址：</label><br/>
+            <textarea id="ftp_address" name="ftp_address" cols="40" rows="3" data-dl-input-translation="true">ftp://username:password@127.0.0.1:21/</textarea>
+        </p>
+        <p>
+            <input type="submit" value="Upload">
+        </p>
         </form>
+
+</section>

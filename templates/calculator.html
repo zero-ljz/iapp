@@ -32,30 +32,31 @@
   }
 </style>
 
-
+<section style="padding: 10px; background-color: #fff;">
+  <h2 style="font-size: 1rem; margin-top: 0;">计算器</h2>
 <div id="calculator">
   <fieldset>
     <legend>计算器</legend>
-    <input type="text" id="calc_result" readonly>
+    <input type="text" id="calc_result">
     <div id="buttons">
-      <button class="number" onclick="appendValue('7')">7</button>
-      <button class="number" onclick="appendValue('8')">8</button>
-      <button class="number" onclick="appendValue('9')">9</button>
-      <button class="operator" onclick="appendValue('+')">+</button><br />
-      <button class="number" onclick="appendValue('4')">4</button>
-      <button class="number" onclick="appendValue('5')">5</button>
-      <button class="number" onclick="appendValue('6')">6</button>
-      <button class="operator" onclick="appendValue('-')">-</button><br />
-      <button class="number" onclick="appendValue('1')">1</button>
-      <button class="number" onclick="appendValue('2')">2</button>
-      <button class="number" onclick="appendValue('3')">3</button>
-      <button class="operator" onclick="appendValue('*')">*</button><br />
-      <button class="number" onclick="appendValue('0')">0</button>
-      <button class="number" onclick="appendValue('.')">.</button>
-      <button class="operator" onclick="calculate()">=</button>
-      <button class="operator" onclick="appendValue('/')">/</button>
-      <button class="clear" onclick="clearInput()">Clear</button>
+      <button>7</button>
+      <button>8</button>
+      <button>9</button>
+      <button>+</button><br />
+      <button>4</button>
+      <button>5</button>
+      <button>6</button>
+      <button>-</button><br />
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>*</button><br />
+      <button>0</button>
+      <button>.</button>
+      <button>/</button>
     </div>
+    <button class="operator" onclick="calculate()">=</button>
+    <button class="clear" onclick="clearInput()">Clear</button>
 </div>
 </fieldset>
 
@@ -93,21 +94,25 @@
 <fieldset>
   <legend>计算时间差</legend>
   <p>请输入开始日期和结束日期来计算它们之间的时间差：</p>
-  <label style="display: block; margin: 1rem 0;" for="start-date">开始日期：</label>
+  <p>
+  <label for="start-date">开始日期：</label><br/>
   <input type="datetime-local" id="start-date" step="1">
-  <label style="display: block; margin: 1rem 0;" for="end-date">结束日期：</label>
+  </p>
+  <p>
+  <label for="end-date">结束日期：</label><br/>
   <input type="datetime-local" id="end-date" step="1">
-  <button style="display: block; margin: 1rem 0;" onclick="calculateDifference()">计算时间差</button>
+</p>
+  <button onclick="calculateDifference()">计算时间差</button>
   <p id="time-difference"></p>
 </fieldset>
 
 <fieldset>
   <legend>计算指定时间后的时间</legend>
   <p>请输入基准时间和要添加的天数/小时数/分钟数/秒数来计算结果时间：</p>
-  <label style="display: block; margin: 1rem 0;" for="base-time">基准时间：</label>
+  <label for="base-time">基准时间：</label>
   <input type="datetime-local" id="base-time" step="1">
   <p>
-    <label style="display: block; margin: 1rem 0;" for="time-direction">时间方向：</label>
+    <label for="time-direction">时间方向：</label>
     <select id="time-direction">
       <option value="future">未来时间</option>
       <option value="past">过去时间</option>
@@ -132,11 +137,18 @@
   <button onclick="calculateTime()">计算</button>
   <p id="future-time"></p>
 </fieldset>
-
+</section>
 
 <script>
 
 
+    let buttons = document.getElementById('buttons');
+    elements = buttons.querySelectorAll('*');
+    elements.forEach(element => {
+      element.addEventListener('click', (event) => {
+        appendValue(event.target.textContent);
+      });
+    });
 
   function appendValue(value) {
     var input = document.getElementById('calc_result');

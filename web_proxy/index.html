@@ -1,21 +1,13 @@
-% rebase('templates/base.html', title='Web 代理')
-<h2>
-HTTP Proxy
-</h2>
+% rebase('templates/base.html', title='Web Proxy')
 
-<form id="form1">
-    <label style="display: block; margin: 1rem 0;" for="text">输入要代理的页面或文件URL</label>
-    <textarea style="display: block; margin: 1rem 0;" id="url" placeholder="url" required>http://</textarea>
-    <input type="submit" value="Send Request">
+<section style="padding: 10px; background-color: #fff;">
+  <h2 style="font-size: 1rem; margin-top: 0;">Web Proxy</h2>
+
+<form onsubmit="event.preventDefault(); window.location.href = '/p/' + new FormData(this).get('url');">
+  <label for="text">输入要代理的页面或文件URL</label><br/>
+  <input type="text" name="url" placeholder="url" value="http://" required>
+  <input type="submit" value="GO">
 </form>
 
-<script>
-    document.getElementById("form1").addEventListener("submit", function(event) {
-      event.preventDefault(); // 阻止表单默认提交行为
-      var url = document.getElementById("url").value;
 
-      // 使用 URL 进行页面跳转
-      window.location.href = "/proxy/" + url;
-    });
-  </script>
 

@@ -1,9 +1,10 @@
 % rebase('templates/base.html', title='Form Builder')
 
+<section style="padding: 10px; background-color: #fff;">
+    <h2 style="font-size: 1rem; margin-top: 0;">表单构建器</h2>
 
-<h2>表单构建器</h2>
 <form method="get" action="echo">
-    <div style="display: block; margin: 1rem 0;">
+    <p>
         <input list="input-type-options" id="input-type" placeholder="type" value="text">
         <datalist id="input-type-options">
             <option value="text">
@@ -14,24 +15,20 @@
             <option value="datetime-local">
         </datalist>
         <button type="button" onclick="document.getElementById('input-type').value = ''">重选</button>
-    </div>
-    <div style="display: block; margin: 1rem 0;">
+    </p>
+    <p>
         <input id="input-name" type="text" placeholder="name">
         <button type="button" onclick="addParam(event)">添加</button>
-    </div>
-
-    <div style="display: block; margin: 1rem 0;">
+    </p>
+<hr/>
+    <p>
         <select id="form-method">
             <option value="get">GET</option>
             <option value="post">POST</option>
-            <option value="put">PUT</option>
-            <option value="delete">DELETE</option>
-            <option value="patch">PATCH</option>
-            <option value="head">HEAD</option>
         </select>
         <input id="form-action" type="text" placeholder="action" value="echo">
-        </div>
-    <div style="display: block; margin: 1rem 0;">
+    </p>
+    <p>
         <input id="form-enctype" list="enctype-options" placeholder="enctype" value="application/x-www-form-urlencoded">
         <datalist id="enctype-options">
             <option value="application/x-www-form-urlencoded">URL编码表单（默认）</option>
@@ -39,10 +36,27 @@
             <option value="text/plain">纯文本</option>
         </datalist>
         <button type="button" onclick="document.getElementById('form-enctype').value = ''">重选</button>
-        <button type="submit">提交</button>
-    </div>
+    </p>
 
+        <button type="submit">提交</button>
+        <button type="button" onclick="
+this.disabled = true; 
+fetch(this.parentNode.action + (this.parentNode.method === 'get' ? (this.parentNode.action.includes('?') ? '&' : '?') + new URLSearchParams(new FormData(this.parentNode).entries()).toString() : ''), { method: this.parentNode.method, body: this.parentNode.method === 'post' ? new FormData(this.parentNode) : undefined })
+.then(resp => resp.text())
+.then(text => { 
+    alert(text); 
+    this.disabled = false; 
+});
+">后台提交</button>
+
+        <button type="button" onclick="
+window.location.href = this.parentNode.action + (this.parentNode.method === 'get' ? (this.parentNode.action.includes('?') ? '&' : '?') + new URLSearchParams(new FormData(this.parentNode).entries()).toString() : '');
+">GET跳转</button>
+    
+<br/>
+<br/>
 </form>
+</section>
 
 <script>
     // 处理添加参数的函数

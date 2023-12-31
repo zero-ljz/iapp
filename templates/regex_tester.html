@@ -1,11 +1,6 @@
 % rebase('templates/base.html', title='正则表达式测试工具')
 
     <style>
-      button {
-        margin-top: 10px;
-        padding: 5px 10px;
-      }
-
       #result {
         margin-top: 20px;
         white-space: pre-wrap;
@@ -20,20 +15,18 @@
         color: blue;
       }
 
-      #regex-reference {
-        margin-top: 20px;
-        border: 1px solid #ccc;
-        padding: 10px;
-      }
+
 
       label {
         display: inline;
       }
     </style>
 
-    <h2>正则表达式测试工具</h2>
-    <textarea style="display: block; margin: 1rem 0;" id="input-text" style="height: 200px;" placeholder="在此处输入文本" oninput="testRegex()"></textarea>
-    <textarea style="display: block; margin: 1rem 0;" id="input-regex" placeholder="在此处输入正则表达式" oninput="testRegex()"></textarea>
+
+    <section style="padding: 10px; background-color: #fff;">
+      <h2 style="font-size: 1rem; margin-top: 0;">正则测试器</h2>
+    <p><textarea id="input-text" rows="10" cols="40" placeholder="待匹配文本" oninput="testRegex()"></textarea></p>
+    <p><textarea id="input-regex" rows="3" cols="40" placeholder="正则表达式" oninput="testRegex()"></textarea></p>
     <label  for="global-match">
       <input type="checkbox" id="global-match" onchange="testRegex()" />
       全局匹配
@@ -51,12 +44,13 @@
       <input type="checkbox" id="show-match-positions" onchange="testRegex()" />
       显示匹配位置
     </label>
-    <div style="display: block; margin: 1rem 0;">
+    <div>
     <input type="text" id="replace-text" oninput="testRegex()" /> <button onclick="replaceText()">replace</button>
     </div>
     <div id="result"></div>
 
-    <div id="regex-reference">
+    
+    <hr/>
       <ul>
         <li><strong>.</strong>：匹配任意单个字符（除了换行符）</li>
         <li><strong>\d</strong>：匹配数字字符</li>
@@ -73,7 +67,8 @@
         <li><strong>(...)</strong>：捕获匹配的子表达式</li>
         <li><strong>|</strong>：匹配两个或多个选择之一</li>
       </ul>
-    </div>
+    
+    </section>
 
     <script>
       function testRegex() {

@@ -1,12 +1,13 @@
 % rebase('templates/base.html', title='Data Converter')
 
-  <h2>Data Converter</h2>
-  <div>
-    <label style="display: block; margin: 1rem 0;" for="data-input">Input Data:</label>
+<section style="padding: 10px; background-color: #fff;">
+  <h2 style="font-size: 1rem; margin-top: 0;">数据转换器</h2>
+  <p>
+    <label for="data-input">Input Data:</label><br/>
     <textarea id="data-input" rows="10" cols="45"></textarea>
-  </div>
-  <div style="display: block; margin: 1rem 0;">
-    <label for="operation-select">Operation:</label>
+  </p>
+  <p>
+    <label for="operation-select">Operation:</label><br/>
     <select id="operation-select">
       <option value="json-to-yaml">JSON to YAML</option>
       <option value="yaml-to-json">YAML to JSON</option>
@@ -15,14 +16,13 @@
       <option value="json-to-csv">JSON to CSV</option>
       <option value="csv-to-json">CSV to JSON</option>
     </select>
-  </div>
-  <div>
     <button id="convert-btn">Convert</button>
-  </div>
-  <div style="display: block; margin: 1rem 0;">
-    <label style="display: block; margin: 1rem 0;" for="output">Output:</label>
+  </p>
+
+  <hr style="margin-bottom:5px; border:0;">
+  <p>
     <textarea id="output" rows="10" cols="45" readonly></textarea>
-  </div>
+  </p>
 
   <script>
     const convertButton = document.getElementById('convert-btn');

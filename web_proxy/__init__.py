@@ -78,7 +78,7 @@ def home(url):
             response.status = proxy_response.status_code
 
             if proxy_response.status_code in (301, 302, 303, 307, 308): # 遇到重定向时重定向到代理地址
-                response.headers['Location'] = f'{request.urlparts.scheme}://{request.urlparts.netloc}/proxy/' + proxy_response.headers.get('Location')
+                response.headers['Location'] = f'{request.urlparts.scheme}://{request.urlparts.netloc}/p/' + proxy_response.headers.get('Location')
 
             print('响应头', dict(response.headers))
 

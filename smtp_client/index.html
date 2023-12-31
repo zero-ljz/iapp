@@ -1,27 +1,45 @@
 % rebase('templates/base.html', title='SMTP 客户端')
 
-<h2>SMTP 客户端</h2>
+<section style="padding: 10px; background-color: #fff;">
+  <h2 style="font-size: 1rem; margin-top: 0;">SMTP 客户端</h2>
+
 <form action="/smtp-client/send_email" method="post">
-  <label style="display: block; margin: 1rem 0;" for="host">服务器主机名：</label>
-  <input type="text" id="host" name="host" value="smtp.qq.com" /><br />
+  <p>
+  <label for="host">服务器主机名：</label><br />
+  <input type="text" id="host" name="host" value="smtp.qq.com" />
+</p>
 
-  <label style="display: block; margin: 1rem 0;" for="port">服务器端口号：</label>
-  <input type="text" id="port" name="port" value="587" /><br />
+  <p>
+  <label for="port">服务器端口号：</label><br />
+  <input type="text" id="port" name="port" value="587" />
+</p>
 
-  <label style="display: block; margin: 1rem 0;" for="username">用户名：</label>
-  <input type="text" id="username" name="username" /><br />
+  <p>
+  <label for="username">用户名：</label><br />
+  <input type="text" id="username" name="username" />
+</p>
 
-  <label style="display: block; margin: 1rem 0;" for="password">密码：</label>
-  <input type="password" id="password" name="password" /><br />
+  <p>
+  <label for="password">密码：</label><br />
+  <input type="password" id="password" name="password" />
+</p>
 
-  <label style="display: block; margin: 1rem 0;" for="receiver">收件人：</label>
-  <input type="text" id="receiver" name="receiver" /><br />
+  <p>
+  <label for="receiver">收件人：</label><br />
+  <input type="text" id="receiver" name="receiver" />
+</p>
 
-  <label style="display: block; margin: 1rem 0;" for="subject">主题：</label>
-  <input type="text" id="subject" name="subject" /><br />
+  <p>
+  <label for="subject">主题：</label><br />
+  <input type="text" id="subject" name="subject" />
+</p>
 
-  <label style="display: block; margin: 1rem 0;" for="content">内容：</label>
-  <textarea style="display:block;" id="content" name="content" rows="4" cols="45"></textarea><br />
+  <p>
+  <label for="content">内容：</label><br />
+  <textarea style="display:block;" id="content" name="content" rows="4" cols="45"></textarea>
+</p>
 
-  <input type="submit" value="发送邮件" />
+  <p>
+  <input type="submit" value="Send" />
+</p>
 </form>

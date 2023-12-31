@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>HTML Online Runner</title>
+% rebase('templates/base.html', title='HTML Runner')
+<section style="padding: 10px; background-color: #fff;">
+    <h2 style="font-size: 1rem; margin-top: 0;">HTML 实时解析</h2>
     <style>
         #htmlCode {
             width: 100%;
@@ -14,16 +13,16 @@
             border: none;
         }
     </style>
-</head>
-<body>
-    <h2>HTML Online Runner</h2>
     
     <label for="htmlCode">HTML Code:</label><br>
     <textarea id="htmlCode" rows="10" cols="80" oninput="updateOutput()"></textarea><br>
-    
-    <h2>Output:</h2>
+</section>
+
+<hr style="margin-bottom:5px; border:0;">
+
     <iframe id="outputFrame"></iframe>
     
+
     <script>
         function updateOutput() {
             var htmlCode = document.getElementById("htmlCode").value;
@@ -35,5 +34,3 @@
             outputDocument.close();
         }
     </script>
-</body>
-</html>

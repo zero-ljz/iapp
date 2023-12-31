@@ -3,65 +3,85 @@
   <script src="https://gcore.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
   <script src="https://gcore.jsdelivr.net/npm/jsqr/dist/jsQR.min.js"></script>    
 
-  <h1>二维码生成器和解析器</h1>
+  <section style="padding: 10px; background-color: #fff;">
+    <h2 style="font-size: 1rem; margin-top: 0;">二维码生成和识别</h2>
 
-  <h2>生成二维码</h2>
+  <h3>生成</h3>
 
   <img id="qrious">
 
   <form autocomplete="off">
+    <p>
     <label>
       value
       <!-- <input type="text" name="value" value="" spellcheck="false"> -->
-      <textarea name="value"></textarea>
-    </label>
+    </label><br/>
+    <textarea name="value" cols="40" rows="5"></textarea>
+  </p>
 
+  <p>
     <label>
       size
-      <input type="number" name="size" placeholder="100" min="100" max="1000" value="250">
     </label>
+    <input type="number" name="size" placeholder="100" min="100" max="1000" value="250">
+  </p>
 
+  <p>
     <label>
       padding
-      <input type="number" name="padding" placeholder="Auto" min="0">
     </label>
+    <input type="number" name="padding" placeholder="Auto" min="0">
+  </p>
 
+    <p>
     <label>
       level
-      <select name="level">
-        <option value="L">L - 7% damage</option>
-        <option value="M">M - 15% damage</option>
-        <option value="Q">Q - 25% damage</option>
-        <option value="H">H - 30% damage</option>
-      </select>
     </label>
-<br/>
-<br/>
+    <select name="level">
+      <option value="L">L - 7% damage</option>
+      <option value="M">M - 15% damage</option>
+      <option value="Q">Q - 25% damage</option>
+      <option value="H">H - 30% damage</option>
+    </select>
+  </p>
+
+    <p>
     <label>
       background color
-      <input type="color" name="background" value="#ffffff">
     </label>
+    <input type="color" name="background" value="#ffffff">
+  </p>
 
+    <p>
     <label>
       background alpha
-      <input type="number" name="backgroundAlpha" placeholder="1" min="0" max="1" step="0.1" value="1">
     </label>
+    <input type="number" name="backgroundAlpha" placeholder="1" min="0" max="1" step="0.1" value="1">
+  </p>
 
+    <p>
     <label>
       foreground color
-      <input type="color" name="foreground" value="#000000">
     </label>
+    <input type="color" name="foreground" value="#000000">
+  </p>
 
+    <p>
     <label>
       foreground alpha
-      <input type="number" name="foregroundAlpha" placeholder="1" min="0" max="1" step="0.1" value="1">
     </label>
+    <input type="number" name="foregroundAlpha" placeholder="1" min="0" max="1" step="0.1" value="1">
+  </p>
   </form>
 
-  <h2>从本地上传二维码并识别</h2>
+  <h3>识别</h3>
+  <p>
   <input type="file" accept="image/*" id="upload-input">
   <button onclick="decodeQRCode()">识别二维码</button>
   <div id="decoded-text"></div>
+  </p>
+  </section>
+
   <script>
 
 (function() {
