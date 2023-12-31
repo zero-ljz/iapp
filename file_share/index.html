@@ -1,26 +1,37 @@
 
 % rebase('templates/base.html', title='文件上传分享')
 
+<section style="padding: 10px; background-color: #fff;">
+  <h2 style="font-size: 1rem; margin-top: 0;">文件上传分享</h2>
+
 <a href="/s/files">View Uploaded Files</a>
 
 <form action="/s/upload" method="post" enctype="multipart/form-data">
 <fieldset>
   <legend>文件上传:</legend>
+  <p>
     <input type="file" name="file">
+  </p>
+  <p>
     <label>Custom Filename:</label>
     <input type="text" name="filename">
-    <input type="submit" value="Upload">
+  </p>
+  <input type="submit" value="Upload">
     </fieldset>
 </form>
 
 <form action="/s/upload" method="post" enctype="application/x-www-form-urlencoded;charset=UTF-8">
 <fieldset>
   <legend>文件创建:</legend>
-    <div style="margin-bottom:5px">
+    <p>
     <label>Filename: *</label>
     <input type="text" name="filename">
-    </div>
-    <textarea style="display:block;" name="file_content" rows="5" cols="40" placeholder="Enter file content..."></textarea>
+    </p>
+    <p>
+    <textarea name="file_content" rows="5" cols="40" placeholder="Enter file content..."></textarea>
+  </p>
     <input type="submit" value="Create">
 </fieldset>
 </form>
+
+</section>

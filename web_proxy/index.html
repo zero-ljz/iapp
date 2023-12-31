@@ -4,8 +4,10 @@
   <h2 style="font-size: 1rem; margin-top: 0;">Web Proxy</h2>
 
 <form onsubmit="event.preventDefault(); window.location.href = '/p/' + new FormData(this).get('url');">
+  <p>
   <label for="text">输入要代理的页面或文件URL</label><br/>
   <input type="text" name="url" placeholder="url" value="http://" required>
+</p>
   <input type="submit" value="GO">
 </form>
 
