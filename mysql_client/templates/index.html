@@ -1,9 +1,9 @@
-% rebase('templates/base.html', title='SQL 执行器')
+% rebase('templates/base.html', title='MySQL 客户端')
 
 <section style="padding: 10px; background-color: #fff;">
-    <h2 style="font-size: 1rem; margin-top: 0;">SQL 执行器</h2>
+    <h2 style="font-size: 1rem; margin-top: 0;">连接 MySQL 服务器并执行 SQL 语句</h2>
         
-    <form action="/sql-executor" method="POST" enctype="application/x-www-form-urlencoded">
+    <form action="/mysql-client" method="POST" enctype="application/x-www-form-urlencoded">
         <p>
         <textarea name="conn_str" rows="3" cols="40" placeholder="url">mysql://root:password@localhost:3306/mysql</textarea>
     </p>

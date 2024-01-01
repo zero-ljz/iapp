@@ -6,10 +6,10 @@ import file_share
 import web_proxy
 import http_client
 import smtp_client
-import sql_executor
+import mysql_client
 import data_converter
 import code_compresser
-import ftp_uploader
+import ftp_client
 import qrcode
 
 import logging
@@ -26,10 +26,10 @@ app = Bottle()
 app.mount('/p', web_proxy.app)
 app.mount('/http-client', http_client.app)
 app.mount('/smtp-client', smtp_client.app)
-app.mount('/sql-executor', sql_executor.app)
+app.mount('/mysql-client', mysql_client.app)
 app.mount('/data-converter', data_converter.app)
 app.mount('/code-compresser', code_compresser.app)
-app.mount('/ftp-uploader', ftp_uploader.app)
+app.mount('/ftp-client', ftp_client.app)
 app.mount('/qrcode', qrcode.app)
 
 app.mount('/u', short_url.app)

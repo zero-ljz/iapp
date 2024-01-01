@@ -1,9 +1,9 @@
 
-% rebase('templates/base.html', title='FTP 上传器')
+% rebase('templates/base.html', title='FTP 客户端')
 <section style="padding: 10px; background-color: #fff;">
-    <h2 style="font-size: 1rem; margin-top: 0;">上传文件到FTP服务器</h2>
+    <h2 style="font-size: 1rem; margin-top: 0;">上传文件到 FTP 服务器</h2>
 
-        <form action="/ftp-uploader/upload" method="post" enctype="multipart/form-data">
+        <form action="/ftp-client/upload" method="post" enctype="multipart/form-data">
             <p>
             <input type="file" name="file" id="file" required>
         </p>

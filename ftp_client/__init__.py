@@ -33,7 +33,7 @@ def upload_to_ftp(ftp_url, file_content, filename):
 
 @app.route('/')
 def upload_form():
-    return template('ftp_uploader/index.html')
+    return template('ftp_client/index.html')
 
 @app.route('/upload', method='POST')
 def do_upload():
