@@ -42,13 +42,15 @@
         <button type="button" onclick="
 this.disabled = true; 
 let form = this.parentNode;
-let paramsText = new URLSearchParams(new FormData(form).entries()).toString();
-fetch(form.action + (form.method === 'get' ? (form.action.includes('?') ? '&' : '?') + paramsText : ''), 
+const formData = new FormData(form);
+fetch(form.action + (form.method === 'get' 
+? (form.action.includes('?') ? '&' : '?') + new URLSearchParams(formData).toString() 
+: ''), 
 { 
     method: form.method, 
     ...(form.method === 'post' && {
         headers: { 'Content-Type': document.getElementById('form-enctype').value },
-        body: paramsText
+        body: formData
     })
 })
 .then(resp => resp.text())
