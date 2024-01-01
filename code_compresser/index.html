@@ -2,19 +2,17 @@
 <section style="padding: 10px; background-color: #fff;">
   <h2 style="font-size: 1rem; margin-top: 0;">代码压缩器</h2>
   <p>
-    <label for="data-input">Input Data:</label><br/>
     <textarea id="data-input" rows="10" cols="40"></textarea>
   </p>
   <p>
-    <label for="operation-select">Operation:</label>
-    <select id="operation-select">
+    <select id="codeType-select">
       <option value="js">JS</option>
       <option value="css">CSS</option>
       <option value="html">HTML</option>
     </select>
   </p>
 
-    <button id="convert-btn">Convert</button>
+    <button id="compress">Compress</button>
 
     <hr style="margin-bottom:5px; border:0;">
   <p>
@@ -23,20 +21,20 @@
 </section>
 
   <script>
-    const convertButton = document.getElementById('convert-btn');
+    const compressButton = document.getElementById('compress');
     const dataInput = document.getElementById('data-input');
-    const operationSelect = document.getElementById('operation-select');
+    const codeTypeSelect = document.getElementById('codeType-select');
     const outputTextarea = document.getElementById('output');
 
-    convertButton.addEventListener('click', async () => {
+    compressButton.addEventListener('click', async () => {
       const data = dataInput.value;
-      const operation = operationSelect.value;
+      const codeType = codeTypeSelect.value;
 
-      const response = await fetch('/code-compress', {
+      const response = await fetch('/code-compresser', {
         method: 'POST',
         headers: {
           'Content-Type': 'text/plain',
-          'Operation': operation
+          'CodeType': codeType
         },
         body: data
       });

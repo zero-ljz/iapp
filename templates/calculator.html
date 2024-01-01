@@ -1,30 +1,7 @@
 % rebase('templates/base.html', title='计算器')
 
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    /*margin: 20px;*/
-  }
 
-  .input-group {
-    margin-bottom: 10px;
-  }
-
-  .input-group label {
-    display: inline-block;
-    width: 250px;
-  }
-
-  .input-group input {
-    width: 200px;
-    padding: 5px;
-    font-size: 16px;
-  }
-
-  .button-group button {
-    margin-right: 10px;
-    padding: 5px 10px;
-  }
 
   #result {
     margin-top: 20px;
@@ -37,7 +14,9 @@
 <div id="calculator">
   <fieldset>
     <legend>计算器</legend>
+    <p>
     <input type="text" id="calc_result">
+  </p>
     <div id="buttons">
       <button>7</button>
       <button>8</button>
@@ -55,37 +34,38 @@
       <button>.</button>
       <button>/</button>
     </div>
-    <button class="operator" onclick="calculate()">=</button>
-    <button class="clear" onclick="clearInput()">Clear</button>
+    <br/>
+    <button onclick="calculate()">=</button>
+    <button onclick="clearInput()">Clear</button>
 </div>
 </fieldset>
 
 <fieldset>
   <legend>百分比计算器</legend>
-  <div class="input-group">
+  <p>
     <label for="value1">数值 1：</label>
     <input type="number" id="value1" placeholder="输入数值 1" />
-  </div>
+  </p>
 
-  <div class="input-group">
+  <p>
     <label for="value2">数值 2：</label>
     <input type="number" id="value2" placeholder="输入数值 2" />
-  </div>
+  </p>
 
-  <div class="input-group">
+  <p>
     <label for="percentage">百分比：</label>
     <input type="number" id="percentage" placeholder="输入百分比" />
-  </div>
+  </p>
 
-  <div class="button-group">
+  <p>
     <button onclick="calculatePercentageOf()">数值 1 的百分之 N 是多少</button>
     <button onclick="calculatePercentageFrom()">数值 1 是数值 2 的百分之几</button>
     <button onclick="calculatePercentageOfValue()">数值 1 是多少的百分之 N</button>
-    <div style="height:5px;"></div>
+    <div style="height:1px;"></div>
     <button onclick="calculatePercentageChange()">数值 1 到数值 2 的百分比变化</button>
     <button onclick="calculateIncrease()">数值 1 加上百分之 N 是多少</button>
     <button onclick="calculateDecrease()">数值 1 减去百分之 N 是多少</button>
-  </div>
+  </p>
 
   <div id="result"></div>
 </fieldset>

@@ -8,7 +8,7 @@ import http_client
 import smtp_client
 import sql_executor
 import data_converter
-import code_compress
+import code_compresser
 import ftp_uploader
 import qrcode
 
@@ -28,7 +28,7 @@ app.mount('/http-client', http_client.app)
 app.mount('/smtp-client', smtp_client.app)
 app.mount('/sql-executor', sql_executor.app)
 app.mount('/data-converter', data_converter.app)
-app.mount('/code-compress', code_compress.app)
+app.mount('/code-compresser', code_compresser.app)
 app.mount('/ftp-uploader', ftp_uploader.app)
 app.mount('/qrcode', qrcode.app)
 

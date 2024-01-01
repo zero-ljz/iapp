@@ -7,13 +7,13 @@ app = Bottle()
 
 @app.route('/')
 def index():
-    return template('code_compress/index.html')
+    return template('code_compresser/index.html')
 
 @app.route('/', method='POST')
 def compress_code():
     
     code = request.body.read().decode('utf-8')
-    code_type = request.headers.get('Operation')
+    code_type = request.headers.get('CodeType')
 
     if code_type == 'js':
         # JavaScript code compression and obfuscation

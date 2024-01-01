@@ -27,26 +27,15 @@
       <h2 style="font-size: 1rem; margin-top: 0;">正则测试器</h2>
     <p><textarea id="input-text" rows="10" cols="40" placeholder="待匹配文本" oninput="testRegex()"></textarea></p>
     <p><textarea id="input-regex" rows="3" cols="40" placeholder="正则表达式" oninput="testRegex()"></textarea></p>
-    <label  for="global-match">
-      <input type="checkbox" id="global-match" onchange="testRegex()" />
-      全局匹配
-    </label>
-    <label for="case-insensitive">
-      <input type="checkbox" id="case-insensitive" onchange="testRegex()" />
-      忽略大小写
-    </label>
-    <label for="ignore-whitespace">
-      <input type="checkbox" id="ignore-whitespace" onchange="testRegex()" />
-      忽略空白
-    </label>
-    <br/>
-    <label for="show-match-positions">
-      <input type="checkbox" id="show-match-positions" onchange="testRegex()" />
-      显示匹配位置
-    </label>
-    <div>
+    <p>
+    <input type="checkbox" id="global-match" onchange="testRegex()" /><label  for="global-match">全局匹配</label>
+    <input type="checkbox" id="case-insensitive" onchange="testRegex()" /><label for="case-insensitive">忽略大小写</label>
+    <input type="checkbox" id="ignore-whitespace" onchange="testRegex()" /><label for="ignore-whitespace">忽略空白</label><br/>
+    <input type="checkbox" id="show-match-positions" onchange="testRegex()" /><label for="show-match-positions">显示匹配位置</label>
+    </p>
+    <p>
     <input type="text" id="replace-text" oninput="testRegex()" /> <button onclick="replaceText()">replace</button>
-    </div>
+    </p>
     <div id="result"></div>
 
     
