@@ -41,7 +41,16 @@
         <button type="submit">提交</button>
         <button type="button" onclick="
 this.disabled = true; 
-fetch(this.parentNode.action + (this.parentNode.method === 'get' ? (this.parentNode.action.includes('?') ? '&' : '?') + new URLSearchParams(new FormData(this.parentNode).entries()).toString() : ''), { method: this.parentNode.method, body: this.parentNode.method === 'post' ? new FormData(this.parentNode) : undefined })
+let form = this.parentNode;
+let paramsText = new URLSearchParams(new FormData(form).entries()).toString();
+fetch(form.action + (form.method === 'get' ? (form.action.includes('?') ? '&' : '?') + paramsText : ''), 
+{ 
+    method: form.method, 
+    ...(form.method === 'post' && {
+        headers: { 'Content-Type': document.getElementById('form-enctype').value },
+        body: paramsText
+    })
+})
 .then(resp => resp.text())
 .then(text => { 
     alert(text); 
@@ -93,22 +102,14 @@ window.location.href = this.parentNode.action + (this.parentNode.action.includes
                 input.name = paramName;
                 input.type = paramType;
             }
-
-            input.style = "margin-right: 5px;"
             
-            // Create remove button
-            var removeButton = document.createElement('button');
-            removeButton.textContent = '移除 ' + paramName;
-            removeButton.type = 'button';
-            removeButton.onclick = function () {
-                form.removeChild(input);
-                form.removeChild(removeButton);
-            };
-
-            form.appendChild(input);
-            form.appendChild(removeButton);
-
-            form.insertAdjacentHTML('beforeend', '<hr style="margin-bottom:5px; border:0;">');
+            let htmlText = `<p>
+<lable for="${paramName}">${paramName}:</lable><br/>
+${input.outerHTML} <button type="button" onclick="this.parentNode.remove()">删除</button>
+</p>
+`;
+            form.appendChild(document.createRange().createContextualFragment(htmlText).firstElementChild);
+            
             document.getElementById('input-name').value = "";
         }
     }
