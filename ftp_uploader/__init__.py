@@ -37,8 +37,8 @@ def upload_form():
 
 @app.route('/upload', method='POST')
 def do_upload():
-    upload = request.files.get('file')
-    ftp_address = request.forms.get('ftp_address')
+    upload = request.files.file
+    ftp_address = request.forms.ftp_address
 
     if upload and ftp_address:
         file_content = upload.file.read()

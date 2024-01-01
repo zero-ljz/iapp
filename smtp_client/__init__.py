@@ -12,15 +12,15 @@ def index():
 
 @app.route('/send_email', method='POST')
 def send_email():
-    host = request.forms.get('host')
-    port = int(request.forms.get('port'))
-    username = request.forms.get('username')
-    password = request.forms.get('password')
+    host = request.forms.host
+    port = int(request.forms.port)
+    username = request.forms.username
+    password = request.forms.password
 
     sender = username
-    receiver = request.forms.get('receiver') # 接收邮件的邮箱地址，可以是单个地址或多个地址，使用逗号分隔
-    subject = request.forms.get('subject')
-    content = request.forms.get('content')
+    receiver = request.forms.receiver # 接收邮件的邮箱地址，可以是单个地址或多个地址，使用逗号分隔
+    subject = request.forms.subject
+    content = request.forms.content
 
     # 创建一个MIMEText对象，设置邮件内容
     msg = MIMEText(content, 'plain', 'utf-8')

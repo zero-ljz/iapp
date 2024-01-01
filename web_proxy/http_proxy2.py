@@ -40,7 +40,7 @@ def forward_request(url):
 
 @app.route('/')
 def proxy():
-    url = request.query.get('url')
+    url = request.query.url
     if url:
         # 转发请求并获取响应
         response_data = forward_request(url)

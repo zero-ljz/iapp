@@ -1,5 +1,6 @@
 % rebase('templates/base.html', title='QR Code Generator')
-
+<section style="padding: 10px; background-color: #fff;">
+    <h2 style="font-size: 1rem; margin-top: 0;">二维码生成器</h2>
     <script>
         function updateQRCode() {
             var text = document.getElementById("text").value;
@@ -11,9 +12,7 @@
             img.src = "/qrcode/generate?text=" + encodeURIComponent(text) + "&varsion=" + version + "&errorCorrection=" + errorCorrection + "&boxSize=" + boxSize + "&border=" + border;
         }
     </script>
-</head>
-<body>
-    <h2>QR Code Generator</h2>
+
     <span id="counter"></span>
     <textarea style="display: block; margin: 1rem 0;" id="text" rows="4" cols="40" placeholder="Enter text" oninput="updateQRCode(); document.getElementById('counter').innerHTML = new TextEncoder().encode(this.value).length + ` / 2953 字节`"></textarea>
 
@@ -33,5 +32,4 @@
     <br>
     <h2>Generated QR Code:</h2>
     <img id="qrcode" alt="Generated QR Code">
-</body>
-</html>
+</section>

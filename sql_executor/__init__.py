@@ -9,8 +9,8 @@ app = Bottle()
 def index():
     if request.method == 'POST':
         # 从POST请求中获取SQL语句
-        sql = request.forms.get('sql')
-        conn_str = request.forms.get('conn_str')
+        sql = request.forms.sql
+        conn_str = request.forms.conn_str
         
         # 执行SQL语句
         result = execute_sql(sql, conn_str)

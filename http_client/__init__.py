@@ -12,10 +12,10 @@ def index():
 
 @app.route('/send', method='POST')
 def send_request():
-    url = request.forms.get('url')
-    method = request.forms.get('method')
-    headers = request.forms.get('headers')
-    body = request.forms.get('body')
+    url = request.forms.url
+    method = request.forms.method
+    headers = request.forms.headers
+    body = request.forms.body
 
     # 将请求数据组装为字典
     data = {'url': url, 'method': method}

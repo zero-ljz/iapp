@@ -52,9 +52,9 @@ def upload_page(filename=None):
 # 上传文件处理
 @app.route('/upload', method='POST')
 def do_upload():
-    file = request.files.get('file')
-    filename = request.forms.get('filename')
-    file_content = request.forms.decode('utf-8').get('file_content')
+    file = request.files.file
+    filename = request.forms.filename
+    file_content = request.forms.file_content
 
     if file:
         # 获取原始文件名

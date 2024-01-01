@@ -6,12 +6,12 @@
 <form action="/smtp-client/send_email" method="post">
   <p>
   <label for="host">服务器主机名：</label><br />
-  <input type="text" id="host" name="host" value="smtp.qq.com" />
+  <input type="text" id="host" name="host" value="smtp.qq.com" required/>
 </p>
 
   <p>
   <label for="port">服务器端口号：</label><br />
-  <input type="text" id="port" name="port" value="587" />
+  <input type="text" id="port" name="port" value="587" required/>
 </p>
 
   <p>
@@ -21,12 +21,12 @@
 
   <p>
   <label for="password">密码：</label><br />
-  <input type="password" id="password" name="password" />
+  <input type="password" id="password" name="password" required/>
 </p>
 
   <p>
   <label for="receiver">收件人：</label><br />
-  <input type="text" id="receiver" name="receiver" />
+  <input type="text" id="receiver" name="receiver" required/>
 </p>
 
   <p>
