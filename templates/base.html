@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-Hans" style="height: 99%;">
+
 <head>
   <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <!-- <link
   rel="stylesheet"
@@ -21,40 +22,146 @@
   <title>{{ title }} - 我的应用</title>
   <style>
     body {
-        display: flex;
-        flex-direction: column;
-        /* 主轴的排列方向 */
-        justify-content: flex-start;
-        /* 在主轴上的对齐方式 */
-        align-items: center;
-        /* 在交叉轴上的对齐方式 */
-        background-color: #f0f0f0;
-        background:url(https://www.transparenttextures.com/patterns/worn-dots.png);
+      display: flex;
+      flex-direction: column;
+      /* 主轴的排列方向 */
+
+      justify-content: flex-start;
+      /* 在主轴上的对齐方式 */
+
+      align-items: center;
+      /* 在交叉轴上的对齐方式 */
+
+      /* background-color: #CCE8CF; */
+      background-color: #f0f0f0;
+      /* background-image: url(https://source.unsplash.com/user/zeroljz/likes/2560x0/); */
+      /* background-image: url(https://www.transparenttextures.com/patterns/worn-dots.png); */
+      background-image: url(https://www.transparenttextures.com/patterns/cream-paper.png);
     }
 
     a {
-        text-decoration: none;
+      text-decoration: none;
+      color: #038084;
     }
-</style>
+
+    dl {
+      width: 100%;
+      border: 1px solid #ddd;
+      margin: 0;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    li {
+      margin: 0.25rem 0;
+    }
+
+    section {
+      margin: 0.75rem 0;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+
+      background-color: rgba(255, 255, 255, 0.6);
+      color: #333;
+      box-shadow: inset 1px 1px rgb(255 255 255 / 20%), inset -1px -1px rgb(255 255 255 / 10%), 1px 3px 24px -1px rgb(0 0 0 / 15%);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+
+      word-wrap: break-word;
+    }
+
+    main {
+      width: 95%;
+      max-width: 1200px;
+      margin: 0.75rem 0;
+      display: flex;
+      justify-content: space-between;
+      flex: 1;
+      gap: 10px;
+    }
+
+    article {
+      width: 75%;
+    }
+
+    aside {
+      width: 25%;
+      min-width: 250px;
+    }
+
+    @media screen and (max-width: 768px) {
+      main {
+        flex-direction: column;
+        /* 在屏幕宽度小于等于768px时垂直排列 */
+      }
+
+      article {
+        width: 100%;
+        flex: 1;
+      }
+
+      aside {
+        width: 100%;
+      }
+    }
+
+    select {
+      padding: 0.125rem 0;
+    }
+  </style>
 </head>
+
 <body style="height: 99%;">
 
-<header style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
-  <h1 style="font-size: 1rem; margin: 0;"><a href="/"><b style="color: #0D6EFD;">我的应用</b></a></h1>
-  <nav style="text-align: right;">
+  <header style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
+    <h1 style="font-size: 1rem; margin: 0;"><a href="/"><b style="color: #0D6EFD;">我的应用</b></a></h1>
+    <nav style="text-align: right;">
       <a href="/"><b>首页</b></a>
       <a href="/about">关于</a>
-  </nav>
-</header>
+    </nav>
+  </header>
 
-<main class="container" style="width: 95%; max-width: 1200px; flex: 1; margin-top: 10px; margin-bottom: 10px;">
-    {{!base}}
-</main>
+  <main>
+    <article>
+      {{!base}}
+    </article>
 
-<footer>
-  <p style="text-align: center;">
-    <small>© 2015-2023 <a href="https://iapp.run">zero-ljz 空心</a>. All Rights Reserved<br/>Designed & crafted with care.</small>
-  </p>
-</footer>
+    <aside>
+      <section>
+        <h2 style="font-size: 1rem; margin-top: 0;">关于本站
+          <hr style="margin:5px 0; border: 1px solid #ccc;">
+        </h2>
+        欢迎访问我的应用，
+        尽情享用吧。<br />
+        完全免费且代码开源。
+      </section>
+
+      <section>
+        <h2 style="font-size: 1rem; margin-top: 0;">其他链接
+          <hr style="margin:5px 0; border: 1px solid #ccc;">
+        </h2>
+        <ul>
+          <li><a href="https://blog.iapp.run">技术博客</a> <span style="float: right;">欢迎访问</span></li>
+          <li><a href="https://i.iapp.run">个人主页</a></li>
+          <li><a href="https://github.com/zero-ljz">开源项目</a></li>
+        </ul>
+      </section>
+
+
+    </aside>
+  </main>
+
+  <footer style="color: #999;">
+    <p style="text-align: center;">
+      <small>© 2015-2023 <a href="https://iapp.run">zero-ljz 空心</a>. All Rights Reserved<br />Designed & crafted with
+        care.</small>
+    </p>
+  </footer>
 </body>
+
 </html>

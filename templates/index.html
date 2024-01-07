@@ -1,167 +1,159 @@
 % rebase('templates/base.html', title='首页')
 
-<style>
-  dl {
-    width: 100%;
-    height: 150px;
-    border: 1px solid #ddd;
-    margin: 0;
-  }
-</style>
 
-<section style="padding: 10px; background-color: #fff;">
+<section>
   <h2 style="font-size: 1rem; margin-top: 0;">应用列表</h2>
 
   <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; ">
     
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/html-runner">HTML 实时解析</a></dt>
       <dd>在浏览器中实时解析和显示 HTML 代码。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/js-runner">JS 代码运行</a></dt>
       <dd>在浏览器中运行和测试 JavaScript 代码。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/code-editor">代码编辑器</a></dt>
       <dd>在线编辑和格式化各种编程语言的代码。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/markdown-editor">Markdown 编辑</a></dt>
       <dd>编辑和预览 Markdown 格式的文档。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/json-viewer">JSON 浏览器</a></dt>
       <dd>以树状结构查看 JSON 数据。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/regex-tester">正则测试器</a></dt>
       <dd>测试和验证正则表达式的工具。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/unit-converter">单位换算器</a></dt>
       <dd>进行不同单位之间的转换。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/calculator">计算器</a></dt>
       <dd>支持百分比和时间计算的在线计算器。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/vdata-generator">虚拟数据生成器</a></dt>
       <dd>生成各种格式的虚拟测试数据。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/qr-code">二维码生成器</a></dt>
       <dd>生成和识别包含各种信息的二维码。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/password-generator">密码生成器</a></dt>
       <dd>生成强密码和随机密码的工具。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/echo">HTTP 请求信息</a></dt>
       <dd>查看发送到服务器的 HTTP 请求的详细信息。</dd>
     </div>
   </dl>
 
-  <!-- <dl>
+  <!-- <dl style="height: 150px;">
     <div style="padding: 10px;">
     <dt><a href="/p">Web 代理访问</a></dt>
     <dd>没有应用描述</dd>
     </div>
   </dl> -->
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/form-builder">HTML 表单构建器</a></dt>
       <dd>使用可视化界面构建 HTML 表单。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/http-client">HTTP 客户端</a></dt>
       <dd>通过界面发送和测试 HTTP 请求。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/smtp-client">SMTP 客户端</a></dt>
       <dd>通过 SMTP 协议在线发送电子邮件。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/mysql-client">MySQL 客户端</a></dt>
       <dd>在线执行和测试 SQL 语句。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/ftp-client">FTP 客户端</a></dt>
       <dd>通过 FTP 协议上传文件到服务器。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/data-converter">数据转换器</a></dt>
       <dd>转换不同格式的数据，如 CSV、JSON 等。</dd>
     </div>
   </dl>
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/code-compresser">代码压缩器</a></dt>
       <dd>压缩和优化各种编程语言的代码。</dd>
     </div>
   </dl>
 
-  <!-- <dl>
+  <!-- <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/s">文件上传分享</a></dt>
       <dd>通过简单的文件上传方式分享文件。</dd>
     </div>
   </dl> -->
 
-  <dl>
+  <dl style="height: 150px;">
     <div style="padding: 10px;">
       <dt><a href="/u">URL 缩短器</a></dt>
       <dd>将长URL转换为短URL，方便分享和记忆。</dd>

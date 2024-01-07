@@ -113,11 +113,13 @@
   </style>
 
   
-<section style="padding: 10px; background-color: #fff;">
+<section>
   <h2 style="font-size: 1rem; margin-top: 0;">JSON浏览器</h2>
   
   <p>
-    <textarea id="json-input" placeholder="在此处输入 JSON" rows="10" cols="40"></textarea>
+    <textarea id="json-input" placeholder="在此处输入 JSON" onchange="
+    try { this.value = JSON.stringify(JSON.parse(this.value), null, 4) } catch (error) { alert('格式错误: ' + error); }
+    " rows="10" cols="40"></textarea>
   </p>
   <button onclick="visualizeJson()">Visualize</button>
   
