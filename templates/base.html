@@ -32,11 +32,12 @@
       align-items: center;
       /* 在交叉轴上的对齐方式 */
 
+      background-attachment: fixed;
+
       /* background-color: #CCE8CF; */
       background-color: #f0f0f0;
-      /* background-image: url(https://source.unsplash.com/user/zeroljz/likes/2560x0/); */
       /* background-image: url(https://www.transparenttextures.com/patterns/worn-dots.png); */
-      background-image: url(https://www.transparenttextures.com/patterns/cream-paper.png);
+
     }
 
     a {
@@ -116,12 +117,13 @@
   </style>
 </head>
 
-<body style="height: 99%;">
+<body style="height: 99%;" onload="document.body.style.backgroundImage = localStorage.getItem('bgImg') || 'url(https://www.transparenttextures.com/patterns/cream-paper.png)'">
 
   <header style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
     <h1 style="font-size: 1rem; margin: 0;"><a href="/"><b style="color: #0D6EFD;">我的应用</b></a></h1>
     <nav style="text-align: right;">
       <a href="/"><b>首页</b></a>
+      <a title="开启/关闭背景图" href="javascript: localStorage.getItem('bgImg') ? (() => { localStorage.removeItem('bgImg'); window.onload(); })() : (() => { localStorage.setItem('bgImg', 'url(https://source.unsplash.com/user/zeroljz/likes/2560x0/)'); window.onload(); })();">背景图</a>
       <a href="/about">关于</a>
     </nav>
   </header>
