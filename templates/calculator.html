@@ -89,34 +89,58 @@
 <fieldset>
   <legend>计算指定时间后的时间</legend>
   <p>请输入基准时间和要添加的天数/小时数/分钟数/秒数来计算结果时间：</p>
-  <label for="base-time">基准时间：</label>
+  <label for="base-time">基准时间：</label><br/>
   <input type="datetime-local" id="base-time" step="1">
   <p>
-    <label for="time-direction">时间方向：</label>
-    <select id="time-direction">
-      <option value="future">未来时间</option>
-      <option value="past">过去时间</option>
-    </select>
+    <input type="radio" name="time-direction" id="future" value="future" checked><label for="future">未来时间</label>
+    <input type="radio" name="time-direction" id="past" value="past"><label for="past">过去时间</label>
   </p>
   <p>
-    <label for="days">天数：</label>
+    <label for="days">天：</label>
     <input type="number" id="days">
   </p>
   <p>
-    <label for="hours">小时数：</label>
+    <label for="hours">时：</label>
     <input type="number" id="hours">
   </p>
   <p>
-    <label for="minutes">分钟数：</label>
+    <label for="minutes">分：</label>
     <input type="number" id="minutes">
   </p>
   <p>
-    <label for="seconds">秒数：</label>
+    <label for="seconds">秒：</label>
     <input type="number" id="seconds">
   </p>
   <button onclick="calculateTime()">计算</button>
   <p id="future-time"></p>
 </fieldset>
+
+
+<fieldset>
+  <legend>计算屏幕像素密度（ppi）</legend>
+  <p>请输入屏幕水平像素数和垂直像素数（分辨率）和屏幕尺寸：</p>
+  <p>
+    <label for="horizontal-pixels">水平像素数（px））
+    <input type="number" id="horizontal-pixels">
+  </p>
+  <p>
+    <label for="vertical-pixels">垂直像素数（px）：
+    <input type="number" id="vertical-pixels">
+  </p>
+  <p>
+    <label for="screen-size">屏幕尺寸（英寸）：
+    <input type="number" id="screen-size">
+  </p>
+  <button onclick="calculatePpi()">计算</button>
+  <p id="ppi"></p>
+</fieldset>
+
+
+
+
+
+
+
 </section>
 
 <script>
@@ -257,7 +281,7 @@
     var minutes = parseInt(document.getElementById("minutes").value) || 0;
     var seconds = parseInt(document.getElementById("seconds").value) || 0;
 
-    if (document.getElementById("time-direction").value === "past") {
+    if (document.querySelector('input[name="time-direction"]:checked').value === "past") {
       days *= -1;
       hours *= -1;
       minutes *= -1;
@@ -292,6 +316,16 @@
 
 
 
+
+  function calculatePpi() {
+    var horizontalPixels = document.getElementById("horizontal-pixels").value;
+    var verticalPixels = document.getElementById("vertical-pixels").value;
+    var screenSize = document.getElementById("screen-size").value;
+
+    var ppi = (Math.sqrt(Math.pow(horizontalPixels, 2) + Math.pow(verticalPixels, 2))) / screenSize;
+    document.getElementById("ppi").innerHTML = "屏幕像素密度（ppi）为 " + ppi.toFixed(2);
+
+  }
 
 
 

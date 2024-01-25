@@ -18,7 +18,7 @@
     </p>
     <p>
         <input id="input-name" type="text" placeholder="name">
-        <button type="button" onclick="addParam(event)">添加</button>
+        <button class="btn" type="button" onclick="addParam(event)">添加</button>
     </p>
 <hr/>
     <p>
@@ -29,7 +29,7 @@
         <input id="form-action" type="text" placeholder="action" value="echo">
     </p>
     <p>
-        <input id="form-enctype" list="enctype-options" placeholder="enctype" value="application/x-www-form-urlencoded">
+        <input type="text" id="form-enctype" list="enctype-options" placeholder="enctype" value="application/x-www-form-urlencoded">
         <datalist id="enctype-options">
             <option value="application/x-www-form-urlencoded">URL编码表单（默认）</option>
             <option value="multipart/form-data">多部分表单数据（文件上传）</option>
@@ -38,8 +38,8 @@
         <button type="button" onclick="document.getElementById('form-enctype').value = ''">重选</button>
     </p>
 
-        <button type="submit">提交</button>
-        <button type="button" onclick="
+        <button class="btn" type="submit">提交</button>
+        <button class="btn-gradient" type="button" onclick="
 this.disabled = true; 
 let form = this.parentNode;
 const formData = new FormData(form);
