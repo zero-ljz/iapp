@@ -179,6 +179,38 @@
                 .map(parseNode);
         }
 
+
+
+
+            function breadthFirstSearch(data, searchTerm) {
+                const queue = [...data]; // 使用扩展运算符创建初始队列，复制初始数据以避免修改原始数据
+                const results = [];
+
+                while (queue.length > 0) {
+                    const currentNode = queue.shift(); // 移除队列中的第一个元素并返回
+
+                    // 检查当前节点的 items 中是否有匹配的 name
+                    if (currentNode.items) {
+                        for (const item of currentNode.items) {
+                            if (item.name.includes(searchTerm)) {
+                                results.push(item);
+                            }
+                        }
+                    }
+
+                    // 将当前节点的子节点添加到队列中，以便继续搜索
+                    if (currentNode.children) {
+                        queue.push(...currentNode.children);
+                    }
+                }
+
+                return results;
+            }
+
+
+
+
+
         let nodes = [
             { "id": 1, "description": "", "name": "a", "parent_id": null },
             { "id": 2, "description": "", "name": "b", "parent_id": null },
@@ -221,6 +253,23 @@
         nodeItemsTree = parseTree(document.getElementById("tree-container"));
         // console.log(nodeItemsTree);
         console.log(JSON.stringify(nodeItemsTree, null, 2));
+
+
+
+
+
+
+        const results = breadthFirstSearch(nodeItemsTree, 'a');
+console.log(results);
+
+
+
+
+
+
+
+
+
 
 
     </script>
