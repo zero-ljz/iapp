@@ -17,7 +17,7 @@ import time
 import datetime
 
 # 设置日志记录的配置
-logging.basicConfig(filename='app.log', level=logging.INFO)
+logging.basicConfig(filename='app.log', level=logging.INFO, encoding='utf-8')
 
 # 创建 Bottle 应用程序对象
 app = Bottle()
