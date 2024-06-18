@@ -1,18 +1,26 @@
 # 如需更多资料，请参阅 https://aka.ms/vscode-docker-python
-FROM python:3.9.13-slim-bullseye
+FROM python:3.10.11-alpine
 
 EXPOSE 8000
 
 # 防止Python在容器中生成.pyc文件
-ENV PYTHONDONTWRITEBYTECODE=1
+# ENV PYTHONDONTWRITEBYTECODE=1
 
 # 关闭缓冲以便更容易地记录容器日志
-ENV PYTHONUNBUFFERED=1
+# ENV PYTHONUNBUFFERED=1
 
 # 安装 pip requirements
 COPY requirements.txt .
-RUN python -m pip install -r requirements.txt \
-    && apt update && apt -y install nano curl nodejs npm tree zip unzip
+RUN python -m pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/
+# RUN apt update && apt -y install nano curl nodejs npm tree zip unzip
+# 设置时区
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
+    apk update && \
+    apk add --no-cache tzdata bash && \
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    echo "Asia/Shanghai" > /etc/timezone && \
+    apk del tzdata && \
+    rm -rf /var/cache/apk/*
 
 WORKDIR /app
 COPY . /app
