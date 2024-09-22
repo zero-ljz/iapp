@@ -137,7 +137,7 @@ def echo(path=None):
 
     return response
 
-@app.route('/<filepath:path>')
+@app.route('/static/<filepath:path>')
 def serve_static(filepath):
     return static_file(filepath, root='static')
 
