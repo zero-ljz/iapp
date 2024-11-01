@@ -14,6 +14,7 @@ body {
     /* 在交叉轴上的对齐方式 */
 
     background-attachment: fixed;
+    /*background-size: cover; background-repeat: no-repeat;*/
 
     /* background-color: #CCE8CF; */
     background-color: #f0f0f0;

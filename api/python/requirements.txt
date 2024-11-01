@@ -1,6 +1,6 @@
 # pip install -r requirements.txt
 
-fastapi
+fastapi[standard]
 httpx
 uvicorn
 

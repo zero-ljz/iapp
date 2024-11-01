@@ -16,11 +16,32 @@ import logging
 import time
 import datetime
 
+from api.python.main import app as fastapi_app
+from a2wsgi import ASGIMiddleware
+
 # 设置日志记录的配置
 logging.basicConfig(filename='app.log', level=logging.INFO, encoding='utf-8')
 
 # 创建 Bottle 应用程序对象
 app = Bottle()
+
+
+
+class WSGIAdapter:
+    def __init__(self, app):
+        self.app = app
+
+    def __call__(self, environ, start_response):
+        result = self.app(environ, start_response)
+        # Convert the generator to a list if necessary
+        if isinstance(result, (list, tuple)):
+            return result
+        return list(result)
+
+# Wrap the ASGIMiddleware output
+wsgi_app = WSGIAdapter(ASGIMiddleware(fastapi_app))
+app.mount('/api', wsgi_app)
+
 
 # 挂载应用实例到主程序
 app.mount('/p', web_proxy.app)
@@ -34,6 +55,7 @@ app.mount('/qrcode', qrcode.app)
 
 app.mount('/u', short_url.app)
 app.mount('/s', file_share.app)
+
 
 # 定义路由和处理函数
 @app.route('/')
@@ -107,6 +129,8 @@ def password_generator():
 @app.route('/timer')
 def timer():
     return template('templates/timer.html')
+
+
 
 @app.route('/log')
 def applog():

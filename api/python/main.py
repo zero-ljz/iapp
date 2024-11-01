@@ -6,7 +6,7 @@ from gtts import gTTS
 import httpx
 
 import qrcode
-import paddleocr
+# import paddleocr
 import io
 from PIL import Image
 import numpy as np
@@ -138,36 +138,36 @@ async def deepl_translate(text, sourceLang="EN", targetLang="ZH", numberAlternat
     return targetTextArray
 
 
-# 初始化PaddleOCR
-ocr = paddleocr.PaddleOCR(lang="ch", use_gpu=False) # 会自动下载模型
+# # 初始化PaddleOCR
+# ocr = paddleocr.PaddleOCR(lang="ch", use_gpu=False) # 会自动下载模型
 
-@app.post("/paddle_ocr/")
-async def paddle_ocr(file: UploadFile):
-    # 读取上传的图像文件
-    image_data = await file.read()
+# @app.post("/paddle_ocr/")
+# async def paddle_ocr(file: UploadFile):
+#     # 读取上传的图像文件
+#     image_data = await file.read()
     
-    # 将图像数据转换成PIL图像
-    image = Image.open(io.BytesIO(image_data))
+#     # 将图像数据转换成PIL图像
+#     image = Image.open(io.BytesIO(image_data))
     
-    # 将图像转换为RGB通道的图像
-    image = image.convert("RGB")
+#     # 将图像转换为RGB通道的图像
+#     image = image.convert("RGB")
 
-    # 将图像数据转换为np.ndarray类型
-    image_array = np.array(image)
+#     # 将图像数据转换为np.ndarray类型
+#     image_array = np.array(image)
     
-    # 使用PaddleOCR进行文本检测和识别
-    results = ocr.ocr(image_array)
+#     # 使用PaddleOCR进行文本检测和识别
+#     results = ocr.ocr(image_array)
     
-    # 打印检测结果
-    print(results)
+#     # 打印检测结果
+#     print(results)
 
-    # 解析OCR结果
-    text = []
-    for result in results:
-        for line in result[1]:
-            text.append(line[1])
+#     # 解析OCR结果
+#     text = []
+#     for result in results:
+#         for line in result[1]:
+#             text.append(line[1])
 
-    return {"text": text}
+#     return {"text": text}
 
 
 @app.get("/text-to-speech/")
